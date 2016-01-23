@@ -1,0 +1,16 @@
+PODS:
+  - MBProgressHUD (0.9.2)
+  - SwiftHTTP (0.9.7)
+  - SwiftyJSON (2.2.1)
+
+DEPENDENCIES:
+  - MBProgressHUD (~> 0.9.1)
+  - SwiftHTTP (~> 0.9.4)
+  - SwiftyJSON (~> 2.2.1)
+
+SPEC CHECKSUMS:
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  SwiftHTTP: fd698953f48aa6e7ee444ed2670ab2a55664a185
+  SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
+
+COCOAPODS: 0.39.0
