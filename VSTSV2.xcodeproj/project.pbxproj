@@ -21,6 +21,7 @@
 		2B6187D11C4D5BF70020D211 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */; };
 		2B6187D31C4D5C5D0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
 		2B6187D41C4D5D1A0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
+		3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		2B6187CB1C4D587D0020D211 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
+		3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickProjectViewController.swift; sourceTree = "<group>"; };
 		4DC9364663B49FCCD61D6439 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8018742DEBC96ECF27EE7F04 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AFAF9432616CA409B7A9CFC3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,8 +108,9 @@
 			children = (
 				2B6187A81C4D579F0020D211 /* AppDelegate.swift */,
 				2B6187CE1C4D5BE40020D211 /* Wrappers */,
+				3F4FEA261C5485E9001BEC4C /* Models */,
+				3F4FEA271C548618001BEC4C /* Views */,
 				2B6187CA1C4D58610020D211 /* Controllers */,
-				2B6187AE1C4D579F0020D211 /* Main.storyboard */,
 				2B6187B31C4D579F0020D211 /* LaunchScreen.xib */,
 				2B6187B11C4D579F0020D211 /* Images.xcassets */,
 				2B6187A61C4D579F0020D211 /* Supporting Files */,
@@ -146,6 +149,7 @@
 				2B6187AA1C4D579F0020D211 /* FirstViewController.swift */,
 				2B6187AC1C4D579F0020D211 /* SecondViewController.swift */,
 				2B6187CB1C4D587D0020D211 /* LoginController.swift */,
+				3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -157,6 +161,22 @@
 				2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */,
 			);
 			name = Wrappers;
+			sourceTree = "<group>";
+		};
+		3F4FEA261C5485E9001BEC4C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		3F4FEA271C548618001BEC4C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2B6187AE1C4D579F0020D211 /* Main.storyboard */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		E3EF513A6B8B68287A471600 /* Frameworks */ = {
@@ -321,6 +341,7 @@
 				2B6187AD1C4D579F0020D211 /* SecondViewController.swift in Sources */,
 				2B6187CC1C4D587D0020D211 /* LoginController.swift in Sources */,
 				2B6187D31C4D5C5D0020D211 /* RestApiManager.swift in Sources */,
+				3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */,
 				2B6187A91C4D579F0020D211 /* AppDelegate.swift in Sources */,
 				2B6187AB1C4D579F0020D211 /* FirstViewController.swift in Sources */,
 				2B6187D01C4D5BF70020D211 /* KeychainWrapper.swift in Sources */,
