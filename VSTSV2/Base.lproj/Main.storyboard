@@ -38,7 +38,9 @@
                                 </state>
                                 <connections>
                                     <action selector="showPickProjectModal:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Pu4-S6-l0z"/>
-                                    <segue destination="9Wf-qY-vsV" kind="presentation" id="zPa-Ca-qfl"/>
+                                    <segue destination="wgx-GQ-qXx" kind="popoverPresentation" popoverAnchorView="MDz-iU-f9F" id="xEU-n2-ayI">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </button>
                         </subviews>
@@ -63,38 +65,48 @@
             <point key="canvasLocation" x="1462" y="-604"/>
         </scene>
         <!--Pick Project View Controller-->
-        <scene sceneID="VOw-SE-HCg">
+        <scene sceneID="DcF-7s-oZH">
             <objects>
-                <viewController id="9Wf-qY-vsV" customClass="PickProjectViewController" customModule="VSTSV2" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="nLn-Wm-aBL"/>
-                        <viewControllerLayoutGuide type="bottom" id="Uyx-Tn-HSi"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="zkc-v3-5Ec">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                <tableViewController id="wgx-GQ-qXx" customClass="PickProjectViewController" customModule="VSTSV2" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="4Ja-v9-OSK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jPM-Gv-k9s">
-                                <rect key="frame" x="306" y="601" width="46" height="30"/>
-                                <state key="normal" title="Select">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="dismissModal:" destination="9Wf-qY-vsV" eventType="touchUpInside" id="g1T-tV-Hel"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
-                    <connections>
-                        <outlet property="btnPickProject" destination="jPM-Gv-k9s" id="h8g-qk-31o"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZLx-gl-gaU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectCell" rowHeight="70" id="h9T-uc-6R1" customClass="WorkItemCell" customModule="VSTSV2" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h9T-uc-6R1" id="47C-Me-bM7">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffl-Rx-AXM">
+                                            <rect key="frame" x="51" y="8" width="224" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.1019607843" green="0.4431372549" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qjV-WT-reh">
+                                            <rect key="frame" x="51" y="37" width="395" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="detailText" destination="qjV-WT-reh" id="Zee-Gi-whE"/>
+                                    <outlet property="titleText" destination="ffl-Rx-AXM" id="O7j-EW-SsQ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="wgx-GQ-qXx" id="yes-dV-DbD"/>
+                            <outlet property="delegate" destination="wgx-GQ-qXx" id="tzZ-wB-fA8"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gcx-eH-Kq2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2637" y="-604"/>
+            <point key="canvasLocation" x="2353" y="-604"/>
         </scene>
         <!--Second-->
         <scene sceneID="wg7-f3-ORb">

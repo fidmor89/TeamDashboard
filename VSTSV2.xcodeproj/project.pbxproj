@@ -22,6 +22,8 @@
 		2B6187D31C4D5C5D0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
 		2B6187D41C4D5D1A0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
 		3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */; };
+		3F4FEA2F1C55AE6E001BEC4C /* TeamProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* TeamProject.swift */; };
+		3F4FEA311C55BD90001BEC4C /* WorkItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +52,8 @@
 		2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
 		3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickProjectViewController.swift; sourceTree = "<group>"; };
+		3F4FEA2E1C55AE6E001BEC4C /* TeamProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamProject.swift; sourceTree = "<group>"; };
+		3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkItemCell.swift; sourceTree = "<group>"; };
 		4DC9364663B49FCCD61D6439 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8018742DEBC96ECF27EE7F04 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AFAF9432616CA409B7A9CFC3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -166,6 +170,8 @@
 		3F4FEA261C5485E9001BEC4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3F4FEA2E1C55AE6E001BEC4C /* TeamProject.swift */,
+				3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */,
 			);
 			name = Models;
 			path = ..;
@@ -339,7 +345,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B6187AD1C4D579F0020D211 /* SecondViewController.swift in Sources */,
+				3F4FEA311C55BD90001BEC4C /* WorkItemCell.swift in Sources */,
 				2B6187CC1C4D587D0020D211 /* LoginController.swift in Sources */,
+				3F4FEA2F1C55AE6E001BEC4C /* TeamProject.swift in Sources */,
 				2B6187D31C4D5C5D0020D211 /* RestApiManager.swift in Sources */,
 				3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */,
 				2B6187A91C4D579F0020D211 /* AppDelegate.swift in Sources */,
