@@ -9,8 +9,8 @@
 import Foundation
 
 struct TeamProject {
-    var id : Int = 0
-    var revision = 0
+    var id = ""
+    var revision = ""
     var name = ""
     var description = ""
     var url = ""

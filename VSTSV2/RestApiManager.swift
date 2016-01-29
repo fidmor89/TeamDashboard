@@ -59,7 +59,7 @@ class RestApiManager: NSObject {
         })
     }
     
-    func getProjects(onCompletion: (JSON) -> Void) {
+    func getTeamProjects(onCompletion: (JSON) -> Void) {
         let route = baseURL + "/\(collection!)/_apis/projects/\(projectId!)/teams"       //API request route
         
         
@@ -81,7 +81,7 @@ class RestApiManager: NSObject {
         })
     }
     
-    func getTeamProjects(onCompletion: (JSON) -> Void) {
+    func getProjects(onCompletion: (JSON) -> Void) {
         
         let route = baseURL + "/\(collection!)/_apis/projects"       //API request route
         
