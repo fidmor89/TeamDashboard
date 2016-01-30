@@ -84,14 +84,8 @@ class PickProjectViewController: UITableViewController {
     // Overridable methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView?.alwaysBounceVertical = false;       //If projects fit in the window there should be no scroll.
-        
-//        //Display the loadin overlay.
-//        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-//        loadingNotification.mode = MBProgressHUDMode.Indeterminate
-//        loadingNotification.labelText = "Loading"
-
-
+        self.tableView?.alwaysBounceVertical = false            //If projects fit in the window there should be no scroll.
+        self.tableView?.scrollEnabled = false
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -126,12 +120,14 @@ class PickProjectViewController: UITableViewController {
         if (index == self.projects.count-1){
             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)                             //Displaying last item, hide overlay.
             displayingLoadingNotification = false
+            self.tableView?.scrollEnabled = false
             
-        }else if(!displayingLoadingNotification){                                                      //Display a new loading overlay?
+        }else if !displayingLoadingNotification {                                                      //Display a new loading overlay?
             let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             loadingNotification.mode = MBProgressHUDMode.Indeterminate
             loadingNotification.labelText = "Loading"
             displayingLoadingNotification = true
+            self.tableView?.scrollEnabled = false
         }
         
         
