@@ -16,7 +16,7 @@ class PickProjectViewController: UITableViewController {
     var displayingLoadingNotification = false
     
     func getProjects(){
-
+        
         
         var defaultCollections:[String] = []
         
@@ -26,10 +26,6 @@ class PickProjectViewController: UITableViewController {
             
             for index in 0...(count-1) {                        //for each obj in jsonOBJ
                 
-//                let id = jsonOBJ[index]["id"].string as String! ?? ""
-//                let name: String = jsonOBJ[index]["name"].string as String! ?? ""
-//                let url: String = jsonOBJ[index]["url"].string as String! ?? ""
-            
                 RestApiManager.sharedInstance.collection = jsonOBJ[index]["name"].string as String! ?? ""
                 
                 RestApiManager.sharedInstance.getProjects { json in
@@ -47,13 +43,6 @@ class PickProjectViewController: UITableViewController {
                             
                             for index in 0...(count-1) {                        //for each obj in jsonOBJ
                                 
-//                                let id = jsonOBJ[index]["id"].string as String! ?? ""
-//                                let name: String = jsonOBJ[index]["name"].string as String! ?? ""
-//                                let url: String = jsonOBJ[index]["url"].string as String! ?? ""
-//                                let description: String = jsonOBJ[index]["description"].string as String! ?? ""
-//                                let identityUrl: String = jsonOBJ[index]["identityUrl"].string as String! ?? ""
-//
-                                
                                 var project : TeamProject = TeamProject()
                                 
                                 project.id = jsonOBJ[index]["id"].string as String! ?? ""
@@ -64,28 +53,25 @@ class PickProjectViewController: UITableViewController {
                                 project.revision = jsonOBJ[index]["revision"].string as String! ?? ""
                                 
                                 self.projects.append(project)
-
-                                
                                 
                                 dispatch_async(dispatch_get_main_queue(), {
                                     self.tableView?.reloadData()})              //reload UI data.
                             }
                         }
                     }
-
+                    
                     
                 }
                 
             }
         }
-    
+        
     }
-
+    
     // Overridable methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView?.alwaysBounceVertical = false            //If projects fit in the window there should be no scroll.
-        self.tableView?.scrollEnabled = false
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -94,7 +80,6 @@ class PickProjectViewController: UITableViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-    
     }
     
     override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
@@ -103,6 +88,9 @@ class PickProjectViewController: UITableViewController {
     
     // Selected a row
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        StateManager.SharedInstance.team = projects[indexPath.row]
+        StateManager.SharedInstance.changed = true
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -113,23 +101,8 @@ class PickProjectViewController: UITableViewController {
     
     // Fill table with information about teams
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
+        
         var index = indexPath.row
-        
-        //Loading?
-        if (index == self.projects.count-1){
-            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)                             //Displaying last item, hide overlay.
-            displayingLoadingNotification = false
-            self.tableView?.scrollEnabled = false
-            
-        }else if !displayingLoadingNotification {                                                      //Display a new loading overlay?
-            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-            loadingNotification.mode = MBProgressHUDMode.Indeterminate
-            loadingNotification.labelText = "Loading"
-            displayingLoadingNotification = true
-            self.tableView?.scrollEnabled = false
-        }
-        
         
         var cell = tableView.dequeueReusableCellWithIdentifier("ProjectCell") as? WorkItemCell
         if cell == nil{
@@ -138,8 +111,7 @@ class PickProjectViewController: UITableViewController {
         
         var project = projects[index]
         cell!.titleText.text = project.name
-//        cell!.detailText.text = project.url
-                cell!.detailText.text = ""
+        cell!.detailText.text = ""
         return cell!
     }
 }

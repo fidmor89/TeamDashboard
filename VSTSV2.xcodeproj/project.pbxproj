@@ -20,6 +20,7 @@
 		2B6187D11C4D5BF70020D211 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */; };
 		2B6187D31C4D5C5D0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
 		2B6187D41C4D5D1A0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
+		2BD1D9001C5EAAB8002C8828 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */; };
 		3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */; };
 		3F4FEA2F1C55AE6E001BEC4C /* TeamProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* TeamProject.swift */; };
 		3F4FEA311C55BD90001BEC4C /* WorkItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */; };
@@ -54,6 +55,7 @@
 		2B6187CB1C4D587D0020D211 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
+		2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
 		3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickProjectViewController.swift; sourceTree = "<group>"; };
 		3F4FEA2E1C55AE6E001BEC4C /* TeamProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamProject.swift; sourceTree = "<group>"; };
 		3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkItemCell.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			children = (
 				3F4FEA2E1C55AE6E001BEC4C /* TeamProject.swift */,
 				3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */,
+				2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */,
 			);
 			name = Models;
 			path = ..;
@@ -359,6 +362,7 @@
 				2B6187AD1C4D579F0020D211 /* SecondViewController.swift in Sources */,
 				3F4FEA311C55BD90001BEC4C /* WorkItemCell.swift in Sources */,
 				2B6187CC1C4D587D0020D211 /* LoginController.swift in Sources */,
+				2BD1D9001C5EAAB8002C8828 /* StateManager.swift in Sources */,
 				3F4FEA2F1C55AE6E001BEC4C /* TeamProject.swift in Sources */,
 				2B6187D31C4D5C5D0020D211 /* RestApiManager.swift in Sources */,
 				3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */,
