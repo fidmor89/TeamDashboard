@@ -14,7 +14,7 @@ class WorkItemCell : UITableViewCell {
     @IBOutlet weak var titleText: UILabel!
     
     @IBOutlet weak var detailText: UILabel!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         

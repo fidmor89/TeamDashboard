@@ -38,6 +38,7 @@ class PickProjectViewController: UITableViewController {
                         RestApiManager.sharedInstance.projectId = jsonOBJ[index]["id"].string as String! ?? ""
                         
                         RestApiManager.sharedInstance.getTeamProjects { json in
+                            println(json)
                             var count: Int = json["count"].int as Int!         //number of objects within json obj
                             var jsonOBJ = json["value"]                         //get json with projects
                             

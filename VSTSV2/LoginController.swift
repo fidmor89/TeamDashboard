@@ -22,7 +22,7 @@ class LoginController: UIViewController {
         super.viewWillAppear(animated)
         
         RestApiManager.sharedInstance.initialize()
-
+        
         if (KeychainWrapper.hasValueForKey("credentials"))
         {
             
@@ -65,7 +65,7 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone  {
-//            vsoImage.hidden = true                          //hide bottom image if user is on iphone
+            //            vsoImage.hidden = true                          //hide bottom image if user is on iphone
         }
     }
     
@@ -116,7 +116,7 @@ class LoginController: UIViewController {
     func performSegueToLogin() -> Void{
         //Get ViewController
         let dashboardController = self.storyboard!.instantiateViewControllerWithIdentifier("Dashboard") as! UITabBarController
- 
+        
         //Dislpay the view controller
         self.presentViewController(dashboardController, animated: true, completion: nil)
     }

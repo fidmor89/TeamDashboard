@@ -12,10 +12,11 @@ class FirstViewController: UIViewController {
     
     @IBOutlet weak var btnPickProject: UIButton!
     
+    @IBOutlet weak var burnChartImageView: UIImageView!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var IterationLabel: UILabel!
     @IBOutlet weak var RemainingWorkDaysLabel: UILabel!
-
+    
     private func listenChanges(){
         //Run in backgroud Thread
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
@@ -36,7 +37,7 @@ class FirstViewController: UIViewController {
             self.listenChanges()                                    //Keep Listening for future changes
             
         })//end backgorud thread
-
+        
     }
     
     private func drawDashboard(){
@@ -55,13 +56,11 @@ class FirstViewController: UIViewController {
             
             for index in 0...(count-1) {
                 
-                let id = jsonOBJ[index]["id"].string as String! ?? ""
                 let name: String = jsonOBJ[index]["name"].string as String! ?? ""
                 let path: String = jsonOBJ[index]["path"].string as String! ?? ""
+                RestApiManager.sharedInstance.iterationPath = path
                 let startDate: String = jsonOBJ[index]["attributes"]["startDate"].string as String! ?? ""
                 let endDate: String = jsonOBJ[index]["attributes"]["finishDate"].string as String! ?? ""
-                let url: String = jsonOBJ[index]["url"].string as String! ?? ""
-                
                 
                 var formatedStartDate: String = ""
                 var formatedEndDate: String = ""
@@ -81,7 +80,7 @@ class FirstViewController: UIViewController {
                     let unit:NSCalendarUnit = .CalendarUnitDay
                     
                     let components = cal.components(unit, fromDate: NSDate(), toDate: dateEnd!, options: nil)
-
+                    
                     if components.day > 0{
                         leftWorkDays = "-> \(components.day) work days remaining"
                     }
@@ -97,19 +96,24 @@ class FirstViewController: UIViewController {
                     }
                 })
             }
-            dispatch_async(dispatch_get_main_queue(), {                                         //run in the main GUI thread
-//                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-            })
-            
         }
         
         
         //Burndown Chart
+        RestApiManager.sharedInstance.getBurnChart(selectedTeam.name){ (dataImage) in
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.burnChartImageView.image = UIImage(data: dataImage)
+            })
+        }
+        
+        
         //QA Stats
         
         
         //Latest Build Times
         //Test, Build, Deploy and code metrics
+        
         
         
     }
@@ -118,12 +122,12 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
         listenChanges()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     @IBAction func showPickProjectModal(sender: AnyObject) {
     }
 }

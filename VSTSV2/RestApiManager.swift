@@ -20,6 +20,7 @@ class RestApiManager: NSObject {
     internal var pw: String = ""
     internal var collection: String? = nil
     internal var projectId: String? = nil
+    internal var projectName: String? = nil
     internal var teamId: String = ""
     
     internal var iterationPath: String = ""
@@ -47,6 +48,22 @@ class RestApiManager: NSObject {
             }
         })
     }
+    
+    func getBurnChart(teamName: String, onCompletion: (data: NSData) -> Void ){
+        
+        collection = "DefaultCollection"
+        projectName = "Url2015Project"
+        iterationPath = iterationPath.stringByReplacingOccurrencesOfString("\\\\", withString: "\\")
+        
+        let route = baseURL + "/\(collection!)/\(projectName!)/\(teamName)/_api/_teamChart/Burndown?chartOptions=%7B%22Width%22%3A936%2C%22Height%22%3A503%2C%22ShowDetails%22%3Atrue%2C%22Title%22%3A%22%22%7D&counter=2&iterationPath=\(iterationPath)&__v=5"
+        println(route)
+        
+        //        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+        //            onCompletion(data: data)    //Pass NSData object with the image contents
+        //        })
+    }
+    
+    
     
     func getTeams(onCompletion: (JSON) -> Void) {
         
@@ -229,12 +246,12 @@ class RestApiManager: NSObject {
         //create the request
         let url = NSURL(string: path)
         var request = NSMutableURLRequest(URL: url!)
-        //        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        
         let session = NSURLSession.sharedSession()
         request.setValue(buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        //        let urlConnection = NSURLConnection(request: request, delegate: self)
+        
         request.HTTPMethod = "POST"
         request.HTTPBody = bodyContent.dataUsingEncoding(NSUTF8StringEncoding)
         
