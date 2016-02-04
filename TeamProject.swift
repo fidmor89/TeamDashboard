@@ -15,4 +15,6 @@ struct TeamProject {
     var description = ""
     var url = ""
     var state = ""
+    var Collection = ""
+    var Project = "" 
 }

@@ -100,7 +100,7 @@ class FirstViewController: UIViewController {
         
         
         //Burndown Chart
-        RestApiManager.sharedInstance.getBurnChart(selectedTeam.name){ (dataImage) in
+        RestApiManager.sharedInstance.getBurnChart(selectedTeam){ (dataImage) in
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.burnChartImageView.image = UIImage(data: dataImage)

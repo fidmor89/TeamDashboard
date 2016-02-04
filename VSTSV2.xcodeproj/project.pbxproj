@@ -20,6 +20,7 @@
 		2B6187D11C4D5BF70020D211 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */; };
 		2B6187D31C4D5C5D0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
 		2B6187D41C4D5D1A0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
+		2BBDB9811C63FB9B00B1190B /* TeamProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* TeamProject.swift */; };
 		2BD1D9001C5EAAB8002C8828 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */; };
 		3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */; };
 		3F4FEA2F1C55AE6E001BEC4C /* TeamProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* TeamProject.swift */; };
@@ -378,6 +379,7 @@
 			files = (
 				2B6187D11C4D5BF70020D211 /* KeychainWrapper.swift in Sources */,
 				2B6187C11C4D57A00020D211 /* VSTSV2Tests.swift in Sources */,
+				2BBDB9811C63FB9B00B1190B /* TeamProject.swift in Sources */,
 				2B6187D41C4D5D1A0020D211 /* RestApiManager.swift in Sources */,
 				2B6187CD1C4D587D0020D211 /* LoginController.swift in Sources */,
 			);

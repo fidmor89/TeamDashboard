@@ -22,23 +22,24 @@ class PickProjectViewController: UITableViewController {
         
         RestApiManager.sharedInstance.getCollections { json in
             var count: Int = json["count"].int as Int!         //number of objects within json obj
-            var jsonOBJ = json["value"]                         //get json with projects
+            var jsonOBJCollections = json["value"]                         //get json with projects
             
             for index in 0...(count-1) {                        //for each obj in jsonOBJ
                 
-                RestApiManager.sharedInstance.collection = jsonOBJ[index]["name"].string as String! ?? ""
+                let collectionTemp = jsonOBJCollections[index]["name"].string as String! ?? ""
+                RestApiManager.sharedInstance.collection = collectionTemp
                 
                 RestApiManager.sharedInstance.getProjects { json in
                     var count: Int = json["count"].int as Int!         //number of objects within json object
-                    var jsonOBJ = json["value"]                        //get json with projects
+                    var jsonOBJProjects = json["value"]                        //get json with projects
                     
                     for index in 0...(count-1) {                        //for each obj in jsonOBJ
                         
-                        
-                        RestApiManager.sharedInstance.projectId = jsonOBJ[index]["id"].string as String! ?? ""
+                        RestApiManager.sharedInstance.projectId = jsonOBJProjects[index]["id"].string as String! ?? ""
+                        let projectTemp = jsonOBJProjects[index]["name"].string as String! ?? ""
                         
                         RestApiManager.sharedInstance.getTeamProjects { json in
-                            println(json)
+                            
                             var count: Int = json["count"].int as Int!         //number of objects within json obj
                             var jsonOBJ = json["value"]                         //get json with projects
                             
@@ -52,6 +53,13 @@ class PickProjectViewController: UITableViewController {
                                 project.description = jsonOBJ[index]["description"].string as String! ?? ""
                                 project.state = jsonOBJ[index]["state"].string as String! ?? ""
                                 project.revision = jsonOBJ[index]["revision"].string as String! ?? ""
+                                project.Collection = collectionTemp
+                                project.Project = projectTemp
+
+                                println("Collection: \(project.Collection)")
+                                println("Project: \(project.Project)")
+                                println("Team: \(project.name)")
+                                println()
                                 
                                 self.projects.append(project)
                                 
