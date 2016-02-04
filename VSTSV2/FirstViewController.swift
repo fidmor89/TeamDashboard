@@ -24,6 +24,13 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var InProgressCountLabel: UILabel!
     @IBOutlet weak var OpenImpedimentsLabel: UILabel!
     
+    //Quality Stats - Current Sprint
+    @IBOutlet weak var ActiveDefectsCountLabel: UILabel!
+    @IBOutlet weak var closedDefectsCountLabel: UILabel!
+    @IBOutlet weak var SprintTestCasesCountLabel: UILabel!
+    @IBOutlet weak var TotalTestCasesCreatedCountLabel: UILabel!
+    @IBOutlet weak var TotalTestCasesAutomatedCountLabel: UILabel!
+    
     
     private func listenChanges(){
         //Run in backgroud Thread
