@@ -11,11 +11,19 @@ import UIKit
 class FirstViewController: UIViewController {
     
     @IBOutlet weak var btnPickProject: UIButton!
-    
     @IBOutlet weak var burnChartImageView: UIImageView!
+    
+    //Team Name and Features in Progress
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var IterationLabel: UILabel!
     @IBOutlet weak var RemainingWorkDaysLabel: UILabel!
+
+    //Current Sprint Status
+    @IBOutlet weak var plannedCountLabel: UILabel!
+    @IBOutlet weak var CompletedCountLabel: UILabel!
+    @IBOutlet weak var InProgressCountLabel: UILabel!
+    @IBOutlet weak var OpenImpedimentsLabel: UILabel!
+    
     
     private func listenChanges(){
         //Run in backgroud Thread
