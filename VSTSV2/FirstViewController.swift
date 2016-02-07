@@ -18,7 +18,7 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var IterationLabel: UILabel!
     @IBOutlet weak var RemainingWorkDaysLabel: UILabel!
-
+    
     //Current Sprint Status
     @IBOutlet weak var NewPBIsCountLabel: UILabel!
     @IBOutlet weak var ApprovedPBIsCountLabel: UILabel!
@@ -117,58 +117,42 @@ class FirstViewController: UIViewController {
         
         
         //Burndown Chart
-//        RestApiManager.sharedInstance.getBurnChart(selectedTeam){ (dataImage) in
-//            
-//            dispatch_async(dispatch_get_main_queue(), {
-////                self.burnChartImageView.image = UIImage(data: dataImage)
-////                self.BurnChartWebView.loadData(dataImage, MIMEType: "image/jpeg", textEncodingName: nil, baseURL: nil)
-//
-////                if let checkedUrl = NSURL(string: dataImage){
-////                    self.burnChartImageView.contentMode = .ScaleAspectFit
-////                    self.downloadImage(checkedUrl)
-////                }
-//            
-//            })
-//        }
+        //        RestApiManager.sharedInstance.getBurnChart(selectedTeam){ (dataImage) in
+        //
+        //            dispatch_async(dispatch_get_main_queue(), {
+        ////                self.burnChartImageView.image = UIImage(data: dataImage)
+        ////                self.BurnChartWebView.loadData(dataImage, MIMEType: "image/jpeg", textEncodingName: nil, baseURL: nil)
+        //
+        ////                if let checkedUrl = NSURL(string: dataImage){
+        ////                    self.burnChartImageView.contentMode = .ScaleAspectFit
+        ////                    self.downloadImage(checkedUrl)
+        ////                }
+        //
+        //            })
+        //        }
         
         
         //QA Stats
-
+        
         let statesForPBIs = ["New","Approved","Committed","Done"]
         
-        RestApiManager.sharedInstance.countPBIs(statesForPBIs[0], onCompletion: {json in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                let workItems = json["workItems"].arrayValue
-                self.NewPBIsCountLabel.text = String(workItems.count)
-            })
-            
-        })
-        RestApiManager.sharedInstance.countPBIs(statesForPBIs[1], onCompletion: {json in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                let workItems = json["workItems"].arrayValue
-                self.ApprovedPBIsCountLabel.text = String(workItems.count)
-            })
-        })
-        RestApiManager.sharedInstance.countPBIs(statesForPBIs[2], onCompletion: {json in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                let workItems = json["workItems"].arrayValue
-                self.CommitedPBIsCountLabel.text = String(workItems.count)
-            })
-        })
-        RestApiManager.sharedInstance.countPBIs(statesForPBIs[3], onCompletion: {json in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                let workItems = json["workItems"].arrayValue
-                self.DonePBIsLabel.text = String(workItems.count)
-            })
-        })
         
-//        let count = statesForPBIs.count
-//        for i in 0...count-1 {
-//
-//        }
-        
+        setWorkItemsCount("[System.State] = 'New'",WorkItemType: "Product Backlog Item", controlObject: self.NewPBIsCountLabel)
+        setWorkItemsCount("[System.State] = 'Approved'",WorkItemType: "Product Backlog Item", controlObject: self.ApprovedPBIsCountLabel)
+        setWorkItemsCount("[System.State] = 'Committed'",WorkItemType: "Product Backlog Item", controlObject: self.CommitedPBIsCountLabel)
+        setWorkItemsCount("[System.State] = 'Done'",WorkItemType: "Product Backlog Item", controlObject: self.DonePBIsLabel)
+        setWorkItemsCount("[System.State] = 'Open'", WorkItemType: "Impediment", controlObject: self.OpenImpedimentsCount)
 
+        setWorkItemsCount("[System.State] = 'New' or [System.State] = 'Approved' or [System.State] = 'Committed'", WorkItemType: "Bug", controlObject: self.ActiveDefectsCountLabel)
+        setWorkItemsCount("[System.State] = 'Done'", WorkItemType: "Bug", controlObject: self.closedDefectsCountLabel)
         
+//        Active
+//        new
+//        approved
+//        committed
+//        
+//        Closed
+//        done
         
         
         //Latest Build Times
@@ -178,6 +162,14 @@ class FirstViewController: UIViewController {
         
     }
     
+    func setWorkItemsCount(StateSelector: String, WorkItemType: String, controlObject:UILabel){
+        RestApiManager.sharedInstance.countPBIs(StateSelector, WorkItemType: WorkItemType, onCompletion: {json in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let workItems = json["workItems"].arrayValue
+                controlObject.text = String(workItems.count)
+            })
+        })
+    }
     
     func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
         NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in

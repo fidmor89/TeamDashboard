@@ -148,13 +148,12 @@ class RestApiManager: NSObject {
         
     }
     
-    func countPBIs(State: String, onCompletion: (JSON) -> Void){
+    func countPBIs(StateSelector: String, WorkItemType: String, onCompletion: (JSON) -> Void){
         
         let newIteration = self.iterationPath.stringByReplacingOccurrencesOfString("\\", withString: "\\\\", options: NSStringCompareOptions.LiteralSearch, range: nil)
 
         
-        let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = 'Product Backlog Item'  AND [System.IterationPath] = '\(newIteration)' AND [System.State]= '\(State)'\"}"
-//        println(query)
+        let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = '\(WorkItemType)'  AND [System.IterationPath] = '\(newIteration)' AND (\(StateSelector))\"}"
         
         runWIQL(query, onCompletion: { jsonData in
             onCompletion(jsonData)
