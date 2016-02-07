@@ -50,16 +50,15 @@ class RestApiManager: NSObject {
     
     func getBurnChart(team: TeamProject, onCompletion: (data: NSData) -> Void ){
         
-        println(team)
-        
         let route = baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown?chartOptions=%7B%22Width%22%3A936%2C%22Height%22%3A503%2C%22ShowDetails%22%3Atrue%2C%22Title%22%3A%22%22%7D&counter=2&iterationPath=\(iterationPath)&__v=5"
-        println(route)
-        
-        //        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
-        //            onCompletion(data: data)    //Pass NSData object with the image contents
-        //        })
+
+//        println(route)
+
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+//            println(data)
+            onCompletion(data: data)    //Pass back NSData object with the image contents
+        })
     }
-    
     
     
     func getTeams(onCompletion: (JSON) -> Void) {
@@ -138,6 +137,28 @@ class RestApiManager: NSObject {
             onCompletion(data)                  //Pass up data
         })
         
+    }
+    
+    private func runWIQL(Query: String, onCompletion: (JSON) -> Void){
+
+        let route = baseURL + "/\(collection!)/\(projectId!)/_apis/wit/wiql?api-version=2.0"
+        queryServer(route, query: Query, onCompletion: { jsonData in
+            onCompletion(jsonData)                      //Passing back the json object
+        })
+        
+    }
+    
+    func countPBIs(State: String, onCompletion: (JSON) -> Void){
+        
+        let newIteration = self.iterationPath.stringByReplacingOccurrencesOfString("\\", withString: "\\\\", options: NSStringCompareOptions.LiteralSearch, range: nil)
+
+        
+        let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = 'Product Backlog Item'  AND [System.IterationPath] = '\(newIteration)' AND [System.State]= '\(State)'\"}"
+//        println(query)
+        
+        runWIQL(query, onCompletion: { jsonData in
+            onCompletion(jsonData)
+        })
     }
     
     func getEpics(onCompletion: (JSON) -> Void){
@@ -227,7 +248,7 @@ class RestApiManager: NSObject {
                 //                println(json)
                 
                 let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
-                println(jsonResult)
+//                println(jsonResult)
                 
                 
             }

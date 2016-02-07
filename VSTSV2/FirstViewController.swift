@@ -12,6 +12,7 @@ class FirstViewController: UIViewController {
     
     @IBOutlet weak var btnPickProject: UIButton!
     @IBOutlet weak var burnChartImageView: UIImageView!
+    @IBOutlet weak var BurnChartWebView: UIWebView!
     
     //Team Name and Features in Progress
     @IBOutlet weak var teamNameLabel: UILabel!
@@ -19,10 +20,11 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var RemainingWorkDaysLabel: UILabel!
 
     //Current Sprint Status
-    @IBOutlet weak var plannedCountLabel: UILabel!
-    @IBOutlet weak var CompletedCountLabel: UILabel!
-    @IBOutlet weak var InProgressCountLabel: UILabel!
-    @IBOutlet weak var OpenImpedimentsLabel: UILabel!
+    @IBOutlet weak var NewPBIsCountLabel: UILabel!
+    @IBOutlet weak var ApprovedPBIsCountLabel: UILabel!
+    @IBOutlet weak var CommitedPBIsCountLabel: UILabel!
+    @IBOutlet weak var DonePBIsLabel: UILabel!
+    @IBOutlet weak var OpenImpedimentsCount: UILabel!
     
     //Quality Stats - Current Sprint
     @IBOutlet weak var ActiveDefectsCountLabel: UILabel!
@@ -115,15 +117,58 @@ class FirstViewController: UIViewController {
         
         
         //Burndown Chart
-        RestApiManager.sharedInstance.getBurnChart(selectedTeam){ (dataImage) in
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                self.burnChartImageView.image = UIImage(data: dataImage)
-            })
-        }
+//        RestApiManager.sharedInstance.getBurnChart(selectedTeam){ (dataImage) in
+//            
+//            dispatch_async(dispatch_get_main_queue(), {
+////                self.burnChartImageView.image = UIImage(data: dataImage)
+////                self.BurnChartWebView.loadData(dataImage, MIMEType: "image/jpeg", textEncodingName: nil, baseURL: nil)
+//
+////                if let checkedUrl = NSURL(string: dataImage){
+////                    self.burnChartImageView.contentMode = .ScaleAspectFit
+////                    self.downloadImage(checkedUrl)
+////                }
+//            
+//            })
+//        }
         
         
         //QA Stats
+
+        let statesForPBIs = ["New","Approved","Committed","Done"]
+        
+        RestApiManager.sharedInstance.countPBIs(statesForPBIs[0], onCompletion: {json in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let workItems = json["workItems"].arrayValue
+                self.NewPBIsCountLabel.text = String(workItems.count)
+            })
+            
+        })
+        RestApiManager.sharedInstance.countPBIs(statesForPBIs[1], onCompletion: {json in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let workItems = json["workItems"].arrayValue
+                self.ApprovedPBIsCountLabel.text = String(workItems.count)
+            })
+        })
+        RestApiManager.sharedInstance.countPBIs(statesForPBIs[2], onCompletion: {json in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let workItems = json["workItems"].arrayValue
+                self.CommitedPBIsCountLabel.text = String(workItems.count)
+            })
+        })
+        RestApiManager.sharedInstance.countPBIs(statesForPBIs[3], onCompletion: {json in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let workItems = json["workItems"].arrayValue
+                self.DonePBIsLabel.text = String(workItems.count)
+            })
+        })
+        
+//        let count = statesForPBIs.count
+//        for i in 0...count-1 {
+//
+//        }
+        
+
+        
         
         
         //Latest Build Times
@@ -131,6 +176,27 @@ class FirstViewController: UIViewController {
         
         
         
+    }
+    
+    
+    func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
+        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
+            completion(data: data, response: response, error: error)
+            }.resume()
+    }
+    func downloadImage(url: NSURL){
+        print("Download Started")
+        print("lastPathComponent: " + (url.lastPathComponent ?? ""))
+        getDataFromUrl(url) { (data, response, error)  in
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                //                guard let data = data where error == nil else { return }                  //only from Swift2
+                
+                print(response?.suggestedFilename ?? "")
+                print("Download Finished")
+                self.burnChartImageView.image = UIImage(data: data!)
+                self.BurnChartWebView.loadData(data!, MIMEType: "image/jpeg", textEncodingName: nil, baseURL: nil)
+            }
+        }
     }
     
     override func viewDidLoad() {
