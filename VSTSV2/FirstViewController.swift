@@ -142,17 +142,15 @@ class FirstViewController: UIViewController {
         setWorkItemsCount("[System.State] = 'Committed'",WorkItemType: "Product Backlog Item", controlObject: self.CommitedPBIsCountLabel)
         setWorkItemsCount("[System.State] = 'Done'",WorkItemType: "Product Backlog Item", controlObject: self.DonePBIsLabel)
         setWorkItemsCount("[System.State] = 'Open'", WorkItemType: "Impediment", controlObject: self.OpenImpedimentsCount)
-
+        
         setWorkItemsCount("[System.State] = 'New' or [System.State] = 'Approved' or [System.State] = 'Committed'", WorkItemType: "Bug", controlObject: self.ActiveDefectsCountLabel)
         setWorkItemsCount("[System.State] = 'Done'", WorkItemType: "Bug", controlObject: self.closedDefectsCountLabel)
         
-//        Active
-//        new
-//        approved
-//        committed
-//        
-//        Closed
-//        done
+        setTestCasesCount("", Automated: false, WorkItemType: "Test Case", controlObject: self.TotalTestCasesCreatedCountLabel)
+//        setTestCasesCount("", WorkItemType: "Test Case", controlObject: self.TotalTestCasesCreatedCountLabel)
+
+        
+        
         
         
         //Latest Build Times
@@ -162,8 +160,18 @@ class FirstViewController: UIViewController {
         
     }
     
+    func setTestCasesCount(StateSelector: String, Automated: Bool, WorkItemType: String, controlObject:UILabel){
+        RestApiManager.sharedInstance.countTestCases("Url2015Project\\\\iOSTeamExplorer", Automated: Automated, onCompletion:{json in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let workItems = json["workItems"].arrayValue
+                println(workItems)
+                controlObject.text = String(workItems.count)
+            })
+        })
+    }
+    
     func setWorkItemsCount(StateSelector: String, WorkItemType: String, controlObject:UILabel){
-        RestApiManager.sharedInstance.countPBIs(StateSelector, WorkItemType: WorkItemType, onCompletion: {json in
+        RestApiManager.sharedInstance.countWorkItemType(StateSelector, WorkItemType: WorkItemType, onCompletion: {json in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 let workItems = json["workItems"].arrayValue
                 controlObject.text = String(workItems.count)

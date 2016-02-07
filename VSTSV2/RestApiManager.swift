@@ -148,13 +148,31 @@ class RestApiManager: NSObject {
         
     }
     
-    func countPBIs(StateSelector: String, WorkItemType: String, onCompletion: (JSON) -> Void){
+    func countWorkItemType(var StateSelector: String, WorkItemType: String, onCompletion: (JSON) -> Void){
+        
+        if StateSelector != ""{
+            StateSelector = "AND (\(StateSelector))"
+        }
         
         let newIteration = self.iterationPath.stringByReplacingOccurrencesOfString("\\", withString: "\\\\", options: NSStringCompareOptions.LiteralSearch, range: nil)
 
         
-        let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = '\(WorkItemType)'  AND [System.IterationPath] = '\(newIteration)' AND (\(StateSelector))\"}"
+        let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = '\(WorkItemType)'  AND [System.IterationPath] = '\(newIteration)' \(StateSelector)\"}"
         
+        runWIQL(query, onCompletion: { jsonData in
+            onCompletion(jsonData)
+        })
+    }
+    
+
+    func countTestCases(AreaPath: String, Automated: Bool, onCompletion: (JSON) -> Void){
+
+        let newIteration = self.iterationPath.stringByReplacingOccurrencesOfString("\\", withString: "\\\\", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        
+        let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = 'Test Case'  AND [System.AreaPath] = '\(AreaPath)'\"}"
+        
+        println(query)
+
         runWIQL(query, onCompletion: { jsonData in
             onCompletion(jsonData)
         })
