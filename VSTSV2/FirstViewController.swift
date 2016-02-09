@@ -122,53 +122,33 @@ class FirstViewController: UIViewController {
             }
         }
         
-        
-        //Burndown Chart
-        //        RestApiManager.sharedInstance.getBurnChart(selectedTeam){ (dataImage) in
-        //
-        //            dispatch_async(dispatch_get_main_queue(), {
-        ////                self.burnChartImageView.image = UIImage(data: dataImage)
-        ////                self.BurnChartWebView.loadData(dataImage, MIMEType: "image/jpeg", textEncodingName: nil, baseURL: nil)
-        //
-        ////                if let checkedUrl = NSURL(string: dataImage){
-        ////                    self.burnChartImageView.contentMode = .ScaleAspectFit
-        ////                    self.downloadImage(checkedUrl)
-        ////                }
-        //
-        //            })
-        //        }
-        
-        
-        //QA Stats
-        
-        let statesForPBIs = ["New","Approved","Committed","Done"]
-        
-        
+        //Features
         setWorkItemsCount("[System.State] = 'New'",WorkItemType: "Product Backlog Item", controlObject: self.NewPBIsCountLabel)
         setWorkItemsCount("[System.State] = 'Approved'",WorkItemType: "Product Backlog Item", controlObject: self.ApprovedPBIsCountLabel)
         setWorkItemsCount("[System.State] = 'Committed'",WorkItemType: "Product Backlog Item", controlObject: self.CommitedPBIsCountLabel)
         setWorkItemsCount("[System.State] = 'Done'",WorkItemType: "Product Backlog Item", controlObject: self.DonePBIsLabel)
         setWorkItemsCount("[System.State] = 'Open'", WorkItemType: "Impediment", controlObject: self.OpenImpedimentsCount)
         
+        //QA Stats
         setWorkItemsCount("[System.State] = 'New' or [System.State] = 'Approved' or [System.State] = 'Committed'", WorkItemType: "Bug", controlObject: self.ActiveDefectsCountLabel)
         setWorkItemsCount("[System.State] = 'Done'", WorkItemType: "Bug", controlObject: self.closedDefectsCountLabel)
         
-        setTestCasesCount("", Automated: false, WorkItemType: "Test Case", controlObject: self.TotalTestCasesCreatedCountLabel)
-//        setTestCasesCount("", WorkItemType: "Test Case", controlObject: self.TotalTestCasesCreatedCountLabel)
-
+        setWorkItemsCount("", WorkItemType: "Test Case", controlObject: self.SprintTestCasesCountLabel)
+        
+        let areaPath = "Url2015Project\\\\iOSTeamExplorer"
+        setTestCasesCount(areaPath, Automated: false, WorkItemType: "Test Case", controlObject: self.TotalTestCasesCreatedCountLabel)
+        setTestCasesCount(areaPath, Automated: true, WorkItemType: "Test Case", controlObject: self.TotalTestCasesAutomatedCountLabel)
+        
         
         
         
         
         //Latest Build Times
         //Test, Build, Deploy and code metrics
-        
-        
-        
     }
     
-    func setTestCasesCount(StateSelector: String, Automated: Bool, WorkItemType: String, controlObject:UILabel){
-        RestApiManager.sharedInstance.countTestCases("Url2015Project\\\\iOSTeamExplorer", Automated: Automated, onCompletion:{json in
+    func setTestCasesCount(areaPath: String, Automated: Bool, WorkItemType: String, controlObject:UILabel){
+        RestApiManager.sharedInstance.countTestCases(areaPath, Automated: Automated, onCompletion:{json in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 let workItems = json["workItems"].arrayValue
                 println(workItems)

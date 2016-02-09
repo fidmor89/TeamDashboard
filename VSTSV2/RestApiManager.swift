@@ -51,11 +51,10 @@ class RestApiManager: NSObject {
     func getBurnChart(team: TeamProject, onCompletion: (data: NSData) -> Void ){
         
         let route = baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown?chartOptions=%7B%22Width%22%3A936%2C%22Height%22%3A503%2C%22ShowDetails%22%3Atrue%2C%22Title%22%3A%22%22%7D&counter=2&iterationPath=\(iterationPath)&__v=5"
-
-//        println(route)
-
+        //        println(route)
+        
         makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
-//            println(data)
+            //            println(data)
             onCompletion(data: data)    //Pass back NSData object with the image contents
         })
     }
@@ -140,7 +139,7 @@ class RestApiManager: NSObject {
     }
     
     private func runWIQL(Query: String, onCompletion: (JSON) -> Void){
-
+        
         let route = baseURL + "/\(collection!)/\(projectId!)/_apis/wit/wiql?api-version=2.0"
         queryServer(route, query: Query, onCompletion: { jsonData in
             onCompletion(jsonData)                      //Passing back the json object
@@ -155,7 +154,7 @@ class RestApiManager: NSObject {
         }
         
         let newIteration = self.iterationPath.stringByReplacingOccurrencesOfString("\\", withString: "\\\\", options: NSStringCompareOptions.LiteralSearch, range: nil)
-
+        
         
         let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = '\(WorkItemType)'  AND [System.IterationPath] = '\(newIteration)' \(StateSelector)\"}"
         
@@ -164,15 +163,20 @@ class RestApiManager: NSObject {
         })
     }
     
-
+    
     func countTestCases(AreaPath: String, Automated: Bool, onCompletion: (JSON) -> Void){
-
+        
+        var Selector: String = "AND [System.AreaPath] = '\(AreaPath)'"
+        if Automated{
+            Selector += " AND [Microsoft.VSTS.TCM.AutomationStatus] = 'Automated'"
+        }
+        
         let newIteration = self.iterationPath.stringByReplacingOccurrencesOfString("\\", withString: "\\\\", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
-        let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = 'Test Case'  AND [System.AreaPath] = '\(AreaPath)'\"}"
+        let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = 'Test Case' \(Selector)\"}"
         
         println(query)
-
+        
         runWIQL(query, onCompletion: { jsonData in
             onCompletion(jsonData)
         })
@@ -265,7 +269,7 @@ class RestApiManager: NSObject {
                 //                println(json)
                 
                 let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
-//                println(jsonResult)
+                //                println(jsonResult)
                 
                 
             }
