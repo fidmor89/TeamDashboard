@@ -33,6 +33,13 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var TotalTestCasesCreatedCountLabel: UILabel!
     @IBOutlet weak var TotalTestCasesAutomatedCountLabel: UILabel!
     
+    //Today Section
+    @IBOutlet weak var BuildStatusLabel: UILabel!
+    @IBOutlet weak var BuildTestStatusLabel: UILabel!
+    @IBOutlet weak var DeployStatusLabel: UILabel!
+    @IBOutlet weak var CompilationTimeLabel: UILabel!
+    @IBOutlet weak var CodeCoverageLabel: UILabel!
+    @IBOutlet weak var NumLinesLabel: UILabel!
     
     private func listenChanges(){
         //Run in backgroud Thread
