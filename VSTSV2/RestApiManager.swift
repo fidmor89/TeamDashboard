@@ -164,9 +164,9 @@ class RestApiManager: NSObject {
     }
     
     
-    func countTestCases(AreaPath: String, Automated: Bool, onCompletion: (JSON) -> Void){
+    func countTestCases(selectedTeam: TeamProject, Automated: Bool, onCompletion: (JSON) -> Void){
         
-        var Selector: String = "AND [System.AreaPath] = '\(AreaPath)'"
+        var Selector: String = "AND [System.AreaPath] under ' \(selectedTeam.Project)\\\\\(selectedTeam.name)'"     //area path is: Project\\Team
         if Automated{
             Selector += " AND [Microsoft.VSTS.TCM.AutomationStatus] = 'Automated'"
         }

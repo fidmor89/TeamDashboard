@@ -135,11 +135,8 @@ class FirstViewController: UIViewController {
         
         setWorkItemsCount("", WorkItemType: "Test Case", controlObject: self.SprintTestCasesCountLabel)
         
-        let areaPath = "Url2015Project\\\\iOSTeamExplorer"
-        setTestCasesCount(areaPath, Automated: false, WorkItemType: "Test Case", controlObject: self.TotalTestCasesCreatedCountLabel)
-        setTestCasesCount(areaPath, Automated: true, WorkItemType: "Test Case", controlObject: self.TotalTestCasesAutomatedCountLabel)
-        
-        
+        setTestCasesCount(selectedTeam, Automated: false, WorkItemType: "Test Case", controlObject: self.TotalTestCasesCreatedCountLabel)
+        setTestCasesCount(selectedTeam, Automated: true, WorkItemType: "Test Case", controlObject: self.TotalTestCasesAutomatedCountLabel)
         
         
         
@@ -147,8 +144,8 @@ class FirstViewController: UIViewController {
         //Test, Build, Deploy and code metrics
     }
     
-    func setTestCasesCount(areaPath: String, Automated: Bool, WorkItemType: String, controlObject:UILabel){
-        RestApiManager.sharedInstance.countTestCases(areaPath, Automated: Automated, onCompletion:{json in
+    func setTestCasesCount(selectedTeam: TeamProject, Automated: Bool, WorkItemType: String, controlObject:UILabel){
+        RestApiManager.sharedInstance.countTestCases(selectedTeam, Automated: Automated, onCompletion:{json in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 let workItems = json["workItems"].arrayValue
                 println(workItems)
