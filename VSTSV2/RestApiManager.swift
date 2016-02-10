@@ -58,7 +58,19 @@ class RestApiManager: NSObject {
             onCompletion(data: data)    //Pass back NSData object with the image contents
         })
     }
+
     
+    func searchURLWithTerm(team:TeamProject) -> NSURL? {
+        if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown") {
+            
+            components.queryItems = [NSURLQueryItem(name: "chartOptions", value:"{\"Width\":936,\"Height\":503,\"ShowDetails\":true,\"Title\":\"\"}"),
+                NSURLQueryItem(name: "counter", value: "2"),NSURLQueryItem(name: "iterationPath", value:  self.iterationPath),
+                NSURLQueryItem(name: "__v", value: "5")]
+            return components.URL
+        }
+        return nil
+    }
+
     
     func getTeams(onCompletion: (JSON) -> Void) {
         
@@ -307,7 +319,7 @@ class RestApiManager: NSObject {
         task.resume()
     }
     
-    
+
     /**
     @brief: Creates a HTTPOperation as a HTTP POST request and starts it for you.
     
