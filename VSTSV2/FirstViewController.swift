@@ -12,7 +12,6 @@ class FirstViewController: UIViewController {
     
     @IBOutlet weak var btnPickProject: UIButton!
     @IBOutlet weak var burnChartImageView: UIImageView!
-    @IBOutlet weak var BurnChartWebView: UIWebView!
     
     //Team Name and Features in Progress
     @IBOutlet weak var teamNameLabel: UILabel!
@@ -138,33 +137,36 @@ class FirstViewController: UIViewController {
         setTestCasesCount(selectedTeam, Automated: false, WorkItemType: "Test Case", controlObject: self.TotalTestCasesCreatedCountLabel)
         setTestCasesCount(selectedTeam, Automated: true, WorkItemType: "Test Case", controlObject: self.TotalTestCasesAutomatedCountLabel)
         
-        load_image()
+        loadBurnChart()
         
         //Latest Build Times
         //Test, Build, Deploy and code metrics
     }
     
-    func load_image()
+    func loadBurnChart()
     {
-        let a = RestApiManager.sharedInstance.searchURLWithTerm(StateManager.SharedInstance.team)
-        var request1: NSMutableURLRequest = NSMutableURLRequest(URL: a!)
-        request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
-        
-        NSURLConnection.sendAsynchronousRequest(
-            request1, queue: NSOperationQueue.mainQueue(),
-            completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
-                if error == nil {
-                    self.burnChartImageView.image = UIImage(data: data)
-                }
-        })
-        
+        if let imageURL = RestApiManager.sharedInstance.searchURLWithTerm(StateManager.SharedInstance.team){
+            println(imageURL)
+            var request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
+            request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
+            
+            NSURLConnection.sendAsynchronousRequest(
+                request1, queue: NSOperationQueue.mainQueue(),
+                completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
+                    if error == nil {
+                        self.burnChartImageView.image = UIImage(data: data)
+                    }
+            })
+        }else{
+            println("Invalid image URL")
+        }
     }
-
+    
     func setTestCasesCount(selectedTeam: TeamProject, Automated: Bool, WorkItemType: String, controlObject:UILabel){
         RestApiManager.sharedInstance.countTestCases(selectedTeam, Automated: Automated, onCompletion:{json in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 let workItems = json["workItems"].arrayValue
-                println(workItems)
+                //                println(workItems)
                 controlObject.text = String(workItems.count)
             })
         })
@@ -184,20 +186,8 @@ class FirstViewController: UIViewController {
             completion(data: data, response: response, error: error)
             }.resume()
     }
-    func downloadImage(url: NSURL){
-        print("Download Started")
-        print("lastPathComponent: " + (url.lastPathComponent ?? ""))
-        getDataFromUrl(url) { (data, response, error)  in
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                //                guard let data = data where error == nil else { return }                  //only from Swift2
-                
-                print(response?.suggestedFilename ?? "")
-                print("Download Finished")
-                self.burnChartImageView.image = UIImage(data: data!)
-                self.BurnChartWebView.loadData(data!, MIMEType: "image/jpeg", textEncodingName: nil, baseURL: nil)
-            }
-        }
-    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

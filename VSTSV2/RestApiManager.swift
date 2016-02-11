@@ -51,26 +51,26 @@ class RestApiManager: NSObject {
     func getBurnChart(team: TeamProject, onCompletion: (data: NSData) -> Void ){
         
         let route = baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown?chartOptions=%7B%22Width%22%3A936%2C%22Height%22%3A503%2C%22ShowDetails%22%3Atrue%2C%22Title%22%3A%22%22%7D&counter=2&iterationPath=\(iterationPath)&__v=5"
-        //        println(route)
         
         makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
-            //            println(data)
             onCompletion(data: data)    //Pass back NSData object with the image contents
         })
     }
-
+    
     
     func searchURLWithTerm(team:TeamProject) -> NSURL? {
         if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown") {
             
-            components.queryItems = [NSURLQueryItem(name: "chartOptions", value:"{\"Width\":936,\"Height\":503,\"ShowDetails\":true,\"Title\":\"\"}"),
-                NSURLQueryItem(name: "counter", value: "2"),NSURLQueryItem(name: "iterationPath", value:  self.iterationPath),
+            components.queryItems = [
+                NSURLQueryItem(name: "chartOptions", value:"{\"Width\":936,\"Height\":503,\"ShowDetails\":true,\"Title\":\"\"}"),
+                NSURLQueryItem(name: "counter", value: "2"),
+                NSURLQueryItem(name: "iterationPath", value:  self.iterationPath),
                 NSURLQueryItem(name: "__v", value: "5")]
+            
             return components.URL
         }
         return nil
     }
-
     
     func getTeams(onCompletion: (JSON) -> Void) {
         
@@ -187,8 +187,6 @@ class RestApiManager: NSObject {
         
         let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = 'Test Case' \(Selector)\"}"
         
-        println(query)
-        
         runWIQL(query, onCompletion: { jsonData in
             onCompletion(jsonData)
         })
@@ -234,9 +232,6 @@ class RestApiManager: NSObject {
         makeHTTPPostRequest(route, bodyContent: query, onCompletion: {(data: NSData) in
             //parse NSData to JSON
             let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
-            
-            //            let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as! NSDictionary
-            
             onCompletion(json)            //return results from request
         })
     }
@@ -262,7 +257,6 @@ class RestApiManager: NSObject {
         request.HTTPMethod = "POST"
         
         
-        
         let query = "{\"query\": \"SELECT [System.Id] FROM WorkItems WHERE [System.WorkItemType] = 'Product Backlog Item' AND [System.AreaPath] = 'Url2015Project\\\\iOSTeamExplorer' AND [System.IterationPath] = 'Url2015Project\\\\iOS_Team_Explorer_Collection\\\\SP5 - Epics, Features, PBI, Sprints and Work item views'\"}\"}"
         
         request.HTTPBody = query.dataUsingEncoding(NSUTF8StringEncoding)
@@ -273,17 +267,8 @@ class RestApiManager: NSObject {
                 
             }
             else {
-                
-                
                 //                println("Response: " + response)
-                
-                //                let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
-                //                println(json)
-                
                 let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
-                //                println(jsonResult)
-                
-                
             }
         })
         
@@ -319,7 +304,7 @@ class RestApiManager: NSObject {
         task.resume()
     }
     
-
+    
     /**
     @brief: Creates a HTTPOperation as a HTTP POST request and starts it for you.
     
