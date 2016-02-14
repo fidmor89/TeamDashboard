@@ -201,5 +201,18 @@ class FirstViewController: UIViewController {
     
     @IBAction func showPickProjectModal(sender: AnyObject) {
     }
+    
+    
+    @IBAction func logOutFunction(sender: AnyObject) {
+        if (KeychainWrapper.hasValueForKey("credentials")){
+            KeychainWrapper.removeObjectForKey("credentials")
+        }
+        
+        //Get ViewController
+        let loginController = self.storyboard!.instantiateViewControllerWithIdentifier("Login") as! LoginController
+        
+        //Dislpay the view controller
+        self.presentViewController(loginController, animated: true, completion: nil)
+    }
 }
 
