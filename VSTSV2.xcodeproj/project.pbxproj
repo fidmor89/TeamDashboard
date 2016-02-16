@@ -25,6 +25,8 @@
 		3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */; };
 		3F4FEA2F1C55AE6E001BEC4C /* TeamProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* TeamProject.swift */; };
 		3F4FEA311C55BD90001BEC4C /* WorkItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */; };
+		3F6265FF1C72DB4200278698 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F6265FE1C72DB4200278698 /* fontawesome-webfont.ttf */; };
+		3F6266001C72DB4200278698 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F6265FE1C72DB4200278698 /* fontawesome-webfont.ttf */; };
 		A96D29B01C583C0300745A51 /* vso.png in Resources */ = {isa = PBXBuildFile; fileRef = A96D29AF1C583C0300745A51 /* vso.png */; };
 		A96D29B21C583C1C00745A51 /* vsLoginIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A96D29B11C583C1C00745A51 /* vsLoginIcon.png */; };
 		A96D29B41C58440000745A51 /* vsicon2.png in Resources */ = {isa = PBXBuildFile; fileRef = A96D29B31C58440000745A51 /* vsicon2.png */; };
@@ -60,6 +62,7 @@
 		3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickProjectViewController.swift; sourceTree = "<group>"; };
 		3F4FEA2E1C55AE6E001BEC4C /* TeamProject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamProject.swift; sourceTree = "<group>"; };
 		3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkItemCell.swift; sourceTree = "<group>"; };
+		3F6265FE1C72DB4200278698 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		4DC9364663B49FCCD61D6439 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8018742DEBC96ECF27EE7F04 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A96D29AF1C583C0300745A51 /* vso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vso.png; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 				2B6187CA1C4D58610020D211 /* Controllers */,
 				2B6187B31C4D579F0020D211 /* LaunchScreen.xib */,
 				2B6187B11C4D579F0020D211 /* Images.xcassets */,
+				3F6265FE1C72DB4200278698 /* fontawesome-webfont.ttf */,
 				2B6187A61C4D579F0020D211 /* Supporting Files */,
 			);
 			path = VSTSV2;
@@ -291,6 +295,7 @@
 			files = (
 				A96D29B21C583C1C00745A51 /* vsLoginIcon.png in Resources */,
 				A96D29B41C58440000745A51 /* vsicon2.png in Resources */,
+				3F6265FF1C72DB4200278698 /* fontawesome-webfont.ttf in Resources */,
 				2B6187B51C4D579F0020D211 /* LaunchScreen.xib in Resources */,
 				A96D29B51C58492000745A51 /* Main.storyboard in Resources */,
 				A96D29B01C583C0300745A51 /* vso.png in Resources */,
@@ -302,6 +307,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F6266001C72DB4200278698 /* fontawesome-webfont.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
