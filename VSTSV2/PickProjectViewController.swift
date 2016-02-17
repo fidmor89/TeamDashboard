@@ -10,9 +10,10 @@
 import UIKit
 import MBProgressHUD
 
-class PickProjectViewController: UITableViewController {
+class PickProjectViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
     var projects : [TeamProject] = []
+    var filterProjects : [TeamProject] = []
     var displayingLoadingNotification = false
     
     func getProjects(){
@@ -81,6 +82,7 @@ class PickProjectViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView?.alwaysBounceVertical = false            //If projects fit in the window there should be no scroll.
+        self.searchDisplayController!.searchResultsTableView!.rowHeight = self.tableView!.rowHeight
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -97,30 +99,65 @@ class PickProjectViewController: UITableViewController {
     
     // Selected a row
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        StateManager.SharedInstance.team = projects[indexPath.row]
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            StateManager.SharedInstance.team = filterProjects[indexPath.row]
+        } else {
+            StateManager.SharedInstance.team = projects[indexPath.row]
+        }
         StateManager.SharedInstance.changed = true
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // Return the number of rows in the table
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return projects.count;
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            return self.filterProjects.count
+        } else {
+            return self.projects.count
+        }
     }
     
     // Fill table with information about teams
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var index = indexPath.row
-        
-        var cell = tableView.dequeueReusableCellWithIdentifier("ProjectCell") as? WorkItemCell
-        if cell == nil{
+        var cell = self.tableView!.dequeueReusableCellWithIdentifier("ProjectCell") as? WorkItemCell
+        if cell == nil {
             cell = WorkItemCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "ProjectCell")
         }
         
-        var project = projects[index]
-        cell!.titleText.text = project.name
-        cell!.detailText.text = ""
+        var arrayOfProjects: Array<TeamProject>?
+        if tableView == self.searchDisplayController!.searchResultsTableView {
+            arrayOfProjects = self.filterProjects
+        } else {
+            arrayOfProjects = self.projects
+        }
+        
+        if arrayOfProjects != nil && arrayOfProjects!.count >= indexPath.row {
+            let project = arrayOfProjects![indexPath.row]
+            cell!.titleText.text = project.name
+            cell!.detailText.text = project.description
+        }
+        
         return cell!
     }
+    
+    func filterContentForSearchText(searchText: String) {
+        if self.projects.count == 0 {
+            self.filterProjects.removeAll(keepCapacity: false)
+            return
+        }
+        self.filterProjects = self.projects.filter({( aProject: TeamProject) -> Bool in
+            return aProject.name.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+        })
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController, didLoadSearchResultsTableView tableView: UITableView) {
+        //tableView.rowHeight = 120
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String!) -> Bool {
+        self.filterContentForSearchText(searchString)
+        return true
+    }
+    
 }
