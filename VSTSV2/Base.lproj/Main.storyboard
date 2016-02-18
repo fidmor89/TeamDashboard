@@ -371,6 +371,11 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Team</string>
+                                <string>Project</string>
+                                <string>Collection</string>
+                            </scopeButtonTitles>
                             <connections>
                                 <outlet property="delegate" destination="wgx-GQ-qXx" id="7jX-Xg-z6s"/>
                             </connections>

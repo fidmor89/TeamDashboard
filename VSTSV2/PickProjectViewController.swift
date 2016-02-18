@@ -135,19 +135,41 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         if arrayOfProjects != nil && arrayOfProjects!.count >= indexPath.row {
             let project = arrayOfProjects![indexPath.row]
             cell!.titleText.text = project.name
-            cell!.detailText.text = project.description
+            cell!.detailText.text = project.Collection + "/" + project.Project
         }
         
         return cell!
     }
     
-    func filterContentForSearchText(searchText: String) {
+    func filterContentForSearchText(searchText: String, scope: Int) {
         if self.projects.count == 0 {
             self.filterProjects.removeAll(keepCapacity: false)
             return
         }
+        
         self.filterProjects = self.projects.filter({( aProject: TeamProject) -> Bool in
-            return aProject.name.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
+            
+            var fieldToSearch : String?
+            switch (scope) {
+            case 0:
+                fieldToSearch = aProject.name
+                break
+            case 1:
+                fieldToSearch = aProject.Project
+                break
+            case 2:
+                fieldToSearch = aProject.Collection
+                break
+            default:
+                fieldToSearch = nil
+                break
+            }
+            if fieldToSearch == nil {
+                self.filterProjects.removeAll(keepCapacity: false)
+                return false
+            }
+            
+            return fieldToSearch!.lowercaseString.rangeOfString(searchText.lowercaseString) != nil
         })
     }
     
@@ -156,7 +178,14 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     }
     
     func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String!) -> Bool {
-        self.filterContentForSearchText(searchString)
+        let selectedIndex = controller.searchBar.selectedScopeButtonIndex
+        self.filterContentForSearchText(searchString, scope: selectedIndex)
+        return true
+    }
+    
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
+        let searchString = controller.searchBar.text
+        self.filterContentForSearchText(searchString, scope: searchOption)
         return true
     }
     
