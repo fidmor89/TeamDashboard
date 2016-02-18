@@ -57,7 +57,6 @@ class RestApiManager: NSObject {
         })
     }
     
-    
     func searchURLWithTerm(team:TeamProject) -> NSURL? {
         if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown") {
             
@@ -70,6 +69,16 @@ class RestApiManager: NSObject {
             return components.URL
         }
         return nil
+    }
+    
+    func getTeamSettings(onCompletion: (JSON) -> Void) {
+        let route = baseURL + "/\(collection!)/_apis/work/teamsettings?api-version=2.0"
+        
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+            //parse NSData to JSON
+            let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
+            onCompletion(json)
+        })
     }
     
     func getTeams(onCompletion: (JSON) -> Void) {
@@ -175,7 +184,6 @@ class RestApiManager: NSObject {
         })
     }
     
-    
     func countTestCases(selectedTeam: TeamProject, Automated: Bool, onCompletion: (JSON) -> Void){
         
         var Selector: String = "AND [System.AreaPath] under ' \(selectedTeam.Project)\\\\\(selectedTeam.name)'"     //area path is: Project\\Team
@@ -225,10 +233,7 @@ class RestApiManager: NSObject {
         })
     }
     
-    
     func queryServer(route: String, query: String, onCompletion: (JSON) -> Void){
-        
-        
         makeHTTPPostRequest(route, bodyContent: query, onCompletion: {(data: NSData) in
             //parse NSData to JSON
             let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
