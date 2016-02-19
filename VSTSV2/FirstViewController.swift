@@ -99,32 +99,70 @@ class FirstViewController: UIViewController {
                     formatedStartDate = dateFormatter.stringFromDate(dateStart!)
                     formatedEndDate = dateFormatter.stringFromDate(dateEnd!)
                     
-                    RestApiManager.sharedInstance.getTeamSettings({ () -> Void in
-                        <#code#>
-                    })
-                    
-                    let cal = NSCalendar.currentCalendar()
-                    let unit:NSCalendarUnit = .CalendarUnitDay
-                    var comp : NSDateComponents
-                    while dateStart!.compare(dateEnd!) != NSComparisonResult.OrderedAscending {     // only if dateStart is earlier than dateEnd
-                        comp = cal.components(NSCalendarUnit.WeekdayCalendarUnit, fromDate: dateStart)
+                    RestApiManager.sharedInstance.getTeamSettings(selectedTeam, onCompletion: { json in
+                        var workingDays = json["workingDays"]
+                        var intWorkingDays : [Int] = []
+                        for index in 0...(workingDays.count - 1) {
+                            switch (workingDays[index]) {
+                                case "monday":
+                                    intWorkingDays.append(2)
+                                    break
+                                case "tuesday":
+                                    intWorkingDays.append(3)
+                                    break
+                                case "wednesday":
+                                    intWorkingDays.append(4)
+                                    break
+                                case "thursday":
+                                    intWorkingDays.append(5)
+                                    break
+                                case "friday":
+                                    intWorkingDays.append(6)
+                                    break
+                                case "saturday":
+                                    intWorkingDays.append(7)
+                                    break
+                                case "sunday":
+                                    intWorkingDays.append(1)
+                                    break
+                                default:
+                                    break
+                            }
+                        }
+                        let cal = NSCalendar.currentCalendar()
+                        let unit:NSCalendarUnit = .CalendarUnitDay
+                        var comp : NSDateComponents
+                        var daysRemaining : Int = 0
+                        var today = NSDate()
+                        while today.compare(dateEnd!) != NSComparisonResult.OrderedDescending {     // only if dateStart is earlier than dateEnd
+                            comp = cal.components(NSCalendarUnit.WeekdayCalendarUnit, fromDate: today)
+                            for i in 0...(intWorkingDays.count - 1) {
+                                if comp.weekday == intWorkingDays[i] {
+                                    daysRemaining++
+                                    break
+                                }
+                            }
+                            today = today.dateByAddingTimeInterval(60*60*24)
+                        }
                         
-                    }
-                    
-                    let components = cal.components(unit, fromDate: NSDate(), toDate: dateEnd!, options: nil)
-                    
-                    if components.day > 0{
-                        leftWorkDays = "-> \(components.day) work days remaining"
-                    }
+                        if daysRemaining > 0 {
+                            leftWorkDays = "-> \(daysRemaining) work days remaining"
+                        }
+                        else {
+                            
+                        }
+                        dispatch_async(dispatch_get_main_queue(),{
+                            self.RemainingWorkDaysLabel.text = "\(formatedStartDate) - \(formatedEndDate) \(leftWorkDays)"
+                        })
+                    })
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     if formatedStartDate == ""{
                         self.IterationLabel.text = "\(name)"
                         self.RemainingWorkDaysLabel.text = ""
-                    }else{
+                    } else {
                         self.IterationLabel.text = "\(name)"
-                        self.RemainingWorkDaysLabel.text = "\(formatedStartDate) - \(formatedEndDate) \(leftWorkDays)"
                     }
                 })
             }
