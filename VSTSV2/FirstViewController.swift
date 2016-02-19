@@ -99,8 +99,17 @@ class FirstViewController: UIViewController {
                     formatedStartDate = dateFormatter.stringFromDate(dateStart!)
                     formatedEndDate = dateFormatter.stringFromDate(dateEnd!)
                     
+                    RestApiManager.sharedInstance.getTeamSettings({ () -> Void in
+                        <#code#>
+                    })
+                    
                     let cal = NSCalendar.currentCalendar()
                     let unit:NSCalendarUnit = .CalendarUnitDay
+                    var comp : NSDateComponents
+                    while dateStart!.compare(dateEnd!) != NSComparisonResult.OrderedAscending {     // only if dateStart is earlier than dateEnd
+                        comp = cal.components(NSCalendarUnit.WeekdayCalendarUnit, fromDate: dateStart)
+                        
+                    }
                     
                     let components = cal.components(unit, fromDate: NSDate(), toDate: dateEnd!, options: nil)
                     
