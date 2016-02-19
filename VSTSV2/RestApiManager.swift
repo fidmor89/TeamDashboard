@@ -71,8 +71,8 @@ class RestApiManager: NSObject {
         return nil
     }
     
-    func getTeamSettings(onCompletion: (JSON) -> Void) {
-        let route = baseURL + "/\(collection!)/_apis/work/teamsettings?api-version=2.0"
+    func getTeamSettings(team:TeamProject, onCompletion: (JSON) -> Void) {
+        let route = baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_apis/work/teamsettings?api-version=2.0"
         
         makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
             //parse NSData to JSON
