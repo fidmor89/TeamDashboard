@@ -14,6 +14,6 @@ class StateManager {
     static let SharedInstance = StateManager()
     
     //Properties
-    var team : TeamProject = TeamProject()
+    var team : Team = Team()
     var changed: Bool = false
 }

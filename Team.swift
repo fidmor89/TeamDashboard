@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct TeamProject {
+struct Team
+{
     var id = ""
     var revision = ""
     var name = ""

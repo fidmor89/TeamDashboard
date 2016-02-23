@@ -12,8 +12,8 @@ import MBProgressHUD
 
 class PickProjectViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
-    var projects : [TeamProject] = []
-    var filterProjects : [TeamProject] = []
+    var projects : [Team] = []
+    var filterProjects : [Team] = []
     var displayingLoadingNotification = false
     
     func getProjects(){
@@ -46,7 +46,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
                             
                             for index in 0...(count-1) {                        //for each obj in jsonOBJ
                                 
-                                var project : TeamProject = TeamProject()
+                                var project : Team = Team()
                                 
                                 project.id = jsonOBJ[index]["id"].string as String! ?? ""
                                 project.name = jsonOBJ[index]["name"].string as String! ?? ""
@@ -125,7 +125,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
             cell = WorkItemCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "ProjectCell")
         }
         
-        var arrayOfProjects: Array<TeamProject>?
+        var arrayOfProjects: Array<Team>?
         if tableView == self.searchDisplayController!.searchResultsTableView {
             arrayOfProjects = self.filterProjects
         } else {
@@ -147,7 +147,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
             return
         }
         
-        self.filterProjects = self.projects.filter({( aProject: TeamProject) -> Bool in
+        self.filterProjects = self.projects.filter({( aProject: Team) -> Bool in
             
             var fieldToSearch : String?
             switch (scope) {

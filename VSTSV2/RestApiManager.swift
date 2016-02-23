@@ -48,7 +48,7 @@ class RestApiManager: NSObject {
         })
     }
     
-    func getBurnChart(team: TeamProject, onCompletion: (data: NSData) -> Void ){
+    func getBurnChart(team: Team, onCompletion: (data: NSData) -> Void ){
         
         let route = baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown?chartOptions=%7B%22Width%22%3A936%2C%22Height%22%3A503%2C%22ShowDetails%22%3Atrue%2C%22Title%22%3A%22%22%7D&counter=2&iterationPath=\(iterationPath)&__v=5"
         
@@ -57,7 +57,7 @@ class RestApiManager: NSObject {
         })
     }
     
-    func searchURLWithTerm(team:TeamProject) -> NSURL? {
+    func searchURLWithTerm(team:Team) -> NSURL? {
         if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown") {
             
             components.queryItems = [
@@ -71,7 +71,7 @@ class RestApiManager: NSObject {
         return nil
     }
     
-    func getTeamSettings(team:TeamProject, onCompletion: (JSON) -> Void) {
+    func getTeamSettings(team:Team, onCompletion: (JSON) -> Void) {
         let route = baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_apis/work/teamsettings?api-version=2.0"
         
         makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
@@ -184,7 +184,7 @@ class RestApiManager: NSObject {
         })
     }
     
-    func countTestCases(selectedTeam: TeamProject, Automated: Bool, onCompletion: (JSON) -> Void){
+    func countTestCases(selectedTeam: Team, Automated: Bool, onCompletion: (JSON) -> Void){
         
         var Selector: String = "AND [System.AreaPath] under ' \(selectedTeam.Project)\\\\\(selectedTeam.name)'"     //area path is: Project\\Team
         if Automated{

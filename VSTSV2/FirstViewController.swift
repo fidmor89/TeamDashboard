@@ -68,7 +68,7 @@ class FirstViewController: UIViewController {
         let selectedTeam = StateManager.SharedInstance.team
         
         //Team Name and Features in progress
-        self.teamNameLabel.text = selectedTeam.name         //Display tema name.
+        self.teamNameLabel.text = selectedTeam.name         //Display team name.
         
         RestApiManager.sharedInstance.teamId = selectedTeam.id
         
@@ -209,7 +209,7 @@ class FirstViewController: UIViewController {
         }
     }
     
-    func setTestCasesCount(selectedTeam: TeamProject, Automated: Bool, WorkItemType: String, controlObject:UILabel){
+    func setTestCasesCount(selectedTeam: Team, Automated: Bool, WorkItemType: String, controlObject:UILabel){
         RestApiManager.sharedInstance.countTestCases(selectedTeam, Automated: Automated, onCompletion:{json in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 let workItems = json["workItems"].arrayValue
