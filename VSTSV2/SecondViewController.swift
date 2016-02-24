@@ -10,6 +10,11 @@ import UIKit
 
 class SecondViewController: UIViewController {
     
+    @IBOutlet weak var lowerRightImageView: UIImageView!
+    @IBOutlet var lowerLeftImageView: UIView!
+    @IBOutlet weak var upperRightImageView: UIImageView!
+    @IBOutlet weak var upperLeftImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
