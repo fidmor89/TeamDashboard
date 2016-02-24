@@ -56,7 +56,33 @@ class RestApiManager: NSObject {
             onCompletion(data: data)    //Pass back NSData object with the image contents
         })
     }
+
+    func getComulativeFlow(team:Team,category:String) -> NSURL? {
+        if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/CumulativeFlow") {
+            
+            components.queryItems = [
+                NSURLQueryItem(name: "chartOptions", value:"{\"Width\":936,\"Height\":503,\"ShowDetails\":true,\"Title\":\"\"}"),
+                NSURLQueryItem(name: "counter", value: "2"),
+                NSURLQueryItem(name: "hubCategoryRefName", value:category),
+                NSURLQueryItem(name: "__v", value: "5")]
+            return components.URL
+        }
+        return nil
+    }
     
+    func getVelocity(team:Team) -> NSURL? {
+        if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Velocity") {
+            
+            components.queryItems = [
+                NSURLQueryItem(name: "chartOptions", value:"{\"Width\":936,\"Height\":503,\"ShowDetails\":true,\"Title\":\"\"}"),
+                NSURLQueryItem(name: "counter", value: "2"),
+                NSURLQueryItem(name: "iterationsNumber", value:"6"),
+                NSURLQueryItem(name: "__v", value: "5")]
+            return components.URL
+        }
+        return nil
+    }
+
     func searchURLWithTerm(team:Team) -> NSURL? {
         if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown") {
             
