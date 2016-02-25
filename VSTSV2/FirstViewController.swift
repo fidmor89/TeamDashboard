@@ -135,7 +135,7 @@ class FirstViewController: UIViewController {
                         var daysRemaining : Int = 0
                         var today = NSDate()
                         while today.compare(dateEnd!) != NSComparisonResult.OrderedDescending {     // only if dateStart is earlier than dateEnd
-                            comp = cal.components(NSCalendarUnit.WeekdayCalendarUnit, fromDate: today)
+                            comp = cal.components(NSCalendarUnit.CalendarUnitWeekday, fromDate: today)
                             for i in 0...(intWorkingDays.count - 1) {
                                 if comp.weekday == intWorkingDays[i] {
                                     daysRemaining++
@@ -167,6 +167,41 @@ class FirstViewController: UIViewController {
                 })
             }
         }
+
+        //Get Last build
+        RestApiManager.sharedInstance.getLastBuild(selectedTeam, onCompletion: { json in
+            var count: Int = json["count"].int as Int!
+            var jsonOBJ = json["value"]
+            var status: String = ""
+            var compilationTime: String = ""
+            if (count > 0) {
+                status = jsonOBJ[0]["status"].string as String! ?? ""
+                let startTime: String = jsonOBJ[0]["startTime"].string as String! ?? ""
+                let finishTime: String = jsonOBJ[0]["finishTime"].string as String! ?? ""
+                var dStartTime : NSDate
+                var dFinishTime : NSDate
+                var dateFormatter : NSDateFormatter = NSDateFormatter()
+                var calendar: NSCalendar = NSCalendar()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+                var components : NSDateComponents
+                
+                if startTime != "" && finishTime != "" {
+                    dStartTime = dateFormatter.dateFromString(startTime)!
+                    dFinishTime = dateFormatter.dateFromString(finishTime)!
+                    components = calendar.components(NSCalendarUnit.CalendarUnitSecond, fromDate: dStartTime, toDate: dFinishTime, options: nil)
+                    compilationTime = String(components.second) + "." + String(components.nanosecond)
+                }
+                
+                
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                self.BuildStatusLabel.text = status
+                self.CompilationTimeLabel.text = compilationTime
+            })
+            
+            
+        })
         
         //Features
         setWorkItemsCount("[System.State] = 'New'",WorkItemType: "Product Backlog Item", controlObject: self.NewPBIsCountLabel)
