@@ -74,7 +74,7 @@ class FirstViewController: UIViewController {
         
         //Current Sprint Status
         RestApiManager.sharedInstance.getCurrentSprint { json in
-            var count: Int = json["count"].int as Int!         //number of objects within json obj
+            let count: Int = json["count"].int as Int!         //number of objects within json obj
             var jsonOBJ = json["value"]
             
             for index in 0...(count-1) {
@@ -130,12 +130,12 @@ class FirstViewController: UIViewController {
                             }
                         }
                         let cal = NSCalendar.currentCalendar()
-                        let unit:NSCalendarUnit = .CalendarUnitDay
+                        let unit:NSCalendarUnit = .Day
                         var comp : NSDateComponents
                         var daysRemaining : Int = 0
                         var today = NSDate()
                         while today.compare(dateEnd!) != NSComparisonResult.OrderedDescending {     // only if dateStart is earlier than dateEnd
-                            comp = cal.components(NSCalendarUnit.CalendarUnitWeekday, fromDate: today)
+                            comp = cal.components(NSCalendarUnit.Weekday, fromDate: today)
                             for i in 0...(intWorkingDays.count - 1) {
                                 if comp.weekday == intWorkingDays[i] {
                                     daysRemaining++
@@ -170,7 +170,7 @@ class FirstViewController: UIViewController {
 
         //Get Last build
         RestApiManager.sharedInstance.getLastBuild(selectedTeam, onCompletion: { json in
-            var count: Int = json["count"].int as Int!
+            let count: Int = json["count"].int as Int!
             var jsonOBJ = json["value"]
             var status: String = ""
             var compilationTime: String = ""
@@ -180,15 +180,16 @@ class FirstViewController: UIViewController {
                 let finishTime: String = jsonOBJ[0]["finishTime"].string as String! ?? ""
                 var dStartTime : NSDate
                 var dFinishTime : NSDate
-                var dateFormatter : NSDateFormatter = NSDateFormatter()
-                var calendar: NSCalendar = NSCalendar()
+                let dateFormatter : NSDateFormatter = NSDateFormatter()
+                let cal: NSCalendar = NSCalendar.currentCalendar()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
                 var components : NSDateComponents
                 
                 if startTime != "" && finishTime != "" {
                     dStartTime = dateFormatter.dateFromString(startTime)!
                     dFinishTime = dateFormatter.dateFromString(finishTime)!
-                    components = calendar.components(NSCalendarUnit.CalendarUnitSecond, fromDate: dStartTime, toDate: dFinishTime, options: nil)
+                    components = cal.components(NSCalendarUnit.Second, fromDate: dStartTime, toDate: dFinishTime,
+                        options: [])
                     compilationTime = String(components.second) + "." + String(components.nanosecond)
                 }
                 
@@ -228,19 +229,19 @@ class FirstViewController: UIViewController {
     func loadBurnChart()
     {
         if let imageURL = RestApiManager.sharedInstance.searchURLWithTerm(StateManager.SharedInstance.team){
-            println(imageURL)
-            var request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
+            print(imageURL)
+            let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
             
             NSURLConnection.sendAsynchronousRequest(
                 request1, queue: NSOperationQueue.mainQueue(),
-                completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
+                completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     if error == nil {
-                        self.burnChartImageView.image = UIImage(data: data)
+                        self.burnChartImageView.image = UIImage(data: data!)
                     }
             })
         }else{
-            println("Invalid image URL")
+            print("Invalid image URL")
         }
     }
     

@@ -280,12 +280,12 @@ class RestApiManager: NSObject {
         //setting up the base64-encoded credentials
         let loginString = NSString(format: "%@:%@", usr, pw)
         let loginData: NSData = loginString.dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64LoginString = "Basic " + loginData.base64EncodedStringWithOptions(nil)
+        let base64LoginString = "Basic " + loginData.base64EncodedStringWithOptions([])
         
         //creating the request
         let route = baseURL + "/\(collection!)/\(projectId!)/_apis/wit/wiql?api-version=2.0"
         let url = NSURL(string: route)
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession.sharedSession()
         request.setValue(base64LoginString, forHTTPHeaderField: "Authorization")
@@ -302,12 +302,12 @@ class RestApiManager: NSObject {
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             if (error != nil) {
-                println(error)
+                print(error)
                 
             }
             else {
                 //                println("Response: " + response)
-                let jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary
+                let jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
             }
         })
         
@@ -320,7 +320,7 @@ class RestApiManager: NSObject {
         
         //create the request
         let url = NSURL(string: path)
-        var request = NSMutableURLRequest(URL: url!)
+        let request = NSMutableURLRequest(URL: url!)
         
         let session = NSURLSession.sharedSession()
         request.setValue(buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
@@ -332,10 +332,10 @@ class RestApiManager: NSObject {
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             if (error != nil) {
-                println(error)
+                print(error)
             }
             else {
-                onCompletion(data: data)                                                            //return data from POST request.
+                onCompletion(data: data!)                                                            //return data from POST request.
             }
         })
         
@@ -355,12 +355,12 @@ class RestApiManager: NSObject {
     */
     func makeHTTPGetRequest(path: String, onCompletion: (data: NSData) -> Void ){
         
-        var request = buildAuthorizationHeader()
+        let request = buildAuthorizationHeader()
         
         //Make GET request using SwiftHTTP Pod
         request.GET(path, parameters: ["api-version": 2.0], completionHandler: {(response: HTTPResponse) in
             if let err = response.error {
-                println("error: \(err.localizedDescription)")
+                print("error: \(err.localizedDescription)")
                 self.setLastResponseCode(response)
             }
             if let data = response.responseObject as? NSData {
@@ -403,7 +403,7 @@ class RestApiManager: NSObject {
         //setting up the base64-encoded credentials
         let loginString = NSString(format: "%@:%@", usr, pw)
         let loginData: NSData = loginString.dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64LoginString = loginData.base64EncodedStringWithOptions(nil)
+        let base64LoginString = loginData.base64EncodedStringWithOptions([])
         
         return "Basic " + base64LoginString
     }

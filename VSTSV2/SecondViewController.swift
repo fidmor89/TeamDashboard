@@ -33,37 +33,37 @@ class SecondViewController: UIViewController {
     func loadVelocity()
     {
         if let imageURL = RestApiManager.sharedInstance.getVelocity(StateManager.SharedInstance.team){
-            println(imageURL)
+            print(imageURL)
             var request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
             
             NSURLConnection.sendAsynchronousRequest(
                 request1, queue: NSOperationQueue.mainQueue(),
-                completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
+                completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     if error == nil {
-                        self.upperLeftImageView.image = UIImage(data: data)
+                        self.upperLeftImageView.image = UIImage(data: data!)
                     }
             })
         }else{
-            println("Invalid image URL")
+            print("Invalid image URL")
         }
     }
     func loadComulativeFlow(category:String,chart:UIImageView)
     {
         if let imageURL = RestApiManager.sharedInstance.getComulativeFlow(StateManager.SharedInstance.team, category: category){
-            println(imageURL)
-            var request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
+            print(imageURL)
+            let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
             
             NSURLConnection.sendAsynchronousRequest(
                 request1, queue: NSOperationQueue.mainQueue(),
-                completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
+                completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
                     if error == nil {
-                        chart.image = UIImage(data: data)
+                        chart.image = UIImage(data: data!)
                     }
             })
         }else{
-            println("Invalid image URL")
+            print("Invalid image URL")
         }
     }
     

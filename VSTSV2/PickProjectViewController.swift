@@ -22,7 +22,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         var defaultCollections:[String] = []
         
         RestApiManager.sharedInstance.getCollections { json in
-            var count: Int = json["count"].int as Int!         //number of objects within json obj
+            let count: Int = json["count"].int as Int!         //number of objects within json obj
             var jsonOBJCollections = json["value"]                         //get json with projects
             
             for index in 0...(count-1) {                        //for each obj in jsonOBJ
@@ -31,7 +31,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
                 RestApiManager.sharedInstance.collection = collectionTemp
                 
                 RestApiManager.sharedInstance.getProjects { json in
-                    var count: Int = json["count"].int as Int!         //number of objects within json object
+                    let count: Int = json["count"].int as Int!         //number of objects within json object
                     var jsonOBJProjects = json["value"]                        //get json with projects
                     
                     for index in 0...(count-1) {                        //for each obj in jsonOBJ
@@ -41,7 +41,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
                         
                         RestApiManager.sharedInstance.getTeamProjects { json in
                             
-                            var count: Int = json["count"].int as Int!         //number of objects within json obj
+                            let count: Int = json["count"].int as Int!         //number of objects within json obj
                             var jsonOBJ = json["value"]                         //get json with projects
                             
                             for index in 0...(count-1) {                        //for each obj in jsonOBJ
@@ -57,10 +57,10 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
                                 project.Collection = collectionTemp
                                 project.Project = projectTemp
 
-                                println("Collection: \(project.Collection)")
-                                println("Project: \(project.Project)")
-                                println("Team: \(project.name)")
-                                println()
+                                print("Collection: \(project.Collection)")
+                                print("Project: \(project.Project)")
+                                print("Team: \(project.name)")
+                                print("")
                                 
                                 self.projects.append(project)
                                 
@@ -82,7 +82,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView?.alwaysBounceVertical = false            //If projects fit in the window there should be no scroll.
-        self.searchDisplayController!.searchResultsTableView!.rowHeight = self.tableView!.rowHeight
+        self.searchDisplayController!.searchResultsTableView.rowHeight = self.tableView!.rowHeight
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -177,15 +177,15 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         //tableView.rowHeight = 120
     }
     
-    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String!) -> Bool {
+    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool {
         let selectedIndex = controller.searchBar.selectedScopeButtonIndex
-        self.filterContentForSearchText(searchString, scope: selectedIndex)
+        self.filterContentForSearchText(searchString!, scope: selectedIndex)
         return true
     }
     
     func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchScope searchOption: Int) -> Bool {
         let searchString = controller.searchBar.text
-        self.filterContentForSearchText(searchString, scope: searchOption)
+        self.filterContentForSearchText(searchString!, scope: searchOption)
         return true
     }
     

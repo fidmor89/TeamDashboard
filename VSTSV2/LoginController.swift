@@ -33,7 +33,13 @@ class LoginController: UIViewController {
             loadingNotification.labelText = "Loading"
             
             var err:NSError?
-            var obj:AnyObject? = NSJSONSerialization.JSONObjectWithData(source!.dataUsingEncoding(NSUTF8StringEncoding)!, options:nil, error:&err)
+            var obj:AnyObject?
+            do {
+                obj = try NSJSONSerialization.JSONObjectWithData(source!.dataUsingEncoding(NSUTF8StringEncoding)!, options:[])
+            } catch let error as NSError {
+                err = error
+                obj = nil
+            }
             
             if let items = obj as? NSArray {
                 
@@ -51,7 +57,7 @@ class LoginController: UIViewController {
                             
                         }
                     }else{
-                        println("auth failed")
+                        print("auth failed")
                         dispatch_async(dispatch_get_main_queue(), {                                         //run in the main GUI thread
                             MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
                         })
@@ -80,21 +86,21 @@ class LoginController: UIViewController {
         
         
         //Pass parameters to RestApiManager
-        RestApiManager.sharedInstance.baseURL = self.serverTextField.text
-        RestApiManager.sharedInstance.usr = self.userTextField.text
-        RestApiManager.sharedInstance.pw = self.passwordTextField.text
+        RestApiManager.sharedInstance.baseURL = self.serverTextField.text!
+        RestApiManager.sharedInstance.usr = self.userTextField.text!
+        RestApiManager.sharedInstance.pw = self.passwordTextField.text!
         
         //Test conection
         RestApiManager.sharedInstance.validateAuthorization { auth in
             
             if(auth){
-                println("auth ok")
+                print("auth ok")
                 if (self.signedInSwitch.on)
                 {
                     var credentials = "[{"
-                    credentials += "\"baseUrl\": \"" + self.serverTextField.text + "\","
-                    credentials += "\"user\": \"" + self.userTextField.text + "\","
-                    credentials += "\"password\": \"" + self.passwordTextField.text + "\""
+                    credentials += "\"baseUrl\": \"" + self.serverTextField.text! + "\","
+                    credentials += "\"user\": \"" + self.userTextField.text! + "\","
+                    credentials += "\"password\": \"" + self.passwordTextField.text! + "\""
                     credentials += "}]"
                     KeychainWrapper.setString(credentials,forKey:"credentials")
                 }
@@ -104,7 +110,7 @@ class LoginController: UIViewController {
                     self.performSegueToLogin()
                 }
             }else{
-                println("auth failed")
+                print("auth failed")
                 dispatch_async(dispatch_get_main_queue(), {                                         //run in the main GUI thread
                     MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
                 })
