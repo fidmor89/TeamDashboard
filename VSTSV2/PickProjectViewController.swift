@@ -18,9 +18,6 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     
     func getProjects(){
         
-        
-        var defaultCollections:[String] = []
-        
         RestApiManager.sharedInstance.getCollections { json in
             let count: Int = json["count"].int as Int!         //number of objects within json obj
             var jsonOBJCollections = json["value"]                         //get json with projects

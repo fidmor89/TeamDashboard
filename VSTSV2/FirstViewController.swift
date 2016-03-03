@@ -129,7 +129,6 @@ class FirstViewController: UIViewController {
                             }
                         }
                         let cal = NSCalendar.currentCalendar()
-                        let unit:NSCalendarUnit = .Day
                         var comp : NSDateComponents
                         var daysRemaining : Int = 0
                         var today = NSDate()
