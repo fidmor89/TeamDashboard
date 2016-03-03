@@ -172,7 +172,7 @@ class RestApiManager: NSObject {
     }
     
     func getLastBuild(team: Team, onCompletion: (JSON) -> Void) {
-        let route = baseURL + "/\(collection!)/\(team.Project)/_apis/build/builds?api-version=2.0&$top=1"
+        let route = baseURL + "/\(team.Collection)/\(team.Project)/_apis/build/builds?api-version=2.0&$top=1"
         makeHTTPGetRequest(route, onCompletion: {(data: NSData) in
             let json:JSON = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error:nil)
             onCompletion(json)

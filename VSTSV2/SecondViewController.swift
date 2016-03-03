@@ -12,7 +12,7 @@ class SecondViewController: UIViewController {
     
     @IBOutlet weak var lowerLeftImageView: UIImageView!
     @IBOutlet weak var lowerRightImageView: UIImageView!
-       @IBOutlet weak var upperRightImageView: UIImageView!
+    @IBOutlet weak var upperRightImageView: UIImageView!
     @IBOutlet weak var upperLeftImageView: UIImageView!
     
     override func viewDidLoad() {
@@ -33,10 +33,9 @@ class SecondViewController: UIViewController {
     func loadVelocity()
     {
         if let imageURL = RestApiManager.sharedInstance.getVelocity(StateManager.SharedInstance.team){
-            print(imageURL)
+            
             let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
-            
             NSURLConnection.sendAsynchronousRequest(
                 request1, queue: NSOperationQueue.mainQueue(),
                 completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
@@ -51,7 +50,6 @@ class SecondViewController: UIViewController {
     func loadComulativeFlow(category:String,chart:UIImageView)
     {
         if let imageURL = RestApiManager.sharedInstance.getComulativeFlow(StateManager.SharedInstance.team, category: category){
-            print(imageURL)
             let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
             

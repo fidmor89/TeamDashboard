@@ -64,14 +64,13 @@ class FirstViewController: UIViewController {
     }
     
     private func drawDashboard(){
-        
         let selectedTeam = StateManager.SharedInstance.team
         
         //Team Name and Features in progress
         self.teamNameLabel.text = selectedTeam.name         //Display team name.
         
         RestApiManager.sharedInstance.teamId = selectedTeam.id
-        
+
         //Current Sprint Status
         RestApiManager.sharedInstance.getCurrentSprint { json in
             let count: Int = json["count"].int as Int!         //number of objects within json obj
@@ -104,29 +103,29 @@ class FirstViewController: UIViewController {
                         var intWorkingDays : [Int] = []
                         for index in 0...(workingDays.count - 1) {
                             switch (workingDays[index]) {
-                                case "monday":
-                                    intWorkingDays.append(2)
-                                    break
-                                case "tuesday":
-                                    intWorkingDays.append(3)
-                                    break
-                                case "wednesday":
-                                    intWorkingDays.append(4)
-                                    break
-                                case "thursday":
-                                    intWorkingDays.append(5)
-                                    break
-                                case "friday":
-                                    intWorkingDays.append(6)
-                                    break
-                                case "saturday":
-                                    intWorkingDays.append(7)
-                                    break
-                                case "sunday":
-                                    intWorkingDays.append(1)
-                                    break
-                                default:
-                                    break
+                            case "monday":
+                                intWorkingDays.append(2)
+                                break
+                            case "tuesday":
+                                intWorkingDays.append(3)
+                                break
+                            case "wednesday":
+                                intWorkingDays.append(4)
+                                break
+                            case "thursday":
+                                intWorkingDays.append(5)
+                                break
+                            case "friday":
+                                intWorkingDays.append(6)
+                                break
+                            case "saturday":
+                                intWorkingDays.append(7)
+                                break
+                            case "sunday":
+                                intWorkingDays.append(1)
+                                break
+                            default:
+                                break
                             }
                         }
                         let cal = NSCalendar.currentCalendar()
@@ -167,7 +166,8 @@ class FirstViewController: UIViewController {
                 })
             }
         }
-
+        while(RestApiManager.sharedInstance.iterationPath == ""){}
+        
         //Get Last build
         RestApiManager.sharedInstance.getLastBuild(selectedTeam, onCompletion: { json in
             let count: Int = json["count"].int as Int!
@@ -219,17 +219,13 @@ class FirstViewController: UIViewController {
         
         setTestCasesCount(selectedTeam, Automated: false, WorkItemType: "Test Case", controlObject: self.TotalTestCasesCreatedCountLabel)
         setTestCasesCount(selectedTeam, Automated: true, WorkItemType: "Test Case", controlObject: self.TotalTestCasesAutomatedCountLabel)
-        
+
         loadBurnChart()
-        
-        //Latest Build Times
-        //Test, Build, Deploy and code metrics
     }
     
-    func loadBurnChart()
-    {
+    func loadBurnChart(){
         if let imageURL = RestApiManager.sharedInstance.searchURLWithTerm(StateManager.SharedInstance.team){
-            print(imageURL)
+            
             let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
             
@@ -249,7 +245,6 @@ class FirstViewController: UIViewController {
         RestApiManager.sharedInstance.countTestCases(selectedTeam, Automated: Automated, onCompletion:{json in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 let workItems = json["workItems"].arrayValue
-                //                println(workItems)
                 controlObject.text = String(workItems.count)
             })
         })
