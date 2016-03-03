@@ -225,8 +225,6 @@ class RestApiManager: NSObject {
             Selector += " AND [Microsoft.VSTS.TCM.AutomationStatus] = 'Automated'"
         }
         
-        let newIteration = self.iterationPath.stringByReplacingOccurrencesOfString("\\", withString: "\\\\", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        
         let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = 'Test Case' \(Selector)\"}"
         
         runWIQL(query, onCompletion: { jsonData in
@@ -286,29 +284,17 @@ class RestApiManager: NSObject {
         let route = baseURL + "/\(collection!)/\(projectId!)/_apis/wit/wiql?api-version=2.0"
         let url = NSURL(string: route)
         let request = NSMutableURLRequest(URL: url!)
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession.sharedSession()
         request.setValue(base64LoginString, forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        let urlConnection = NSURLConnection(request: request, delegate: self)
-        request.HTTPMethod = "POST"
-        
         
         let query = "{\"query\": \"SELECT [System.Id] FROM WorkItems WHERE [System.WorkItemType] = 'Product Backlog Item' AND [System.AreaPath] = 'Url2015Project\\\\iOSTeamExplorer' AND [System.IterationPath] = 'Url2015Project\\\\iOS_Team_Explorer_Collection\\\\SP5 - Epics, Features, PBI, Sprints and Work item views'\"}\"}"
         
         request.HTTPBody = query.dataUsingEncoding(NSUTF8StringEncoding)
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            if (error != nil) {
-                print(error)
-                
-            }
-            else {
-                //                println("Response: " + response)
-                let jsonResult = (try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)) as? NSDictionary
-            }
+            if (error != nil) { print(error) }
         })
         
         
@@ -392,7 +378,7 @@ class RestApiManager: NSObject {
     */
     func buildAuthorizationHeader() -> HTTPTask{
         
-        var request = HTTPTask()
+        let request = HTTPTask()
         request.requestSerializer = HTTPRequestSerializer()
         request.requestSerializer.headers["Authorization"] = buildBase64EncodedCredentials()             //basic auth header with auth credentials
         return request;

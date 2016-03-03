@@ -32,12 +32,10 @@ class LoginController: UIViewController {
             loadingNotification.mode = MBProgressHUDMode.Indeterminate
             loadingNotification.labelText = "Loading"
             
-            var err:NSError?
             var obj:AnyObject?
             do {
                 obj = try NSJSONSerialization.JSONObjectWithData(source!.dataUsingEncoding(NSUTF8StringEncoding)!, options:[])
-            } catch let error as NSError {
-                err = error
+            } catch _ as NSError {
                 obj = nil
             }
             

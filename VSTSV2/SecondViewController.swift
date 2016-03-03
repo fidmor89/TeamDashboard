@@ -34,7 +34,7 @@ class SecondViewController: UIViewController {
     {
         if let imageURL = RestApiManager.sharedInstance.getVelocity(StateManager.SharedInstance.team){
             print(imageURL)
-            var request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
+            let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
             
             NSURLConnection.sendAsynchronousRequest(
