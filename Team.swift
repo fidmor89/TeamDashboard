@@ -18,4 +18,5 @@ struct Team
     var state = ""
     var Collection = ""
     var Project = "" 
+    var CurrentIteration = ""
 }

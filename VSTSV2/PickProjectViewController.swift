@@ -56,6 +56,23 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
                                 project.revision = jsonOBJ[index]["revision"].string as String! ?? ""
                                 project.Collection = collectionTemp
                                 project.Project = projectTemp
+                                
+                                let loaded = false
+                                RestApiManager.sharedInstance.getCurrentSprint { json in
+                                    
+                                let count: Int = json["count"].int as Int!         //number of objects within json obj
+                                var jsonOBJ = json["value"]
+            
+                                for index in 0...(count-1) {
+                                    let path: String = jsonOBJ[index]["path"].string as String! ?? ""
+                                    //RestApiManager.sharedInstance.iterationPath = path
+                                    project.CurrentIteration = path
+                                }
+                                    
+                                    loaded = true                          
+                                }
+                                
+                                while !loaded{}                                 //Just waiting. no sleep is needed since is in backgroud thread.
 
                                 print("Collection: \(project.Collection)")
                                 print("Project: \(project.Project)")
