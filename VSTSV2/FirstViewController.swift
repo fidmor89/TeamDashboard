@@ -64,6 +64,7 @@ class FirstViewController: UIViewController {
     }
     
     private func drawDashboard(){
+        var waitingForIterationPaht = true
         let selectedTeam = StateManager.SharedInstance.team
         
         //Team Name and Features in progress
@@ -79,8 +80,11 @@ class FirstViewController: UIViewController {
             for index in 0...(count-1) {
                 
                 let name: String = jsonOBJ[index]["name"].string as String! ?? ""
+                
                 let path: String = jsonOBJ[index]["path"].string as String! ?? ""
                 RestApiManager.sharedInstance.iterationPath = path
+                waitingForIterationPaht = false
+                
                 let startDate: String = jsonOBJ[index]["attributes"]["startDate"].string as String! ?? ""
                 let endDate: String = jsonOBJ[index]["attributes"]["finishDate"].string as String! ?? ""
                 
@@ -165,7 +169,7 @@ class FirstViewController: UIViewController {
                 })
             }
         }
-        while(RestApiManager.sharedInstance.iterationPath == ""){}
+        while(waitingForIterationPaht){}          //Waiting for iteration path to be set
         
         //Get Last build
         RestApiManager.sharedInstance.getLastBuild(selectedTeam, onCompletion: { json in
@@ -224,6 +228,7 @@ class FirstViewController: UIViewController {
     
     func loadBurnChart(){
         if let imageURL = RestApiManager.sharedInstance.searchURLWithTerm(StateManager.SharedInstance.team){
+            print(imageURL)
             
             let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
