@@ -22,6 +22,8 @@
 		2B6187D41C4D5D1A0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
 		2BBDB9811C63FB9B00B1190B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* Team.swift */; };
 		2BD1D9001C5EAAB8002C8828 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */; };
+		2BDA42A21C92164200EB73A5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDA42A11C92164200EB73A5 /* Utils.swift */; };
+		2BDA42A31C92164200EB73A5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDA42A11C92164200EB73A5 /* Utils.swift */; };
 		3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */; };
 		3F4FEA2F1C55AE6E001BEC4C /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* Team.swift */; };
 		3F4FEA311C55BD90001BEC4C /* WorkItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */; };
@@ -66,6 +68,7 @@
 		2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
 		2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
+		2BDA42A11C92164200EB73A5 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickProjectViewController.swift; sourceTree = "<group>"; };
 		3F4FEA2E1C55AE6E001BEC4C /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkItemCell.swift; sourceTree = "<group>"; };
@@ -149,6 +152,7 @@
 				3F6266071C7E677600278698 /* barChart.png */,
 				3F6265FE1C72DB4200278698 /* fontawesome-webfont.ttf */,
 				2B6187A61C4D579F0020D211 /* Supporting Files */,
+				2BDA42A11C92164200EB73A5 /* Utils.swift */,
 			);
 			path = VSTSV2;
 			sourceTree = "<group>";
@@ -397,6 +401,7 @@
 				3F4FEA2F1C55AE6E001BEC4C /* Team.swift in Sources */,
 				2B6187D31C4D5C5D0020D211 /* RestApiManager.swift in Sources */,
 				3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */,
+				2BDA42A21C92164200EB73A5 /* Utils.swift in Sources */,
 				2B6187A91C4D579F0020D211 /* AppDelegate.swift in Sources */,
 				2B6187AB1C4D579F0020D211 /* FirstViewController.swift in Sources */,
 				2B6187D01C4D5BF70020D211 /* KeychainWrapper.swift in Sources */,
@@ -412,6 +417,7 @@
 				2BBDB9811C63FB9B00B1190B /* Team.swift in Sources */,
 				2B6187D41C4D5D1A0020D211 /* RestApiManager.swift in Sources */,
 				2B6187CD1C4D587D0020D211 /* LoginController.swift in Sources */,
+				2BDA42A31C92164200EB73A5 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

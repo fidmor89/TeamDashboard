@@ -202,7 +202,7 @@ class FirstViewController: UIViewController {
             }
             
             dispatch_async(dispatch_get_main_queue(), {
-                self.BuildStatusLabel.text = status
+                self.BuildStatusLabel.text = status.trim()
                 self.CompilationTimeLabel.text = compilationTime
             })
             
@@ -230,7 +230,6 @@ class FirstViewController: UIViewController {
     
     func loadBurnChart(){
         if let imageURL = RestApiManager.sharedInstance.searchURLWithTerm(StateManager.SharedInstance.team){
-            print(imageURL)
             
             let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
@@ -276,7 +275,7 @@ class FirstViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-
+        
         let backgroud:UIColor = UIColor(patternImage: UIImage(named: "background")!)        //Create a color based on the backgroud image
         self.parentView.backgroundColor = backgroud                                         //set backgroud
         
