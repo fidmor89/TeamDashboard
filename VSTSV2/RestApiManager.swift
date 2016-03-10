@@ -57,20 +57,20 @@ class RestApiManager: NSObject {
         })
     }
 
-    func getComulativeFlow(team:Team,category:String) -> NSURL? {
+    func getComulativeFlow(team:Team, Category:String) -> NSURL? {
         if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/CumulativeFlow") {
             
             components.queryItems = [
                 NSURLQueryItem(name: "chartOptions", value:"{\"Width\":936,\"Height\":503,\"ShowDetails\":true,\"Title\":\"\"}"),
                 NSURLQueryItem(name: "counter", value: "2"),
-                NSURLQueryItem(name: "hubCategoryRefName", value:category),
+                NSURLQueryItem(name: "hubCategoryRefName", value:Category),
                 NSURLQueryItem(name: "__v", value: "5")]
             return components.URL
         }
         return nil
     }
     
-    func getVelocity(team:Team) -> NSURL? {
+    func getVelocityURL(team:Team) -> NSURL? {
         if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Velocity") {
             
             components.queryItems = [

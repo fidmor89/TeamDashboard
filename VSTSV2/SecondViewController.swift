@@ -17,11 +17,15 @@ class SecondViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadVelocity()
-        loadComulativeFlow("Microsoft.RequirementCategory",chart:self.upperRightImageView)
-        loadComulativeFlow("Microsoft.FeatureCategory",chart:self.lowerLeftImageView)
-        loadComulativeFlow("Microsoft.EpicCategory",chart:self.lowerRightImageView)
-        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        drawVelocityChart()
+        drawChartWithCategory("Microsoft.RequirementCategory", chart:self.upperRightImageView)
+        drawChartWithCategory("Microsoft.FeatureCategory", chart:self.lowerLeftImageView)
+        drawChartWithCategory("Microsoft.EpicCategory", chart:self.lowerRightImageView)
+
+        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,12 +34,13 @@ class SecondViewController: UIViewController {
         
         // Dispose of any resources that can be recreated.
     }
-    func loadVelocity()
+    func drawVelocityChart()
     {
-        if let imageURL = RestApiManager.sharedInstance.getVelocity(StateManager.SharedInstance.team){
+        if let imageURL = RestApiManager.sharedInstance.getVelocityURL(StateManager.SharedInstance.team){
             
             let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
+            
             NSURLConnection.sendAsynchronousRequest(
                 request1, queue: NSOperationQueue.mainQueue(),
                 completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
@@ -47,9 +52,10 @@ class SecondViewController: UIViewController {
             print("Invalid image URL")
         }
     }
-    func loadComulativeFlow(category:String,chart:UIImageView)
+    func drawChartWithCategory(Category:String, chart:UIImageView)
     {
-        if let imageURL = RestApiManager.sharedInstance.getComulativeFlow(StateManager.SharedInstance.team, category: category){
+        if let imageURL = RestApiManager.sharedInstance.getComulativeFlow(StateManager.SharedInstance.team, Category: Category){
+            
             let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
             

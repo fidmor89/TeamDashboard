@@ -180,7 +180,7 @@ class FirstViewController: UIViewController {
             var status: String = ""
             var compilationTime: String = ""
             if (count > 0) {
-                status = jsonOBJ[0]["status"].string as String! ?? ""
+                status = jsonOBJ[0]["status"].string as String! ?? "Unknown"
                 let startTime: String = jsonOBJ[0]["startTime"].string as String! ?? ""
                 let finishTime: String = jsonOBJ[0]["finishTime"].string as String! ?? ""
                 var dStartTime : NSDate
@@ -281,7 +281,7 @@ class FirstViewController: UIViewController {
         self.parentView.backgroundColor = backgroud                                         //set backgroud
         
         for i in 0...self.viewSection.count-1{
-            self.viewSection[i].layer.cornerRadius = 5                                      //Round corners in sections
+            self.viewSection[i].layer.cornerRadius = 10                                      //Round corners in sections
             self.viewSection[i].layer.masksToBounds = true                                  //Keep child-views within the parent-view
             self.viewSection[i].alpha = 0.75                                                //Semi transparent sections
             self.viewSection[i].backgroundColor = UIColor.whiteColor()                      //White sections
