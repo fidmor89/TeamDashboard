@@ -10,6 +10,7 @@ import UIKit
 
 class FirstViewController: UIViewController {
     
+    @IBOutlet var parentView: UIView!
     @IBOutlet var viewSection: [UIView]!
     @IBOutlet weak var btnPickProject: UIButton!
     @IBOutlet weak var burnChartImageView: UIImageView!
@@ -275,10 +276,15 @@ class FirstViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+
+        let backgroud:UIColor = UIColor(patternImage: UIImage(named: "background")!)        //Create a color based on the backgroud image
+        self.parentView.backgroundColor = backgroud                                         //set backgroud
         
         for i in 0...self.viewSection.count-1{
-            self.viewSection[i].layer.cornerRadius = 5
-            self.viewSection[i].layer.masksToBounds = true
+            self.viewSection[i].layer.cornerRadius = 5                                      //Round corners in sections
+            self.viewSection[i].layer.masksToBounds = true                                  //Keep child-views within the parent-view
+            self.viewSection[i].alpha = 0.75                                                //Semi transparent sections
+            self.viewSection[i].backgroundColor = UIColor.whiteColor()                      //White sections
         }
         
         super.viewDidLoad()
