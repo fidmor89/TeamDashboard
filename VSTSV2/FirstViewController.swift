@@ -269,7 +269,9 @@ class FirstViewController: UIViewController {
             }.resume()
     }
     
-    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
