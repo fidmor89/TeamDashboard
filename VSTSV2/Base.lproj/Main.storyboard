@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hFc-Ii-S1m">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="hFc-Ii-S1m">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -18,25 +18,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lT3-XR-8q8">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="gWo-UM-BfU">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="734"/>
+                            </imageView>
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lT3-XR-8q8">
                                 <rect key="frame" x="20" y="496" width="312" height="215"/>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A0G-1F-jKd">
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A0G-1F-jKd">
                                 <rect key="frame" x="20" y="282" width="312" height="206"/>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nu1-Go-55Q">
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nu1-Go-55Q">
                                 <rect key="frame" x="20" y="8" width="312" height="266"/>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JzO-rl-88d">
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JzO-rl-88d">
                                 <rect key="frame" x="336" y="8" width="668" height="44"/>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rqh-1M-jGS">
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rqh-1M-jGS">
                                 <rect key="frame" x="336" y="60" width="668" height="365"/>
-                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Active Defects" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tte-e2-5Y8">
                                 <rect key="frame" x="34" y="326" width="111" height="21"/>
@@ -297,12 +300,17 @@
                                     </segue>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WbO-r5-SKM">
+                            <view alpha="0.69999999999999996" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WbO-r5-SKM">
                                 <rect key="frame" x="336" y="433" width="668" height="278"/>
-                                <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="gWo-UM-BfU" secondAttribute="trailing" id="MN2-tM-dee"/>
+                            <constraint firstItem="gWo-UM-BfU" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="P2e-db-2um"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="gWo-UM-BfU" secondAttribute="bottom" constant="34" id="Sae-0k-Nga"/>
+                            <constraint firstItem="gWo-UM-BfU" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="qpW-iI-aPc"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Dashboard" image="dashboard.png" selectedImage="dashboard.png" id="acW-dT-cKf"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -329,6 +337,12 @@
                         <outlet property="burnChartImageView" destination="gAl-DD-kqW" id="GRA-vz-adI"/>
                         <outlet property="closedDefectsCountLabel" destination="uwq-cN-906" id="GCQ-mZ-NbC"/>
                         <outlet property="teamNameLabel" destination="avB-h9-o09" id="jnb-9X-pv3"/>
+                        <outletCollection property="viewSection" destination="JzO-rl-88d" collectionClass="NSMutableArray" id="Lnb-dh-6FD"/>
+                        <outletCollection property="viewSection" destination="Rqh-1M-jGS" collectionClass="NSMutableArray" id="0C5-lU-lnF"/>
+                        <outletCollection property="viewSection" destination="WbO-r5-SKM" collectionClass="NSMutableArray" id="oMz-ho-fmb"/>
+                        <outletCollection property="viewSection" destination="nu1-Go-55Q" collectionClass="NSMutableArray" id="65U-dB-C68"/>
+                        <outletCollection property="viewSection" destination="A0G-1F-jKd" collectionClass="NSMutableArray" id="eUF-wA-aoY"/>
+                        <outletCollection property="viewSection" destination="lT3-XR-8q8" collectionClass="NSMutableArray" id="hwr-62-HXb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -652,6 +666,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="background" width="2048" height="2048"/>
         <image name="barChart.png" width="39" height="32"/>
         <image name="dashboard.png" width="41" height="33"/>
         <image name="vsLoginIcon.png" width="2000" height="336"/>

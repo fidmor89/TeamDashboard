@@ -10,6 +10,7 @@ import UIKit
 
 class FirstViewController: UIViewController {
     
+    @IBOutlet var viewSection: [UIView]!
     @IBOutlet weak var btnPickProject: UIButton!
     @IBOutlet weak var burnChartImageView: UIImageView!
     
@@ -71,7 +72,7 @@ class FirstViewController: UIViewController {
         self.teamNameLabel.text = selectedTeam.name         //Display team name.
         
         RestApiManager.sharedInstance.teamId = selectedTeam.id
-
+        
         //Current Sprint Status
         RestApiManager.sharedInstance.getCurrentSprint { json in
             let count: Int = json["count"].int as Int!         //number of objects within json obj
@@ -222,7 +223,7 @@ class FirstViewController: UIViewController {
         
         setTestCasesCount(selectedTeam, Automated: false, WorkItemType: "Test Case", controlObject: self.TotalTestCasesCreatedCountLabel)
         setTestCasesCount(selectedTeam, Automated: true, WorkItemType: "Test Case", controlObject: self.TotalTestCasesAutomatedCountLabel)
-
+        
         loadBurnChart()
     }
     
@@ -274,6 +275,12 @@ class FirstViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        
+        for i in 0...self.viewSection.count-1{
+            self.viewSection[i].layer.cornerRadius = 5
+            self.viewSection[i].layer.masksToBounds = true
+        }
+        
         super.viewDidLoad()
         listenChanges()
     }
