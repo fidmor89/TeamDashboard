@@ -27,15 +27,6 @@
 		3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */; };
 		3F4FEA2F1C55AE6E001BEC4C /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* Team.swift */; };
 		3F4FEA311C55BD90001BEC4C /* WorkItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */; };
-		3F6265FF1C72DB4200278698 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F6265FE1C72DB4200278698 /* fontawesome-webfont.ttf */; };
-		3F6266001C72DB4200278698 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F6265FE1C72DB4200278698 /* fontawesome-webfont.ttf */; };
-		3F6266021C7C1F9800278698 /* graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6266011C7C1F9800278698 /* graph.png */; };
-		3F6266031C7C1F9800278698 /* graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6266011C7C1F9800278698 /* graph.png */; };
-		3F6266051C7C23B700278698 /* area-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6266041C7C23B700278698 /* area-chart.png */; };
-		3F6266061C7C23B700278698 /* area-chart.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6266041C7C23B700278698 /* area-chart.png */; };
-		3F6266081C7E677600278698 /* barChart.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6266071C7E677600278698 /* barChart.png */; };
-		3F6266091C7E677600278698 /* barChart.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F6266071C7E677600278698 /* barChart.png */; };
-		3F740EDB1C90EA29009E2B12 /* dashboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F740EDA1C90EA29009E2B12 /* dashboard.png */; };
 		A96D29B01C583C0300745A51 /* vso.png in Resources */ = {isa = PBXBuildFile; fileRef = A96D29AF1C583C0300745A51 /* vso.png */; };
 		A96D29B21C583C1C00745A51 /* vsLoginIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A96D29B11C583C1C00745A51 /* vsLoginIcon.png */; };
 		A96D29B41C58440000745A51 /* vsicon2.png in Resources */ = {isa = PBXBuildFile; fileRef = A96D29B31C58440000745A51 /* vsicon2.png */; };
@@ -72,11 +63,6 @@
 		3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickProjectViewController.swift; sourceTree = "<group>"; };
 		3F4FEA2E1C55AE6E001BEC4C /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkItemCell.swift; sourceTree = "<group>"; };
-		3F6265FE1C72DB4200278698 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
-		3F6266011C7C1F9800278698 /* graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graph.png; sourceTree = "<group>"; };
-		3F6266041C7C23B700278698 /* area-chart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "area-chart.png"; sourceTree = "<group>"; };
-		3F6266071C7E677600278698 /* barChart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barChart.png; sourceTree = "<group>"; };
-		3F740EDA1C90EA29009E2B12 /* dashboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard.png; sourceTree = "<group>"; };
 		4DC9364663B49FCCD61D6439 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8018742DEBC96ECF27EE7F04 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A96D29AF1C583C0300745A51 /* vso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vso.png; sourceTree = "<group>"; };
@@ -138,9 +124,6 @@
 			children = (
 				A96D29B31C58440000745A51 /* vsicon2.png */,
 				A96D29B11C583C1C00745A51 /* vsLoginIcon.png */,
-				3F740EDA1C90EA29009E2B12 /* dashboard.png */,
-				3F6266011C7C1F9800278698 /* graph.png */,
-				3F6266041C7C23B700278698 /* area-chart.png */,
 				A96D29AF1C583C0300745A51 /* vso.png */,
 				2B6187A81C4D579F0020D211 /* AppDelegate.swift */,
 				2B6187CE1C4D5BE40020D211 /* Wrappers */,
@@ -149,8 +132,6 @@
 				2B6187CA1C4D58610020D211 /* Controllers */,
 				2B6187B31C4D579F0020D211 /* LaunchScreen.xib */,
 				2B6187B11C4D579F0020D211 /* Images.xcassets */,
-				3F6266071C7E677600278698 /* barChart.png */,
-				3F6265FE1C72DB4200278698 /* fontawesome-webfont.ttf */,
 				2B6187A61C4D579F0020D211 /* Supporting Files */,
 				2BDA42A11C92164200EB73A5 /* Utils.swift */,
 			);
@@ -314,16 +295,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F6266051C7C23B700278698 /* area-chart.png in Resources */,
 				A96D29B21C583C1C00745A51 /* vsLoginIcon.png in Resources */,
 				A96D29B41C58440000745A51 /* vsicon2.png in Resources */,
-				3F6265FF1C72DB4200278698 /* fontawesome-webfont.ttf in Resources */,
-				3F6266081C7E677600278698 /* barChart.png in Resources */,
-				3F740EDB1C90EA29009E2B12 /* dashboard.png in Resources */,
 				2B6187B51C4D579F0020D211 /* LaunchScreen.xib in Resources */,
 				A96D29B51C58492000745A51 /* Main.storyboard in Resources */,
 				A96D29B01C583C0300745A51 /* vso.png in Resources */,
-				3F6266021C7C1F9800278698 /* graph.png in Resources */,
 				2B6187B21C4D579F0020D211 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,10 +308,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F6266061C7C23B700278698 /* area-chart.png in Resources */,
-				3F6266031C7C1F9800278698 /* graph.png in Resources */,
-				3F6266091C7E677600278698 /* barChart.png in Resources */,
-				3F6266001C72DB4200278698 /* fontawesome-webfont.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

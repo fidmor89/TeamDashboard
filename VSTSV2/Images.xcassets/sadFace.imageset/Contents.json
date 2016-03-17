@@ -2,7 +2,6 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "1458266536_icon-7-sad-face.png",
       "scale" : "1x"
     },
     {
@@ -11,6 +10,7 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "1458266536_icon-7-sad-face.png",
       "scale" : "3x"
     }
   ],
