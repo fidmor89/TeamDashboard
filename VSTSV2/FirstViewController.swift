@@ -68,111 +68,131 @@ class FirstViewController: UIViewController {
     
     private func drawDashboard(){
         var waitingForIterationPaht = true
+        var abort = false
         let selectedTeam = StateManager.SharedInstance.team
-        
-        //Team Name and Features in progress
-        self.teamNameLabel.text = selectedTeam.name         //Display team name.
-        
         RestApiManager.sharedInstance.teamId = selectedTeam.id
         
         //Current Sprint Status
         RestApiManager.sharedInstance.getCurrentSprint { json in
-            let count: Int = json["count"].int as Int!         //number of objects within json obj
-            var jsonOBJ = json["value"]
             
-            for index in 0...(count-1) {
+            if let count: Int = json["count"].int as Int! {//If there is something in the JSON object
+                var jsonOBJ = json["value"]
                 
-                let name: String = jsonOBJ[index]["name"].string as String! ?? ""
-                
-                let path: String = jsonOBJ[index]["path"].string as String! ?? ""
-                RestApiManager.sharedInstance.iterationPath = path
-                waitingForIterationPaht = false
-                
-                let startDate: String = jsonOBJ[index]["attributes"]["startDate"].string as String! ?? ""
-                let endDate: String = jsonOBJ[index]["attributes"]["finishDate"].string as String! ?? ""
-                
-                var formatedStartDate: String = ""
-                var formatedEndDate: String = ""
-                var leftWorkDays: String = "-> Sprint Finished"
-                if startDate != "" && endDate != ""{
+                for index in 0...(count-1) {
                     
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"                           //input format
-                    let dateStart = dateFormatter.dateFromString(startDate)
-                    let dateEnd = dateFormatter.dateFromString(endDate)
+                    let name: String = jsonOBJ[index]["name"].string as String! ?? ""
                     
-                    dateFormatter.dateFormat = "MMMM d"                                             //output format
-                    formatedStartDate = dateFormatter.stringFromDate(dateStart!)
-                    formatedEndDate = dateFormatter.stringFromDate(dateEnd!)
+                    let path: String = jsonOBJ[index]["path"].string as String! ?? ""
+                    RestApiManager.sharedInstance.iterationPath = path
+                    waitingForIterationPaht = false
                     
-                    RestApiManager.sharedInstance.getTeamSettings(selectedTeam, onCompletion: { json in
-                        var workingDays = json["workingDays"]
-                        var intWorkingDays : [Int] = []
-                        for index in 0...(workingDays.count - 1) {
-                            switch (workingDays[index]) {
-                            case "monday":
-                                intWorkingDays.append(2)
-                                break
-                            case "tuesday":
-                                intWorkingDays.append(3)
-                                break
-                            case "wednesday":
-                                intWorkingDays.append(4)
-                                break
-                            case "thursday":
-                                intWorkingDays.append(5)
-                                break
-                            case "friday":
-                                intWorkingDays.append(6)
-                                break
-                            case "saturday":
-                                intWorkingDays.append(7)
-                                break
-                            case "sunday":
-                                intWorkingDays.append(1)
-                                break
-                            default:
-                                break
-                            }
-                        }
-                        let cal = NSCalendar.currentCalendar()
-                        var comp : NSDateComponents
-                        var daysRemaining : Int = 0
-                        var today = NSDate()
-                        while today.compare(dateEnd!) != NSComparisonResult.OrderedDescending {     // only if dateStart is earlier than dateEnd
-                            comp = cal.components(NSCalendarUnit.Weekday, fromDate: today)
-                            for i in 0...(intWorkingDays.count - 1) {
-                                if comp.weekday == intWorkingDays[i] {
-                                    daysRemaining++
+                    let startDate: String = jsonOBJ[index]["attributes"]["startDate"].string as String! ?? ""
+                    let endDate: String = jsonOBJ[index]["attributes"]["finishDate"].string as String! ?? ""
+                    
+                    var formatedStartDate: String = ""
+                    var formatedEndDate: String = ""
+                    var leftWorkDays: String = "-> Sprint Finished"
+                    if startDate != "" && endDate != ""{
+                        
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"                           //input format
+                        let dateStart = dateFormatter.dateFromString(startDate)
+                        let dateEnd = dateFormatter.dateFromString(endDate)
+                        
+                        dateFormatter.dateFormat = "MMMM d"                                             //output format
+                        formatedStartDate = dateFormatter.stringFromDate(dateStart!)
+                        formatedEndDate = dateFormatter.stringFromDate(dateEnd!)
+                        
+                        RestApiManager.sharedInstance.getTeamSettings(selectedTeam, onCompletion: { json in
+                            var workingDays = json["workingDays"]
+                            var intWorkingDays : [Int] = []
+                            for index in 0...(workingDays.count - 1) {
+                                switch (workingDays[index]) {
+                                case "monday":
+                                    intWorkingDays.append(2)
+                                    break
+                                case "tuesday":
+                                    intWorkingDays.append(3)
+                                    break
+                                case "wednesday":
+                                    intWorkingDays.append(4)
+                                    break
+                                case "thursday":
+                                    intWorkingDays.append(5)
+                                    break
+                                case "friday":
+                                    intWorkingDays.append(6)
+                                    break
+                                case "saturday":
+                                    intWorkingDays.append(7)
+                                    break
+                                case "sunday":
+                                    intWorkingDays.append(1)
+                                    break
+                                default:
                                     break
                                 }
                             }
-                            today = today.dateByAddingTimeInterval(60*60*24)
-                        }
-                        
-                        if daysRemaining > 0 {
-                            leftWorkDays = "-> \(daysRemaining) work days remaining"
-                        }
-                        else {
+                            let cal = NSCalendar.currentCalendar()
+                            var comp : NSDateComponents
+                            var daysRemaining : Int = 0
+                            var today = NSDate()
+                            while today.compare(dateEnd!) != NSComparisonResult.OrderedDescending {     // only if dateStart is earlier than dateEnd
+                                comp = cal.components(NSCalendarUnit.Weekday, fromDate: today)
+                                for i in 0...(intWorkingDays.count - 1) {
+                                    if comp.weekday == intWorkingDays[i] {
+                                        daysRemaining++
+                                        break
+                                    }
+                                }
+                                today = today.dateByAddingTimeInterval(60*60*24)
+                            }
                             
-                        }
-                        dispatch_async(dispatch_get_main_queue(),{
-                            self.RemainingWorkDaysLabel.text = "\(formatedStartDate) - \(formatedEndDate) \(leftWorkDays)"
+                            if daysRemaining > 0 {
+                                leftWorkDays = "-> \(daysRemaining) work days remaining"
+                            }
+                            else {
+                                
+                            }
+                            dispatch_async(dispatch_get_main_queue(),{
+                                self.RemainingWorkDaysLabel.text = "\(formatedStartDate) - \(formatedEndDate) \(leftWorkDays)"
+                            })
                         })
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        if formatedStartDate == ""{
+                            self.IterationLabel.text = "\(name)"
+                            self.RemainingWorkDaysLabel.text = ""
+                        } else {
+                            self.IterationLabel.text = "\(name)"
+                        }
                     })
                 }
-                
-                dispatch_async(dispatch_get_main_queue(), {
-                    if formatedStartDate == ""{
-                        self.IterationLabel.text = "\(name)"
-                        self.RemainingWorkDaysLabel.text = ""
-                    } else {
-                        self.IterationLabel.text = "\(name)"
-                    }
-                })
+            }else{
+                abort = true;
             }
         }
-        while(waitingForIterationPaht){}          //Waiting for iteration path to be set
+        
+        //Waiting for iteration path to be set by background thread
+        while(waitingForIterationPaht){
+           
+            if(abort){
+                abort = false
+                
+                let alert = UIAlertController(title: "Missing Sprint", message: "The team you selected does not have any sprints assigned. contact your VSTS/TFS admin", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+
+                
+                return
+            }
+        }
+        
+        
+        //Team Name and Features in progress
+        self.teamNameLabel.text = selectedTeam.name         //Display team name.
+        
         
         //Get Last build
         RestApiManager.sharedInstance.getLastBuild(selectedTeam, onCompletion: { json in
@@ -208,7 +228,7 @@ class FirstViewController: UIViewController {
             dispatch_async(dispatch_get_main_queue(), {
                 self.BuildStatusLabel.text = status.trim()
                 self.CompilationTimeLabel.text = compilationTime
-                self.LatestBuildDateLabel.text = sLatestBuild
+                self.LatestBuildDateLabel.text = "Last Build: \(sLatestBuild)"
             })
             
             
@@ -247,7 +267,8 @@ class FirstViewController: UIViewController {
                     }
             })
         }else{
-            print("Invalid image URL")
+//            print("Invalid image URL")
+            self.burnChartImageView.image = UIImage(named: "sadFace")
         }
     }
     

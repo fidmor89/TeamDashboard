@@ -507,7 +507,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1304" y="-626"/>
+            <point key="canvasLocation" x="1428" y="-916"/>
         </scene>
         <!--Pick Project View Controller-->
         <scene sceneID="DcF-7s-oZH">
@@ -578,7 +578,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2353" y="-604"/>
+            <point key="canvasLocation" x="2423" y="-916"/>
         </scene>
         <!--Graphics-->
         <scene sceneID="wg7-f3-ORb">
@@ -740,7 +740,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1462" y="352"/>
+            <point key="canvasLocation" x="1428" y="364"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="9EB-vj-3IU">
