@@ -35,6 +35,7 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var TotalTestCasesAutomatedCountLabel: UILabel!
     
     //Today Section
+    @IBOutlet weak var LatestBuildDateLabel: UILabel!
     @IBOutlet weak var BuildStatusLabel: UILabel!
     @IBOutlet weak var BuildTestStatusLabel: UILabel!
     @IBOutlet weak var DeployStatusLabel: UILabel!
@@ -179,6 +180,7 @@ class FirstViewController: UIViewController {
             var jsonOBJ = json["value"]
             var status: String = ""
             var compilationTime: String = ""
+            var sLatestBuild : String = ""
             if (count > 0) {
                 status = jsonOBJ[0]["status"].string as String! ?? "Unknown"
                 let startTime: String = jsonOBJ[0]["startTime"].string as String! ?? ""
@@ -196,6 +198,8 @@ class FirstViewController: UIViewController {
                     components = cal.components(NSCalendarUnit.Second, fromDate: dStartTime, toDate: dFinishTime,
                         options: [])
                     compilationTime = String(components.second) + "." + String(components.nanosecond)
+                    dateFormatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
+                    sLatestBuild = dateFormatter.stringFromDate(dFinishTime)
                 }
                 
                 
@@ -204,6 +208,7 @@ class FirstViewController: UIViewController {
             dispatch_async(dispatch_get_main_queue(), {
                 self.BuildStatusLabel.text = status.trim()
                 self.CompilationTimeLabel.text = compilationTime
+                self.LatestBuildDateLabel.text = sLatestBuild
             })
             
             
