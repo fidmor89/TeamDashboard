@@ -18,6 +18,8 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var upperRightImageView: UIImageView!
     @IBOutlet weak var upperLeftImageView: UIImageView!
     
+    var everythingOk = true
+    
     override func viewDidLoad() {
         
         let backgroud:UIColor = UIColor(patternImage: UIImage(named: "background")!)        //Create a color based on the backgroud image
@@ -34,10 +36,17 @@ class SecondViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
+        everythingOk = true
         drawVelocityChart()
         drawChartWithCategory("Microsoft.RequirementCategory", chart:self.upperRightImageView)
         drawChartWithCategory("Microsoft.FeatureCategory", chart:self.lowerLeftImageView)
         drawChartWithCategory("Microsoft.EpicCategory", chart:self.lowerRightImageView)
+        
+        if !everythingOk{
+            let alert = UIAlertController(title: "Missing Graph", message: "Enable this feature in VSTS/TFS to display the graph, contact your VSTS/TFS admin.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
         
         super.viewWillAppear(animated)
     }
@@ -63,7 +72,8 @@ class SecondViewController: UIViewController {
                     }
             })
         }else{
-            print("Invalid image URL")
+            self.upperLeftImageView.image = UIImage(named: "sadFace")
+            everythingOk = false
         }
     }
     
@@ -81,7 +91,8 @@ class SecondViewController: UIViewController {
                     }
             })
         }else{
-            print("Invalid image URL")
+            chart.image = UIImage(named: "sadFace")
+            everythingOk = false
         }
     }
 }
