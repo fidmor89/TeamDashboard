@@ -25,7 +25,10 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //    SOFTWARE.
 
+
 import UIKit
+import SwiftCharts
+
 
 class FirstViewController: UIViewController {
     
@@ -84,6 +87,43 @@ class FirstViewController: UIViewController {
         })//end backgorud thread
         
     }
+    
+    //Starts ViewGraphicControl
+    private var chart: Chart? // arc
+    
+    private func drawGraph(){
+        //Start Chart Configuration
+        
+        let chartConfig = BarsChartConfig(
+            valsAxisConfig: ChartAxisConfig(from: 0, to: 8, by: 2)
+        )
+        
+        let chart = BarsChart(
+            frame: CGRectMake(350, 500, 600, 800),//Position and Size (x,y)(xsize, ysize)
+            chartConfig: chartConfig,
+            xTitle: "X axis",
+            yTitle: "Y axis",
+            bars: [
+                ("A", 2),
+                ("B", 4.5),
+                ("C", 3),
+                ("D", 5.4),
+                ("E", 6.8),
+                ("F", 0.5)
+            ],
+            color: UIColor.blueColor(),//Color
+            barWidth: 20
+        )
+        
+        self.view.addSubview(chart.view)
+        self.chart = chart
+        
+        //Finish Chart COnfiguration
+        
+    }
+    
+    //end ViewGraphicControl
+    
     
     private func drawDashboard(){
         var waitingForIterationPaht = true
@@ -192,7 +232,6 @@ class FirstViewController: UIViewController {
                 abort = true;
             }
         }
-        
         //Waiting for iteration path to be set by background thread
         while(waitingForIterationPaht){
            
@@ -270,6 +309,7 @@ class FirstViewController: UIViewController {
         setTestCasesCount(selectedTeam, Automated: true, WorkItemType: "Test Case", controlObject: self.TotalTestCasesAutomatedCountLabel)
         
         loadBurnChart()
+        drawGraph()
     }
     
     func loadBurnChart(){
@@ -333,6 +373,9 @@ class FirstViewController: UIViewController {
         
         super.viewDidLoad()
         listenChanges()
+        
+        
+        
     }
     
     override func didReceiveMemoryWarning() {

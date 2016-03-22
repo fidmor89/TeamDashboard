@@ -472,8 +472,8 @@
                                     <constraint firstItem="gAl-DD-kqW" firstAttribute="centerX" secondItem="zgD-UC-A9c" secondAttribute="centerX" id="X36-vj-lRL"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="onx-7z-sdJ">
-                                <rect key="frame" x="323" y="454" width="681" height="255"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="onx-7z-sdJ">
+                                <rect key="frame" x="323" y="456" width="681" height="255"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
