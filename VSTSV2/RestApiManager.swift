@@ -40,9 +40,7 @@ class RestApiManager: NSObject {
     internal var collection: String? = nil
     internal var projectId: String? = nil
     internal var teamId: String = ""
-    
     internal var iterationPath: String = ""
-    
     internal var lastResponseCode = ""
     
     func initialize(){
@@ -248,6 +246,22 @@ class RestApiManager: NSObject {
         
         runWIQL(query, onCompletion: { jsonData in
             onCompletion(jsonData)
+        })
+    }
+    
+    func getActiveFeatures(selectedTeam: Team, onCompletion: (JSON) -> Void){
+        let query = "{\"query\": \"SELECT [System.Id] FROM WorkItems  WHERE [System.WorkItemType] = 'Feature' AND [System.AreaPath] = '\(selectedTeam.Project)\\\\\(selectedTeam.name)' AND [System.State]='In Progress'\"}"
+        
+        runWIQL(query, onCompletion: { jsonData in
+            onCompletion(jsonData)
+        })
+        
+    }
+    
+    func getFeature(url: String, onCompletion: (JSON) -> Void){
+        makeHTTPGetRequest(url, onCompletion: {(data: NSData) in
+            let json:JSON = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error:nil)
+            onCompletion(json)
         })
     }
     
