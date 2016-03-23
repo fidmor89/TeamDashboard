@@ -88,19 +88,13 @@ class FirstViewController: UIViewController {
         
     }
     
-    let buildsData = [
-        ("A", 2),
-        ("B", 4.5),
-        ("C", 3),
-        ("D", 5.4),
-        ("E", 6.8),
-        ("F", 0.5),
-        ("G", 0.3)
-    ]
-
-    private var chart: Chart? // arc
+    var buildsData = [(String, Double)]()
+    
+    private var chart: Chart?
     
     private func drawBuildsGraph(){
+        
+        getBuildsData()
         
         let chartConfig = BarsChartConfig(
             valsAxisConfig: ChartAxisConfig(from: 0, to: 8, by: 1)
@@ -124,7 +118,7 @@ class FirstViewController: UIViewController {
                 xTitle: "Builds",
                 yTitle: "Seconds",
                 bars: buildsData,
-//                color: UIColor(red: CGFloat(79/255.0), green: CGFloat(164/255.0), blue: CGFloat(209/255.0), alpha: CGFloat(1.0)),
+                //                color: UIColor(red: CGFloat(79/255.0), green: CGFloat(164/255.0), blue: CGFloat(209/255.0), alpha: CGFloat(1.0)),
                 color: UIColor(red: CGFloat(160/255.0), green: CGFloat(213/255.0), blue: CGFloat(227/255.0), alpha: CGFloat(1.0)),
                 barWidth: (latestBuildsViewSection.bounds.size.width / (CGFloat)(buildsData.count)) - (3 * marginSize)
             )
@@ -135,7 +129,58 @@ class FirstViewController: UIViewController {
             print("View with tag 1 not found, check the storyboard")
         }
     }
-
+    
+    private func getBuildsData(){
+        
+        var waitingForBuildsData = true
+        let selectedTeam = StateManager.SharedInstance.team
+        buildsData = []     //Delete previous data.
+        
+        RestApiManager.sharedInstance.retrieveLatestBuilds(selectedTeam, top: 10) { json in
+            
+            let jsonOBJ = json["value"]
+            for obj in jsonOBJ{
+                
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+                
+                if let startDate = dateFormatter.dateFromString(obj.1["startTime"].string! as String){
+                    if let endDate = dateFormatter.dateFromString(obj.1["finishTime"].string! as String){
+                        
+                        let dateFormatter : NSDateFormatter = NSDateFormatter()
+                        let cal: NSCalendar = NSCalendar.currentCalendar()
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+                        var components : NSDateComponents
+                        
+                        components = cal.components(
+                            NSCalendarUnit.Second,
+                            fromDate: startDate,
+                            toDate: endDate,
+                            options: []
+                        )
+                        
+                        let strTime = (String(components.second) + "." + String(components.nanosecond))
+                        if let n = NSNumberFormatter().numberFromString(strTime) {
+                            let buildTime = Double(n)
+                            if let queueDate = dateFormatter.dateFromString(obj.1["queueTime"].string! as String){
+                                
+                                dateFormatter.dateFormat = "MMM dd"
+                                let queueDate = dateFormatter.stringFromDate(queueDate)
+                                self.buildsData.append((queueDate, buildTime))
+                            }else{
+                                self.buildsData.append(("Unknown", buildTime))
+                            }
+                        }
+                    }
+                }
+            }
+            waitingForBuildsData = false
+        }
+        
+        while(waitingForBuildsData){
+            sleep(1)
+        }
+    }
     
     private func drawDashboard(){
         var waitingForIterationPaht = true
