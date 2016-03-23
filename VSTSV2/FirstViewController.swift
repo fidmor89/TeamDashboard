@@ -328,11 +328,12 @@ class FirstViewController: UIViewController {
                 request1,
                 queue: NSOperationQueue.mainQueue(),
                 completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    if error == nil { self.burnChartImageView.image = UIImage(data: data!) }
+//                    if error == nil { self.burnChartImageView.image = UIImage(data: data!) }
+                    if error == nil { self.burnChartImageView.setImageWithAnimation(UIImage(data: data!)!) }
                 }
             )
         }else{
-            self.burnChartImageView.image = UIImage(named: "sadFace")
+            self.burnChartImageView.setImageWithAnimation(UIImage(named: "sadFace")!)
         }
     }
     

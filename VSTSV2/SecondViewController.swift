@@ -86,12 +86,10 @@ class SecondViewController: UIViewController {
             NSURLConnection.sendAsynchronousRequest(
                 request1, queue: NSOperationQueue.mainQueue(),
                 completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    if error == nil {
-                        self.upperLeftImageView.image = UIImage(data: data!)
-                    }
+                    if error == nil { self.upperLeftImageView.setImageWithAnimation(UIImage(data: data!)!) }
             })
         }else{
-            self.upperLeftImageView.image = UIImage(named: "sadFace")
+            self.upperLeftImageView.setImageWithAnimation(UIImage(named: "sadFace")!)
             everythingOk = false
         }
     }
@@ -105,12 +103,11 @@ class SecondViewController: UIViewController {
             NSURLConnection.sendAsynchronousRequest(
                 request1, queue: NSOperationQueue.mainQueue(),
                 completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    if error == nil {
-                        chart.image = UIImage(data: data!)
-                    }
+                    if error == nil { chart.setImageWithAnimation(UIImage(data: data!)!) }
+                    
             })
         }else{
-            chart.image = UIImage(named: "sadFace")
+            chart.setImageWithAnimation(UIImage(named: "sadFace")!)
             everythingOk = false
         }
     }

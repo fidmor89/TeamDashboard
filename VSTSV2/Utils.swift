@@ -26,6 +26,7 @@
 //    SOFTWARE.
 
 import Foundation
+import UIKit
 
 extension String
 {
@@ -33,4 +34,19 @@ extension String
     {
         return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
     }
+}
+
+extension UIImageView {
+    
+    func setImageWithAnimation(newImage: UIImage) -> Void{
+      
+        UIView.transitionWithView(
+            self,
+            duration: 2,
+            options: UIViewAnimationOptions.TransitionCrossDissolve,
+            animations: {self.image = newImage},
+            completion: nil
+        )
+    }
+    
 }
