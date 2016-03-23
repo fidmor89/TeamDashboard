@@ -92,10 +92,19 @@ class FirstViewController: UIViewController {
     private var chart: Chart? // arc
     
     private func drawBuildsGraph(){
-        //Start Chart Configuration
+        
+        let buildsData = [
+            ("A", 2),
+            ("B", 4.5),
+            ("C", 3),
+            ("D", 5.4),
+            ("E", 6.8),
+            ("F", 0.5),
+            ("G", 0.3)
+        ]
         
         let chartConfig = BarsChartConfig(
-            valsAxisConfig: ChartAxisConfig(from: 0, to: 8, by: 2)
+            valsAxisConfig: ChartAxisConfig(from: 0, to: 8, by: 1)
         )
         
         //tag = 1 -> UIView that should contain the builds graph
@@ -104,7 +113,8 @@ class FirstViewController: UIViewController {
             //Remove previous views if any
             latestBuildsViewSection.subviews.forEach({  $0.removeFromSuperview()    })
             
-            let marginSize = CGFloat(15)    //Margin size.
+            let marginSize = CGFloat(15)
+            
             let chart = BarsChart(
                 frame: CGRectMake(
                     marginSize,  //x position (relative to partent view)
@@ -114,16 +124,10 @@ class FirstViewController: UIViewController {
                 chartConfig: chartConfig,
                 xTitle: "Builds",
                 yTitle: "Seconds",
-                bars: [
-                    ("A", 2),
-                    ("B", 4.5),
-                    ("C", 3),
-                    ("D", 5.4),
-                    ("E", 6.8),
-                    ("F", 0.5)
-                ],
-                color: UIColor.blueColor(),
-                barWidth: 40
+                bars: buildsData,
+//                color: UIColor(red: CGFloat(79/255.0), green: CGFloat(164/255.0), blue: CGFloat(209/255.0), alpha: CGFloat(1.0)),
+                color: UIColor(red: CGFloat(160/255.0), green: CGFloat(213/255.0), blue: CGFloat(227/255.0), alpha: CGFloat(1.0)),
+                barWidth: (latestBuildsViewSection.bounds.size.width / (CGFloat)(buildsData.count)) - (3 * marginSize)
             )
             
             latestBuildsViewSection.addSubview(chart.view)
@@ -132,7 +136,7 @@ class FirstViewController: UIViewController {
             print("View with tag 1 not found, check the storyboard")
         }
     }
-    //end ViewGraphicControl
+
     
     private func drawDashboard(){
         var waitingForIterationPaht = true
@@ -328,8 +332,11 @@ class FirstViewController: UIViewController {
                 request1,
                 queue: NSOperationQueue.mainQueue(),
                 completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-//                    if error == nil { self.burnChartImageView.image = UIImage(data: data!) }
-                    if error == nil { self.burnChartImageView.setImageWithAnimation(UIImage(data: data!)!) }
+                    if error == nil {
+                        if let image = UIImage(data: data!){
+                            self.burnChartImageView.setImageWithAnimation(image)
+                        }
+                    }
                 }
             )
         }else{
@@ -375,13 +382,17 @@ class FirstViewController: UIViewController {
         self.parentView.backgroundColor = backgroud                                         //set backgroud
         
         for view in self.viewSection{
-            view.layer.cornerRadius = 10                                      //Round corners in sections
-            view.layer.masksToBounds = true                                  //Keep child-views within the parent-view
-            view.alpha = 0.75                                                //Semi transparent sections
-            view.backgroundColor = UIColor.whiteColor()                      //White sections
+            view.layer.cornerRadius = 10                                    //Round corners in sections
+            view.layer.masksToBounds = true                                 //Keep child-views within the parent-view
+            view.alpha = 0.75                                               //Semi transparent sections
+            view.backgroundColor = UIColor.whiteColor()                     //White sections
         }
-        super.viewDidLoad()
         listenChanges()
+        super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        drawBuildsGraph()
     }
     
     override func didReceiveMemoryWarning() {

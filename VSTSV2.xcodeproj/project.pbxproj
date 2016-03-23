@@ -60,7 +60,7 @@
 		2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
 		2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
-		2BDA42A11C92164200EB73A5 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		2BDA42A11C92164200EB73A5 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = VSTSV2/Utils.swift; sourceTree = "<group>"; };
 		3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickProjectViewController.swift; sourceTree = "<group>"; };
 		3F4FEA2E1C55AE6E001BEC4C /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkItemCell.swift; sourceTree = "<group>"; };
@@ -101,6 +101,24 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		2B2646221CA2452D001EDB00 /* KeychainWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */,
+			);
+			name = KeychainWrapper;
+			sourceTree = "<group>";
+		};
+		2B2646231CA24563001EDB00 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				A96D29B31C58440000745A51 /* vsicon2.png */,
+				A96D29B11C583C1C00745A51 /* vsLoginIcon.png */,
+				A96D29AF1C583C0300745A51 /* vso.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		2B61879A1C4D579F0020D211 = {
 			isa = PBXGroup;
 			children = (
@@ -124,18 +142,16 @@
 		2B6187A51C4D579F0020D211 /* VSTSV2 */ = {
 			isa = PBXGroup;
 			children = (
-				A96D29B31C58440000745A51 /* vsicon2.png */,
-				A96D29B11C583C1C00745A51 /* vsLoginIcon.png */,
-				A96D29AF1C583C0300745A51 /* vso.png */,
 				2B6187A81C4D579F0020D211 /* AppDelegate.swift */,
+				2B2646221CA2452D001EDB00 /* KeychainWrapper */,
 				2B6187CE1C4D5BE40020D211 /* Wrappers */,
 				3F4FEA261C5485E9001BEC4C /* Models */,
 				3F4FEA271C548618001BEC4C /* Views */,
 				2B6187CA1C4D58610020D211 /* Controllers */,
 				2B6187B31C4D579F0020D211 /* LaunchScreen.xib */,
 				2B6187B11C4D579F0020D211 /* Images.xcassets */,
+				2B2646231CA24563001EDB00 /* Images */,
 				2B6187A61C4D579F0020D211 /* Supporting Files */,
-				2BDA42A11C92164200EB73A5 /* Utils.swift */,
 			);
 			path = VSTSV2;
 			sourceTree = "<group>";
@@ -180,7 +196,6 @@
 		2B6187CE1C4D5BE40020D211 /* Wrappers */ = {
 			isa = PBXGroup;
 			children = (
-				2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */,
 				2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */,
 			);
 			name = Wrappers;
@@ -189,6 +204,7 @@
 		3F4FEA261C5485E9001BEC4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2BDA42A11C92164200EB73A5 /* Utils.swift */,
 				3F4FEA2E1C55AE6E001BEC4C /* Team.swift */,
 				3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */,
 				2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */,
