@@ -91,7 +91,7 @@ class FirstViewController: UIViewController {
     //Starts ViewGraphicControl
     private var chart: Chart? // arc
     
-    private func drawGraph(){
+    private func drawBuildsGraph(){
         //Start Chart Configuration
         
         let chartConfig = BarsChartConfig(
@@ -295,7 +295,7 @@ class FirstViewController: UIViewController {
                 self.BuildStatusLabel.text = status.trim()
                 self.CompilationTimeLabel.text = compilationTime
                 self.LatestBuildDateLabel.text = "Last Build: \(sLatestBuild)"
-                self.drawGraph()
+                self.drawBuildsGraph()
             })
         })
         
@@ -360,8 +360,8 @@ class FirstViewController: UIViewController {
             }.resume()
     }
     
-    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        self.drawDashboard()
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        self.drawBuildsGraph()
     }
     
     override func prefersStatusBarHidden() -> Bool {
