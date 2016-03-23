@@ -360,6 +360,10 @@ class FirstViewController: UIViewController {
             }.resume()
     }
     
+    override func willRotateToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
+        self.drawDashboard()
+    }
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
