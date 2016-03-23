@@ -98,32 +98,41 @@ class FirstViewController: UIViewController {
             valsAxisConfig: ChartAxisConfig(from: 0, to: 8, by: 2)
         )
         
-        let chart = BarsChart(
-            frame: CGRectMake(350, 500, 600, 800),//Position and Size (x,y)(xsize, ysize)
-            chartConfig: chartConfig,
-            xTitle: "X axis",
-            yTitle: "Y axis",
-            bars: [
-                ("A", 2),
-                ("B", 4.5),
-                ("C", 3),
-                ("D", 5.4),
-                ("E", 6.8),
-                ("F", 0.5)
-            ],
-            color: UIColor.blueColor(),//Color
-            barWidth: 20
-        )
-        
-        self.view.addSubview(chart.view)
-        self.chart = chart
-        
-        //Finish Chart COnfiguration
-        
+        //tag = 1 -> UIView that should contain the builds graph
+        if let latestBuildsViewSection: UIView = self.view.viewWithTag(1){
+            
+            //Remove previous views if any
+            latestBuildsViewSection.subviews.forEach({  $0.removeFromSuperview()    })
+            
+            let marginSize = CGFloat(15)    //Margin size.
+            let chart = BarsChart(
+                frame: CGRectMake(
+                    marginSize,  //x position (relative to partent view)
+                    marginSize,  //y position (relative to partent view)
+                    latestBuildsViewSection.bounds.size.width - (2 * marginSize), //x size
+                    latestBuildsViewSection.bounds.size.height - (2 * marginSize )), //y size
+                chartConfig: chartConfig,
+                xTitle: "Builds",
+                yTitle: "Seconds",
+                bars: [
+                    ("A", 2),
+                    ("B", 4.5),
+                    ("C", 3),
+                    ("D", 5.4),
+                    ("E", 6.8),
+                    ("F", 0.5)
+                ],
+                color: UIColor.blueColor(),
+                barWidth: 40
+            )
+            
+            latestBuildsViewSection.addSubview(chart.view)
+            self.chart = chart
+        }else{
+            print("View with tag 1 not found, check the storyboard")
+        }
     }
-    
     //end ViewGraphicControl
-    
     
     private func drawDashboard(){
         var waitingForIterationPaht = true
@@ -232,25 +241,26 @@ class FirstViewController: UIViewController {
                 abort = true;
             }
         }
+        
         //Waiting for iteration path to be set by background thread
         while(waitingForIterationPaht){
-           
+            
             if(abort){
                 abort = false
                 
-                let alert = UIAlertController(title: "Missing Sprint", message: "The team you selected does not have any sprints assigned. contact your VSTS/TFS admin", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(
+                    title: "Missing Sprint",
+                    message: "The team you selected does not have any sprints assigned. contact your VSTS/TFS admin",
+                    preferredStyle: UIAlertControllerStyle.Alert)
+                
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
-
-                
-                return
+                return  //Stop wating and dont update the UI
             }
         }
         
-        
         //Team Name and Features in progress
         self.teamNameLabel.text = selectedTeam.name         //Display team name.
-        
         
         //Get Last build
         RestApiManager.sharedInstance.getLastBuild(selectedTeam, onCompletion: { json in
@@ -279,17 +289,14 @@ class FirstViewController: UIViewController {
                     dateFormatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
                     sLatestBuild = dateFormatter.stringFromDate(dFinishTime)
                 }
-                
-                
             }
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.BuildStatusLabel.text = status.trim()
                 self.CompilationTimeLabel.text = compilationTime
                 self.LatestBuildDateLabel.text = "Last Build: \(sLatestBuild)"
+                self.drawGraph()
             })
-            
-            
         })
         
         //Features
@@ -309,7 +316,6 @@ class FirstViewController: UIViewController {
         setTestCasesCount(selectedTeam, Automated: true, WorkItemType: "Test Case", controlObject: self.TotalTestCasesAutomatedCountLabel)
         
         loadBurnChart()
-        drawGraph()
     }
     
     func loadBurnChart(){
@@ -319,14 +325,13 @@ class FirstViewController: UIViewController {
             request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
             
             NSURLConnection.sendAsynchronousRequest(
-                request1, queue: NSOperationQueue.mainQueue(),
+                request1,
+                queue: NSOperationQueue.mainQueue(),
                 completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    if error == nil {
-                        self.burnChartImageView.image = UIImage(data: data!)
-                    }
-            })
+                    if error == nil { self.burnChartImageView.image = UIImage(data: data!) }
+                }
+            )
         }else{
-//            print("Invalid image URL")
             self.burnChartImageView.image = UIImage(named: "sadFace")
         }
     }
@@ -364,28 +369,20 @@ class FirstViewController: UIViewController {
         let backgroud:UIColor = UIColor(patternImage: UIImage(named: "background")!)        //Create a color based on the backgroud image
         self.parentView.backgroundColor = backgroud                                         //set backgroud
         
-        for i in 0...self.viewSection.count-1{
-            self.viewSection[i].layer.cornerRadius = 10                                      //Round corners in sections
-            self.viewSection[i].layer.masksToBounds = true                                  //Keep child-views within the parent-view
-            self.viewSection[i].alpha = 0.75                                                //Semi transparent sections
-            self.viewSection[i].backgroundColor = UIColor.whiteColor()                      //White sections
+        for view in self.viewSection{
+            view.layer.cornerRadius = 10                                      //Round corners in sections
+            view.layer.masksToBounds = true                                  //Keep child-views within the parent-view
+            view.alpha = 0.75                                                //Semi transparent sections
+            view.backgroundColor = UIColor.whiteColor()                      //White sections
         }
-        
         super.viewDidLoad()
         listenChanges()
-        
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func showPickProjectModal(sender: AnyObject) {
-    }
-    
     
     @IBAction func logOutFunction(sender: AnyObject) {
         if (KeychainWrapper.hasValueForKey("credentials")){

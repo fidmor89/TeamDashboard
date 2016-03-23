@@ -17,7 +17,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="vsicon2.png" translatesAutoresizingMaskIntoConstraints="NO" id="4fn-gW-9ue">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vsicon2.png" translatesAutoresizingMaskIntoConstraints="NO" id="4fn-gW-9ue">
                     <rect key="frame" x="-16" y="-16" width="512" height="512"/>
                 </imageView>
             </subviews>
