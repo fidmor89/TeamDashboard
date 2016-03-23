@@ -91,13 +91,14 @@ class FirstViewController: UIViewController {
     var buildsData = [(String, Double)]()
     
     private var chart: Chart?
+    private var maxValue: Double = Double(1.0)
     
     private func drawBuildsGraph(){
         
         getBuildsData()
         
         let chartConfig = BarsChartConfig(
-            valsAxisConfig: ChartAxisConfig(from: 0, to: 8, by: 1)
+            valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(maxValue), by: 1)
         )
         
         //tag = 1 -> UIView that should contain the builds graph
@@ -115,10 +116,9 @@ class FirstViewController: UIViewController {
                     latestBuildsViewSection.bounds.size.width - (2 * marginSize), //x size
                     latestBuildsViewSection.bounds.size.height - (2 * marginSize )), //y size
                 chartConfig: chartConfig,
-                xTitle: "Builds",
+                xTitle: "Latest Builds",
                 yTitle: "Seconds",
                 bars: buildsData,
-                //                color: UIColor(red: CGFloat(79/255.0), green: CGFloat(164/255.0), blue: CGFloat(209/255.0), alpha: CGFloat(1.0)),
                 color: UIColor(red: CGFloat(160/255.0), green: CGFloat(213/255.0), blue: CGFloat(227/255.0), alpha: CGFloat(1.0)),
                 barWidth: (latestBuildsViewSection.bounds.size.width / (CGFloat)(buildsData.count)) - (3 * marginSize)
             )
@@ -162,6 +162,11 @@ class FirstViewController: UIViewController {
                         let strTime = (String(components.second) + "." + String(components.nanosecond))
                         if let n = NSNumberFormatter().numberFromString(strTime) {
                             let buildTime = Double(n)
+                            
+                            if self.maxValue < buildTime{
+                                self.maxValue = buildTime
+                            }
+                            
                             if let queueDate = dateFormatter.dateFromString(obj.1["queueTime"].string! as String){
                                 
                                 dateFormatter.dateFormat = "MMM dd"
