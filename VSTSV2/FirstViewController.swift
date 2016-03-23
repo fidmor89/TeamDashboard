@@ -88,20 +88,19 @@ class FirstViewController: UIViewController {
         
     }
     
-    //Starts ViewGraphicControl
+    let buildsData = [
+        ("A", 2),
+        ("B", 4.5),
+        ("C", 3),
+        ("D", 5.4),
+        ("E", 6.8),
+        ("F", 0.5),
+        ("G", 0.3)
+    ]
+
     private var chart: Chart? // arc
     
     private func drawBuildsGraph(){
-        
-        let buildsData = [
-            ("A", 2),
-            ("B", 4.5),
-            ("C", 3),
-            ("D", 5.4),
-            ("E", 6.8),
-            ("F", 0.5),
-            ("G", 0.3)
-        ]
         
         let chartConfig = BarsChartConfig(
             valsAxisConfig: ChartAxisConfig(from: 0, to: 8, by: 1)
