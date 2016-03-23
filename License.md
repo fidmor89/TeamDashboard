@@ -19,3 +19,23 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+CONTRIBUTORS:
+
+- Fidel Esteban Morales Cifuentes - Team Lead and Developer - https://github.com/fidmor89
+
+- Luis Roberto Rosales Enriquez - Developer and API Researcher - https://github.com/chirislash
+
+- Jose Rodrigo González López - Developer - https://github.com/jrglopez	
+
+- Manuel Santizo - Manual Tester - https://github.com/Manu1217
+
+- José Luis Morales Ruiz - Unit Testing - https://github.com/chepix10
+
+- Giorgio Balconi - API Researcher and Developer - https://github.com/giobt
+
+
+Thanks for the support to:
+Guillermo Zepeda, 
+Oscar Garcia Colon and
+Microsoft Team

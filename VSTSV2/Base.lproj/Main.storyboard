@@ -891,7 +891,7 @@
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
-                        <segue destination="sk6-Qa-5AS" kind="relationship" relationship="viewControllers" id="UpN-AF-GeH"/>
+                        <segue destination="NPQ-ME-9Fb" kind="relationship" relationship="viewControllers" id="MZW-KH-ach"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -899,19 +899,33 @@
             <point key="canvasLocation" x="212" y="-276"/>
         </scene>
         <!--About-->
-        <scene sceneID="f3e-9l-Sjn">
+        <scene sceneID="ZVk-by-pGv">
             <objects>
-                <viewController id="sk6-Qa-5AS" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cZf-he-VAE">
+                <tableViewController id="NPQ-ME-9Fb" customClass="AboutViewController" customModule="VSTSV2" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="98v-of-W7f">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CreditCell" id="xk3-9c-YvG">
+                                <rect key="frame" x="0.0" y="28" width="1024" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xk3-9c-YvG" id="hyy-C3-Ylh">
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="NPQ-ME-9Fb" id="SKq-Ix-3sK"/>
+                            <outlet property="delegate" destination="NPQ-ME-9Fb" id="4Cf-sa-T9d"/>
+                        </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="About" image="info" id="clU-5F-lm7"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lRH-B1-1tf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    <tabBarItem key="tabBarItem" title="About" image="info" selectedImage="info" id="cWb-YB-RO4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hIu-qq-Vga" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="271" y="683"/>
+            <point key="canvasLocation" x="212" y="710"/>
         </scene>
     </scenes>
     <resources>
