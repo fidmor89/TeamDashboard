@@ -350,7 +350,7 @@ class FirstViewController: UIViewController {
                     components = cal.components(NSCalendarUnit.Second, fromDate: dStartTime, toDate: dFinishTime,
                         options: [])
                     compilationTime = String(components.second) + "." + String(components.nanosecond)
-                    dateFormatter.dateFormat = "MM-dd-yyyy HH:mm:ss"
+                    dateFormatter.dateFormat = "MMM dd HH:mm:ss"
                     sLatestBuild = dateFormatter.stringFromDate(dFinishTime)
                 }
             }
@@ -457,6 +457,13 @@ class FirstViewController: UIViewController {
             view.alpha = 0.75                                               //Semi transparent sections
             view.backgroundColor = UIColor.whiteColor()                     //White sections
         }
+        
+        
+        
+        // case of normal image
+        let image1 = UIImage(named: "reload")!
+        reloadButton.setImage(image1, forState: UIControlState.Normal)
+        
         listenChanges()
         super.viewDidLoad()
     }
@@ -470,15 +477,21 @@ class FirstViewController: UIViewController {
         
         dispatch_async(backgroundQueue, {
             self.drawBuildsGraph()
-            
-        })//end backgorud thread
-        
+        })
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    @IBAction func reloadButtonTouchUpInside(sender: AnyObject) {
+        if StateManager.SharedInstance.team.id != "" {
+            self.drawDashboard()
+        }
+    }
+    
+    @IBOutlet weak var reloadButton: UIButton!
     
     @IBAction func logOutFunction(sender: AnyObject) {
         if (KeychainWrapper.hasValueForKey("credentials")){

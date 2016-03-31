@@ -158,7 +158,6 @@
 				3F4FEA261C5485E9001BEC4C /* Models */,
 				3F4FEA271C548618001BEC4C /* Views */,
 				2B6187CA1C4D58610020D211 /* Controllers */,
-				2B6187B31C4D579F0020D211 /* LaunchScreen.xib */,
 				2B6187B11C4D579F0020D211 /* Images.xcassets */,
 				2B2646231CA24563001EDB00 /* Images */,
 				2B6187A61C4D579F0020D211 /* Supporting Files */,
@@ -229,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				2B6187AE1C4D579F0020D211 /* Main.storyboard */,
+				2B6187B31C4D579F0020D211 /* LaunchScreen.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
