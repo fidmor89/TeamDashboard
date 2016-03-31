@@ -21,6 +21,7 @@
 		2B6187D31C4D5C5D0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
 		2B6187D41C4D5D1A0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
 		2B99A3721CADCDC700AEA66E /* vsicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B99A3711CADCDC700AEA66E /* vsicon.png */; };
+		2B99A3761CADD25400AEA66E /* credits.py in Resources */ = {isa = PBXBuildFile; fileRef = 2B99A3751CADD25400AEA66E /* credits.py */; };
 		2BBDB9811C63FB9B00B1190B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* Team.swift */; };
 		2BD1D9001C5EAAB8002C8828 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */; };
 		2BDA42A21C92164200EB73A5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDA42A11C92164200EB73A5 /* Utils.swift */; };
@@ -63,6 +64,7 @@
 		2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
 		2B99A3711CADCDC700AEA66E /* vsicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vsicon.png; sourceTree = "<group>"; };
+		2B99A3751CADD25400AEA66E /* credits.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = credits.py; sourceTree = "<group>"; };
 		2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
 		2BDA42A11C92164200EB73A5 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = VSTSV2/Utils.swift; sourceTree = "<group>"; };
 		2BE8F7841CA2660E0065563A /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credits.plist; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		2B61879A1C4D579F0020D211 = {
 			isa = PBXGroup;
 			children = (
+				2B99A3751CADD25400AEA66E /* credits.py */,
 				2B6187A51C4D579F0020D211 /* VSTSV2 */,
 				2B6187BD1C4D57A00020D211 /* VSTSV2Tests */,
 				2B6187A41C4D579F0020D211 /* Products */,
@@ -330,6 +333,7 @@
 				A96D29B51C58492000745A51 /* Main.storyboard in Resources */,
 				A96D29B01C583C0300745A51 /* vso.png in Resources */,
 				2BE8F7851CA2660E0065563A /* Credits.plist in Resources */,
+				2B99A3761CADD25400AEA66E /* credits.py in Resources */,
 				2B6187B21C4D579F0020D211 /* Images.xcassets in Resources */,
 				2B99A3721CADCDC700AEA66E /* vsicon.png in Resources */,
 			);
