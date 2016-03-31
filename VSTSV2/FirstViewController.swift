@@ -97,37 +97,42 @@ class FirstViewController: UIViewController {
         
         getBuildsData()
         
-        let chartConfig = BarsChartConfig(
-            valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(maxValue) + (ceil(maxValue)/10), by: (ceil(maxValue)/10))
-        )
-        
-        //tag = 1 -> UIView that should contain the builds graph
-        if let latestBuildsViewSection: UIView = self.view.viewWithTag(1){
+        //Display the data using the main thread
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
             
-            //Remove previous views if any
-            latestBuildsViewSection.subviews.forEach({  $0.removeFromSuperview()    })
-            
-            let marginSize = CGFloat(15)
-            
-            let chart = BarsChart(
-                frame: CGRectMake(
-                    marginSize,  //x position (relative to partent view)
-                    marginSize,  //y position (relative to partent view)
-                    latestBuildsViewSection.bounds.size.width - (2 * marginSize), //x size
-                    latestBuildsViewSection.bounds.size.height - (2 * marginSize )), //y size
-                chartConfig: chartConfig,
-                xTitle: "Latest Builds",
-                yTitle: "Seconds",
-                bars: buildsData,
-                color: UIColor(red: CGFloat(160/255.0), green: CGFloat(213/255.0), blue: CGFloat(227/255.0), alpha: CGFloat(1.0)),
-                barWidth: (latestBuildsViewSection.bounds.size.width / (CGFloat)(buildsData.count)) - (3 * marginSize)
+            let chartConfig = BarsChartConfig(
+                valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(self.maxValue) + (ceil(self.maxValue)/10), by: (ceil(self.maxValue)/10))
             )
             
-            latestBuildsViewSection.addSubview(chart.view)
-            self.chart = chart
-        }else{
-            print("View with tag 1 not found, check the storyboard")
-        }
+            //tag = 1 -> UIView that should contain the builds graph
+            if let latestBuildsViewSection: UIView = self.view.viewWithTag(1){
+                
+                //Remove previous views if any
+                latestBuildsViewSection.subviews.forEach({  $0.removeFromSuperview()    })
+                
+                let marginSize = CGFloat(15)
+                
+                let chart = BarsChart(
+                    frame: CGRectMake(
+                        marginSize,  //x position (relative to partent view)
+                        marginSize,  //y position (relative to partent view)
+                        latestBuildsViewSection.bounds.size.width - (2 * marginSize), //x size
+                        latestBuildsViewSection.bounds.size.height - (2 * marginSize )), //y size
+                    chartConfig: chartConfig,
+                    xTitle: "Latest Builds",
+                    yTitle: "Seconds",
+                    bars: self.buildsData,
+                    color: UIColor(red: CGFloat(160/255.0), green: CGFloat(213/255.0), blue: CGFloat(227/255.0), alpha: CGFloat(1.0)),
+                    barWidth: (latestBuildsViewSection.bounds.size.width / (CGFloat)(self.buildsData.count)) - (3 * marginSize)
+                )
+                
+                latestBuildsViewSection.addSubview(chart.view)
+                self.chart = chart
+                
+            }else{
+                print("View with tag 1 not found, check the storyboard")
+            }
+        })
     }
     
     private func getBuildsData(){
@@ -358,7 +363,7 @@ class FirstViewController: UIViewController {
                 //round time
                 
                 
-//                let strTime = (String(components.second) + "." + String(components.nanosecond))
+                //                let strTime = (String(components.second) + "." + String(components.nanosecond))
                 if let n = NSNumberFormatter().numberFromString(compilationTime) {
                     let buildTime = Double(n)
                     self.CompilationTimeLabel.text = "\(ceil(buildTime)) Seconds"
@@ -457,7 +462,17 @@ class FirstViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        drawBuildsGraph()
+        
+        
+        //Run in backgroud Thread
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        
+        dispatch_async(backgroundQueue, {
+            self.drawBuildsGraph()
+            
+        })//end backgorud thread
+        
     }
     
     override func didReceiveMemoryWarning() {
