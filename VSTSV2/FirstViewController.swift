@@ -98,7 +98,7 @@ class FirstViewController: UIViewController {
         getBuildsData()
         
         let chartConfig = BarsChartConfig(
-            valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(maxValue), by: 1)
+            valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(maxValue) + (ceil(maxValue)/10), by: (ceil(maxValue)/10))
         )
         
         //tag = 1 -> UIView that should contain the builds graph
@@ -144,36 +144,42 @@ class FirstViewController: UIViewController {
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
                 
-                if let startDate = dateFormatter.dateFromString(obj.1["startTime"].string! as String){
-                    if let endDate = dateFormatter.dateFromString(obj.1["finishTime"].string! as String){
+                if let startTime = obj.1["startTime"].string{
+                    
+                    if let startDate = dateFormatter.dateFromString(startTime){
                         
-                        let dateFormatter : NSDateFormatter = NSDateFormatter()
-                        let cal: NSCalendar = NSCalendar.currentCalendar()
-                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
-                        var components : NSDateComponents
-                        
-                        components = cal.components(
-                            NSCalendarUnit.Second,
-                            fromDate: startDate,
-                            toDate: endDate,
-                            options: []
-                        )
-                        
-                        let strTime = (String(components.second) + "." + String(components.nanosecond))
-                        if let n = NSNumberFormatter().numberFromString(strTime) {
-                            let buildTime = Double(n)
-                            
-                            if self.maxValue < buildTime{
-                                self.maxValue = buildTime
-                            }
-                            
-                            if let queueDate = dateFormatter.dateFromString(obj.1["queueTime"].string! as String){
+                        if let finishTime = obj.1["finishTime"].string{
+                            if let endDate = dateFormatter.dateFromString(finishTime){
                                 
-                                dateFormatter.dateFormat = "MMM dd"
-                                let queueDate = dateFormatter.stringFromDate(queueDate)
-                                self.buildsData.append((queueDate, buildTime))
-                            }else{
-                                self.buildsData.append(("Unknown", buildTime))
+                                let dateFormatter : NSDateFormatter = NSDateFormatter()
+                                let cal: NSCalendar = NSCalendar.currentCalendar()
+                                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+                                var components : NSDateComponents
+                                
+                                components = cal.components(
+                                    NSCalendarUnit.Second,
+                                    fromDate: startDate,
+                                    toDate: endDate,
+                                    options: []
+                                )
+                                
+                                let strTime = (String(components.second) + "." + String(components.nanosecond))
+                                if let n = NSNumberFormatter().numberFromString(strTime) {
+                                    let buildTime = Double(n)
+                                    
+                                    if self.maxValue < buildTime{
+                                        self.maxValue = buildTime
+                                    }
+                                    
+                                    if let queueDate = dateFormatter.dateFromString(obj.1["queueTime"].string! as String){
+                                        
+                                        dateFormatter.dateFormat = "MMM dd"
+                                        let queueDate = dateFormatter.stringFromDate(queueDate)
+                                        self.buildsData.append((queueDate, buildTime))
+                                    }else{
+                                        self.buildsData.append(("Unknown", buildTime))
+                                    }
+                                }
                             }
                         }
                     }
