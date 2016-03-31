@@ -554,7 +554,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AFAF9432616CA409B7A9CFC3 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				INFOPLIST_FILE = VSTSV2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fidmor.89.$(PRODUCT_NAME:rfc1034identifier)";
@@ -567,7 +567,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8018742DEBC96ECF27EE7F04 /* Pods.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				INFOPLIST_FILE = VSTSV2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "fidmor.89.$(PRODUCT_NAME:rfc1034identifier)";
