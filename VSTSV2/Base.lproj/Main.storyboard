@@ -470,10 +470,19 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gAl-DD-kqW">
                                         <rect key="frame" x="20" y="20" width="642" height="335"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Burndown Chart" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLt-fi-fpc">
+                                        <rect key="frame" x="1" y="20" width="681" height="23"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="gAl-DD-kqW" firstAttribute="top" secondItem="zgD-UC-A9c" secondAttribute="top" constant="20" id="7oa-Vq-1WF"/>
+                                    <constraint firstItem="oLt-fi-fpc" firstAttribute="top" secondItem="gAl-DD-kqW" secondAttribute="top" id="Bh8-ng-w57"/>
+                                    <constraint firstItem="oLt-fi-fpc" firstAttribute="width" secondItem="zgD-UC-A9c" secondAttribute="width" id="E45-Wa-7jb"/>
+                                    <constraint firstItem="oLt-fi-fpc" firstAttribute="centerX" secondItem="zgD-UC-A9c" secondAttribute="centerX" id="GJ7-x5-aTv"/>
                                     <constraint firstItem="gAl-DD-kqW" firstAttribute="leading" secondItem="zgD-UC-A9c" secondAttribute="leading" constant="20" id="IgF-yQ-Nvf"/>
                                     <constraint firstItem="gAl-DD-kqW" firstAttribute="centerY" secondItem="zgD-UC-A9c" secondAttribute="centerY" id="ONM-hy-geK"/>
                                     <constraint firstItem="gAl-DD-kqW" firstAttribute="centerX" secondItem="zgD-UC-A9c" secondAttribute="centerX" id="X36-vj-lRL"/>
@@ -483,12 +492,20 @@
                                 <rect key="frame" x="323" y="456" width="681" height="255"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Burndown Chart" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lqf-fJ-8HP">
+                                <rect key="frame" x="323" y="466" width="681" height="23"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="J1y-WF-kkL" firstAttribute="leading" secondItem="8sA-yJ-JvC" secondAttribute="leading" id="0zp-SQ-7fl"/>
+                            <constraint firstItem="Lqf-fJ-8HP" firstAttribute="width" secondItem="onx-7z-sdJ" secondAttribute="width" id="2Af-y6-Zfi"/>
                             <constraint firstItem="onx-7z-sdJ" firstAttribute="leading" secondItem="73U-cs-XpY" secondAttribute="trailing" constant="8" symbolic="YES" id="9bW-Ei-gDu"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="AVf-Gy-vm2" secondAttribute="bottom" constant="10" id="A7A-Pb-sIt"/>
+                            <constraint firstItem="onx-7z-sdJ" firstAttribute="top" secondItem="Lqf-fJ-8HP" secondAttribute="bottom" constant="-33" id="CPT-d3-U82"/>
                             <constraint firstItem="zgD-UC-A9c" firstAttribute="trailing" secondItem="onx-7z-sdJ" secondAttribute="trailing" id="Cvb-4H-BBk"/>
                             <constraint firstItem="zgD-UC-A9c" firstAttribute="trailing" secondItem="8sA-yJ-JvC" secondAttribute="trailing" id="D2t-d0-rAE"/>
                             <constraint firstItem="8sA-yJ-JvC" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="topMargin" constant="10" id="SWJ-S4-sa3"/>
@@ -502,6 +519,7 @@
                             <constraint firstItem="onx-7z-sdJ" firstAttribute="leading" secondItem="zgD-UC-A9c" secondAttribute="leading" id="f2l-gG-gDU"/>
                             <constraint firstItem="AVf-Gy-vm2" firstAttribute="top" secondItem="73U-cs-XpY" secondAttribute="bottom" constant="8" symbolic="YES" id="hJU-1e-tpt"/>
                             <constraint firstItem="73U-cs-XpY" firstAttribute="leading" secondItem="AVf-Gy-vm2" secondAttribute="leading" id="hqR-Pz-2cA"/>
+                            <constraint firstItem="Lqf-fJ-8HP" firstAttribute="centerX" secondItem="onx-7z-sdJ" secondAttribute="centerX" id="o7L-xm-Na7"/>
                             <constraint firstItem="J1y-WF-kkL" firstAttribute="top" secondItem="8sA-yJ-JvC" secondAttribute="bottom" constant="8" symbolic="YES" id="peF-ea-ngY"/>
                             <constraint firstItem="J1y-WF-kkL" firstAttribute="top" secondItem="zgD-UC-A9c" secondAttribute="top" id="ssE-mV-Xqo"/>
                             <constraint firstItem="onx-7z-sdJ" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="t1W-le-qX0"/>
