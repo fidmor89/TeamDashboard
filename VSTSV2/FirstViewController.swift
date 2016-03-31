@@ -56,7 +56,7 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var TotalTestCasesCreatedCountLabel: UILabel!
     @IBOutlet weak var TotalTestCasesAutomatedCountLabel: UILabel!
     
-    //Today Section
+    //Last Build Section
     @IBOutlet weak var LatestBuildDateLabel: UILabel!
     @IBOutlet weak var BuildStatusLabel: UILabel!
     @IBOutlet weak var BuildTestStatusLabel: UILabel!
@@ -352,9 +352,19 @@ class FirstViewController: UIViewController {
             
             dispatch_async(dispatch_get_main_queue(), {
                 self.BuildStatusLabel.text = status.trim()
-                self.CompilationTimeLabel.text = compilationTime
                 self.LatestBuildDateLabel.text = "Last Build: \(sLatestBuild)"
                 self.drawBuildsGraph()
+                
+                //round time
+                
+                
+//                let strTime = (String(components.second) + "." + String(components.nanosecond))
+                if let n = NSNumberFormatter().numberFromString(compilationTime) {
+                    let buildTime = Double(n)
+                    self.CompilationTimeLabel.text = "\(ceil(buildTime)) Seconds"
+                }else{
+                    self.CompilationTimeLabel.text = "Unknown"
+                }
             })
         })
         
