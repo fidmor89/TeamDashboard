@@ -95,6 +95,9 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     
     // Overridable methods
     override func viewDidLoad() {
+
+        self.tableView.separatorColor = UIColor.clearColor()
+        self.searchDisplayController!.searchResultsTableView.separatorColor = UIColor.clearColor()
         
         self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
         

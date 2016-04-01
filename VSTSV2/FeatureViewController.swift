@@ -62,6 +62,7 @@ class FeatureViewController: UITableViewController {
     
     // Overridable methods
     override func viewDidLoad() {
+        self.tableView.separatorColor = UIColor.clearColor()
         self.tableView?.alwaysBounceVertical = false            //If projects fit in the window there should be no scroll.
         let backColor = UIColor(patternImage: UIImage(named: "background")!)
         tableView.backgroundColor = backColor
