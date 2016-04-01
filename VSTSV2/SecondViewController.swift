@@ -61,13 +61,17 @@ class SecondViewController: UIViewController {
         drawChartWithCategory("Microsoft.FeatureCategory", chart:self.lowerLeftImageView)
         drawChartWithCategory("Microsoft.EpicCategory", chart:self.lowerRightImageView)
         
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         if !everythingOk{
             let alert = UIAlertController(title: "Missing Graph", message: "Enable this feature in VSTS/TFS to display the graph, contact your VSTS/TFS admin.", preferredStyle: UIAlertControllerStyle.Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         }
         
-        super.viewWillAppear(animated)
+        super.viewDidAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {

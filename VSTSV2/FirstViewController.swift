@@ -94,6 +94,7 @@ class FirstViewController: UIViewController {
     private var maxValue: Double = Double(1.0)
     
     private func drawBuildsGraph(){
+        if StateManager.SharedInstance.team.id == "" { return } //not ready get display data.
         
         getBuildsData()
         
@@ -115,11 +116,11 @@ class FirstViewController: UIViewController {
                 let chart = BarsChart(
                     frame: CGRectMake(
                         marginSize,  //x position (relative to partent view)
-                        marginSize,  //y position (relative to partent view)
+                        2.5 * marginSize,  //y position (relative to partent view)
                         latestBuildsViewSection.bounds.size.width - (2 * marginSize), //x size
-                        latestBuildsViewSection.bounds.size.height - (2 * marginSize )), //y size
+                        latestBuildsViewSection.bounds.size.height - (3.5 * marginSize )), //y size
                     chartConfig: chartConfig,
-                    xTitle: "Latest Builds",
+                    xTitle: "Date",
                     yTitle: "Seconds",
                     bars: self.buildsData,
                     color: UIColor(red: CGFloat(160/255.0), green: CGFloat(213/255.0), blue: CGFloat(227/255.0), alpha: CGFloat(1.0)),
@@ -487,7 +488,9 @@ class FirstViewController: UIViewController {
     
     @IBAction func reloadButtonTouchUpInside(sender: AnyObject) {
         if StateManager.SharedInstance.team.id != "" {
+            print("Reloading...")
             self.drawDashboard()
+            print("Reloading finished.")
         }
     }
     
