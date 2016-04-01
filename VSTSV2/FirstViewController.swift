@@ -380,7 +380,7 @@ class FirstViewController: UIViewController {
                 //                let strTime = (String(components.second) + "." + String(components.nanosecond))
                 if let n = NSNumberFormatter().numberFromString(compilationTime) {
                     let buildTime = Double(n)
-                    self.CompilationTimeLabel.text = "\(ceil(buildTime)) Seconds"
+                    self.CompilationTimeLabel.text = "\(ceil(buildTime))"
                 }else{
                     self.CompilationTimeLabel.text = "Unknown"
                 }
