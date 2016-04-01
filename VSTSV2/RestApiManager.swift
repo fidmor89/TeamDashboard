@@ -75,7 +75,10 @@ class RestApiManager: NSObject {
     }
 
     func getComulativeFlow(team:Team, Category:String) -> NSURL? {
-        if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/CumulativeFlow") {
+
+        if let components = NSURLComponents(string: baseURL) {
+            
+            components.path =  "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/CumulativeFlow"
             
             components.queryItems = [
                 NSURLQueryItem(name: "chartOptions", value:"{\"Width\":936,\"Height\":503,\"ShowDetails\":true,\"Title\":\"\"}"),
@@ -88,7 +91,9 @@ class RestApiManager: NSObject {
     }
     
     func getVelocityURL(team:Team) -> NSURL? {
-        if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Velocity") {
+        if let components = NSURLComponents(string: baseURL) {
+            
+            components.path =  "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Velocity"
             
             components.queryItems = [
                 NSURLQueryItem(name: "chartOptions", value:"{\"Width\":936,\"Height\":503,\"ShowDetails\":true,\"Title\":\"\"}"),
@@ -101,13 +106,17 @@ class RestApiManager: NSObject {
     }
 
     func searchURLWithTerm(team:Team) -> NSURL? {
-        if let components = NSURLComponents(string: baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown") {
+        
+        if let components = NSURLComponents(string: baseURL) {
+            
+            components.path = "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown"
             
             components.queryItems = [
                 NSURLQueryItem(name: "chartOptions", value:"{\"Width\":936,\"Height\":503,\"ShowDetails\":true,\"Title\":\"\"}"),
                 NSURLQueryItem(name: "counter", value: "2"),
                 NSURLQueryItem(name: "iterationPath", value:  self.iterationPath),
-                NSURLQueryItem(name: "__v", value: "5")]
+                NSURLQueryItem(name: "__v", value: "5")
+            ]
             
             return components.URL
         }

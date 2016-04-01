@@ -100,9 +100,16 @@ class FirstViewController: UIViewController {
         
         //Display the data using the main thread
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+
+            var step = 5.0
+            if(UIDevice.currentDevice().modelName == "iPad Pro")
+            {
+                step = 10.0
+            }
+
             
             let chartConfig = BarsChartConfig(
-                valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(self.maxValue) + (ceil(self.maxValue)/10), by: (ceil(self.maxValue)/10))
+                valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(self.maxValue) + (ceil(self.maxValue)/step), by: (ceil(self.maxValue)/step))
             )
             
             //tag = 1 -> UIView that should contain the builds graph
@@ -142,7 +149,13 @@ class FirstViewController: UIViewController {
         let selectedTeam = StateManager.SharedInstance.team
         buildsData = []     //Delete previous data.
         
-        RestApiManager.sharedInstance.retrieveLatestBuilds(selectedTeam, top: 10) { json in
+        var quantity = 6
+        if(UIDevice.currentDevice().modelName == "iPad Pro")
+        {
+            quantity = 10
+        }
+        
+        RestApiManager.sharedInstance.retrieveLatestBuilds(selectedTeam, top: quantity) { json in
             
             let jsonOBJ = json["value"]
             for obj in jsonOBJ{
