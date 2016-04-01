@@ -62,8 +62,10 @@ class FeatureViewController: UITableViewController {
     
     // Overridable methods
     override func viewDidLoad() {
-        super.viewDidLoad()
         self.tableView?.alwaysBounceVertical = false            //If projects fit in the window there should be no scroll.
+        let backColor = UIColor(patternImage: UIImage(named: "background")!)
+        tableView.backgroundColor = backColor
+        super.viewDidLoad()        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -98,7 +100,17 @@ class FeatureViewController: UITableViewController {
         
         let feature = self.features[indexPath.row]
         cell!.textLabel?.text = feature
-                
+        
+        cell?.textLabel?.backgroundColor = UIColor.clearColor()
+        
+        cell?.contentView.backgroundColor = UIColor.whiteColor()
+        cell?.contentView.layer.cornerRadius = 10
+        cell?.contentView.layer.masksToBounds = true
+        cell?.contentView.alpha = 0.75
+        
+        cell?.backgroundColor = UIColor.clearColor()
+
+        
         return cell!
     }
 }

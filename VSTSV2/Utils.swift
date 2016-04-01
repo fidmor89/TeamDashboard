@@ -84,7 +84,7 @@ public extension UIDevice {
         case "iPad4,7", "iPad4,8", "iPad4,9":           return "iPad Mini 3"
         case "iPad5,1", "iPad5,2":                      return "iPad Mini 4"
         case "iPad6,7", "iPad6,8":                      return "iPad Pro"
-        case "i386", "x86_64":                          return "Simulator"
+        case "i386", "x86_64":                          return "Simulator"      //Regardles of what simulator is used
         default:                                        return identifier       //Future models.
         }
     }

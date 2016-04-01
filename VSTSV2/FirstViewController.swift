@@ -65,6 +65,8 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var CodeCoverageLabel: UILabel!
     @IBOutlet weak var NumLinesLabel: UILabel!
     
+    var step = 5.0
+    
     private func listenChanges(){
         //Run in backgroud Thread
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
@@ -101,15 +103,14 @@ class FirstViewController: UIViewController {
         //Display the data using the main thread
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
 
-            var step = 5.0
             if(UIDevice.currentDevice().modelName == "iPad Pro")
             {
-                step = 10.0
+                self.step = 10.0
             }
 
             
             let chartConfig = BarsChartConfig(
-                valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(self.maxValue) + (ceil(self.maxValue)/step), by: (ceil(self.maxValue)/step))
+                valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(self.maxValue) + (ceil(self.maxValue)/self.self.step), by: (ceil(self.maxValue)/self.step))
             )
             
             //tag = 1 -> UIView that should contain the builds graph
@@ -149,7 +150,7 @@ class FirstViewController: UIViewController {
         let selectedTeam = StateManager.SharedInstance.team
         buildsData = []     //Delete previous data.
         
-        var quantity = 6
+        var quantity = Int(step + 1)
         if(UIDevice.currentDevice().modelName == "iPad Pro")
         {
             quantity = 10
