@@ -346,9 +346,11 @@ class FirstViewController: UIViewController {
             let count: Int = json["count"].int as Int!
             var jsonOBJ = json["value"]
             var status: String = ""
+            var build: Int = -1
             var compilationTime: String = ""
             var sLatestBuild : String = ""
             if (count > 0) {
+                build = jsonOBJ[0]["id"].int as Int! ?? -1
                 status = jsonOBJ[0]["status"].string as String! ?? "Unknown"
                 let startTime: String = jsonOBJ[0]["startTime"].string as String! ?? ""
                 let finishTime: String = jsonOBJ[0]["finishTime"].string as String! ?? ""
@@ -367,6 +369,23 @@ class FirstViewController: UIViewController {
                     compilationTime = String(components.second) + "." + String(components.nanosecond)
                     dateFormatter.dateFormat = "MMM dd HH:mm:ss"
                     sLatestBuild = dateFormatter.stringFromDate(dFinishTime)
+                    
+                    //Code coverage metrics
+                    RestApiManager.sharedInstance.getLastBuildCodeCoverage(selectedTeam, buildId: build, onCompletion: { json in
+                        let count: Int = json["count"].int as Int!
+                        var jsonOBJ = json["value"]
+                        var blocksCovered : Int = 0
+                        var linesCovered : Int = 0
+                        if (count > 0) {
+                            blocksCovered = jsonOBJ[0]["modules"]["statistics"]["blocksCovered"].int as Int! ?? 0
+                            linesCovered = jsonOBJ[0]["modules"]["statistics"]["linesCovered"].int as Int! ?? 0
+                        }
+                        
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.CodeCoverageLabel.text = String(blocksCovered)
+                            self.NumLinesLabel.text = String(linesCovered)
+                        })
+                    })
                 }
             }
             

@@ -216,6 +216,14 @@ class RestApiManager: NSObject {
         })
     }
     
+    func getLastBuildCodeCoverage(team: Team, buildId: Int, onCompletion: (JSON) -> Void) {
+        let route = baseURL + "/\(team.Collection)/\(team.Project)/_apis/test/codeCoverage?buildId=\(buildId)&flags=7&api-version=2.0-preview"
+        makeHTTPGetRequest(route, apiVersion: "2.0-preview", onCompletion: {(data: NSData) in
+            let json: JSON = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            onCompletion(json)
+        })
+    }
+    
     func getTaks(onCompletion: (JSON) -> Void){
         
         let newIteration = self.iterationPath.stringByReplacingOccurrencesOfString("\\", withString: "\\\\", options: NSStringCompareOptions.LiteralSearch, range: nil)
@@ -392,12 +400,12 @@ class RestApiManager: NSObject {
     @see: makeHTTPPostRequest
     @see: buildAuthorizationHeader
     */
-    func makeHTTPGetRequest(path: String, onCompletion: (data: NSData) -> Void ){
+    func makeHTTPGetRequest(path: String, apiVersion: String = "2.0", onCompletion: (data: NSData) -> Void ){
         
         let request = buildAuthorizationHeader()
         
         //Make GET request using SwiftHTTP Pod
-        request.GET(path, parameters: ["api-version": 2.0], completionHandler: {(response: HTTPResponse) in
+        request.GET(path, parameters: ["api-version": apiVersion], completionHandler: {(response: HTTPResponse) in
             if let err = response.error {
                 print("error: \(err.localizedDescription)")
                 self.setLastResponseCode(response)
