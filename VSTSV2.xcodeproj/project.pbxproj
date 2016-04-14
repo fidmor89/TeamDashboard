@@ -49,7 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2B6187A31C4D579F0020D211 /* VSTSV2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VSTSV2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B6187A31C4D579F0020D211 /* Team Dashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Team Dashboard.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6187A71C4D579F0020D211 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B6187A81C4D579F0020D211 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B6187AA1C4D579F0020D211 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -143,7 +143,7 @@
 		2B6187A41C4D579F0020D211 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2B6187A31C4D579F0020D211 /* VSTSV2.app */,
+				2B6187A31C4D579F0020D211 /* Team Dashboard.app */,
 				2B6187BA1C4D57A00020D211 /* VSTSV2Tests.xctest */,
 			);
 			name = Products;
@@ -262,7 +262,7 @@
 			);
 			name = VSTSV2;
 			productName = VSTSV2;
-			productReference = 2B6187A31C4D579F0020D211 /* VSTSV2.app */;
+			productReference = 2B6187A31C4D579F0020D211 /* Team Dashboard.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2B6187B91C4D57A00020D211 /* VSTSV2Tests */ = {
@@ -568,7 +568,8 @@
 				INFOPLIST_FILE = VSTSV2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = URL.IS2.2016.VSTDashboard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = VSTDashboard;
+				PRODUCT_NAME = "Team Dashboard";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -582,7 +583,8 @@
 				INFOPLIST_FILE = VSTSV2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = URL.IS2.2016.VSTDashboard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = VSTDashboard;
+				PRODUCT_NAME = "Team Dashboard";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
