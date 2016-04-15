@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2B6187A21C4D579F0020D211"
-               BuildableName = "VSTSV2.app"
+               BuildableName = "Team Dashboard.app"
                BlueprintName = "VSTSV2"
                ReferencedContainer = "container:VSTSV2.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2B6187A21C4D579F0020D211"
-            BuildableName = "VSTSV2.app"
+            BuildableName = "Team Dashboard.app"
             BlueprintName = "VSTSV2"
             ReferencedContainer = "container:VSTSV2.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2B6187A21C4D579F0020D211"
-            BuildableName = "VSTSV2.app"
+            BuildableName = "Team Dashboard.app"
             BlueprintName = "VSTSV2"
             ReferencedContainer = "container:VSTSV2.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2B6187A21C4D579F0020D211"
-            BuildableName = "VSTSV2.app"
+            BuildableName = "Team Dashboard.app"
             BlueprintName = "VSTSV2"
             ReferencedContainer = "container:VSTSV2.xcodeproj">
          </BuildableReference>
