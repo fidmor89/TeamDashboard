@@ -57,6 +57,15 @@ class AboutViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
     
+    override func viewDidLoad() {
+        self.tableView.separatorColor = UIColor.clearColor()
+        
+        self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
+        
+        let backColor = UIColor(patternImage: UIImage(named: "background")!)
+        tableView.backgroundColor = backColor
+    }
+    
     //Cells
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1        //Displaying one license per section.
@@ -72,6 +81,14 @@ class AboutViewController: UITableViewController {
         cell!.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
         cell!.textLabel?.numberOfLines = 0
         cell!.textLabel?.text = credits[indexPath.section]["FooterText"] as? String
+        
+        //Look and feel
+        cell?.textLabel?.backgroundColor = UIColor.clearColor()
+        cell?.contentView.backgroundColor = UIColor.whiteColor()
+        cell?.contentView.layer.cornerRadius = 20
+        cell?.contentView.layer.masksToBounds = true
+        cell?.contentView.alpha = 0.75
+        cell?.backgroundColor = UIColor.clearColor()
         
         return cell!
     }
@@ -101,6 +118,30 @@ class AboutViewController: UITableViewController {
         if let header = view as? UITableViewHeaderFooterView {
             header.textLabel!.font = UIFont.systemFontOfSize(30.0)
         }
+    }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header :UITableViewHeaderFooterView = UITableViewHeaderFooterView()
+        
+        header.textLabel?.textColor = UIColor.whiteColor()
+        
+        //Look and feel
+        header.textLabel?.backgroundColor = UIColor.clearColor()
+        header.contentView.backgroundColor = UIColor.blackColor()
+        header.contentView.layer.cornerRadius = 20
+        header.contentView.layer.masksToBounds = true
+        header.contentView.alpha = 0.75
+        
+        
+        header.backgroundView?.backgroundColor = UIColor.clearColor()
+
+        
+
+        
+
+
+        
+        return header
     }
     //End Sections
     
