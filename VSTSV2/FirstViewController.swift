@@ -541,6 +541,8 @@ class FirstViewController: UIViewController {
             KeychainWrapper.removeObjectForKey("credentials")
         }
         
+        StateManager.SharedInstance.team = Team()
+        
         //Get ViewController
         let loginController = self.storyboard!.instantiateViewControllerWithIdentifier("Login") as! LoginController
         

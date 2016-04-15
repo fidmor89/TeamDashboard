@@ -389,7 +389,7 @@ class RestApiManager: NSObject {
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
             
             if let _ = error{
-                print(error)
+                print("Post Request Error: \(error)")
             }else{
                 onCompletion(data: data!)   //return data from POST request.
             }
@@ -414,9 +414,8 @@ class RestApiManager: NSObject {
             let opt = try HTTP.GET(path, parameters: [apiVersion], headers: ["Authorization": buildBase64EncodedCredentials()])
             opt.start { response in
                 if let err = response.error {
-                    print("error: \(err.localizedDescription)")
+                    print("Get Request error: \(err.localizedDescription)")
                     self.setLastResponseCode(response)
-                    return
                 }
                 
                 if let data = response.data as NSData? {
