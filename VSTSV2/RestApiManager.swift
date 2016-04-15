@@ -73,9 +73,9 @@ class RestApiManager: NSObject {
             onCompletion(data: data)    //Pass back NSData object with the image contents
         })
     }
-
+    
     func getComulativeFlow(team:Team, Category:String) -> NSURL? {
-
+        
         if let components = NSURLComponents(string: baseURL) {
             
             components.path =  "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/CumulativeFlow"
@@ -104,7 +104,7 @@ class RestApiManager: NSObject {
         }
         return nil
     }
-
+    
     func searchURLWithTerm(team:Team) -> NSURL? {
         
         if let components = NSURLComponents(string: baseURL) {
@@ -199,7 +199,7 @@ class RestApiManager: NSObject {
     
     func retrieveLatestBuilds(team: Team, top: Int!, onCompletion: (JSON) -> Void) {
         
-
+        
         let route = baseURL + "/\(team.Collection)/\(team.Project)/_apis/build/builds?api-version=2.0&$top=\(top!)"
         
         makeHTTPGetRequest(route, onCompletion: {(data: NSData) in
@@ -378,75 +378,58 @@ class RestApiManager: NSObject {
         request.HTTPBody = bodyContent.dataUsingEncoding(NSUTF8StringEncoding)
         
         let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            if (error != nil) {
+            
+            if let _ = error{
                 print(error)
-            }
-            else {
-                onCompletion(data: data!)                                                            //return data from POST request.
+            }else{
+                onCompletion(data: data!)   //return data from POST request.
             }
         })
         
-        //fire off the request
-        task.resume()
+        task.resume()   //fire off the request
     }
     
     
     /**
-    @brief: Creates a HTTPOperation as a HTTP POST request and starts it for you.
-    
-    @param: path The url you would like to make a request to.
-    @param: onCompletion The closure that is run when a HTTP Request finished.
-    
-    @see: makeHTTPPostRequest
-    @see: buildAuthorizationHeader
-    */
+     @brief: Creates a HTTPOperation as a HTTP POST request and starts it for you.
+     
+     @param: path The url you would like to make a request to.
+     @param: onCompletion The closure that is run when a HTTP Request finished.
+     
+     @see: makeHTTPPostRequest
+     @see: buildAuthorizationHeader
+     */
     func makeHTTPGetRequest(path: String, apiVersion: String = "2.0", onCompletion: (data: NSData) -> Void ){
         
-        let request = buildAuthorizationHeader()
+        do {
+            let opt = try HTTP.GET(path, parameters: nil, headers: ["Authorization": buildBase64EncodedCredentials()])
+            opt.start { response in
+                if let err = response.error {
+                    print("error: \(err.localizedDescription)")
+                    self.setLastResponseCode(response)
+                    return
+                }
+                
+                if let data = response.data as NSData? {
+                    self.setLastResponseCode(response)
+                    onCompletion(data: data)    //return data from GET request.
+                }
+            }
+        } catch let error {
+            print("got an error creating the request: \(error)")
+        }
         
-        //Make GET request using SwiftHTTP Pod
-        request.GET(path, parameters: ["api-version": apiVersion], completionHandler: {(response: HTTPResponse) in
-            if let err = response.error {
-                print("error: \(err.localizedDescription)")
-                self.setLastResponseCode(response)
-            }
-            if let data = response.responseObject as? NSData {
-                self.setLastResponseCode(response)
-                onCompletion(data: data)                                                            //return data from GET request.
-            }
-            
-        })
     }
     
-    func setLastResponseCode(response: HTTPResponse){
-        
+    func setLastResponseCode(response: Response){
         if(response.statusCode != nil){
             self.lastResponseCode = String(response.statusCode!)
         }else{
             self.lastResponseCode = "400"
         }
-        
-    }
-    
-    /**
-    @brief: Creates a HTTPOperation as a HTTP POST request and starts it for you.
-    
-    @param: usr The user you would use for authentication.
-    @param: pw The password you would use for authentication.
-    
-    @see: makeHTTPGetRequest
-    @see: makeHTTPPostRequest
-    */
-    func buildAuthorizationHeader() -> HTTPTask{
-        
-        let request = HTTPTask()
-        request.requestSerializer = HTTPRequestSerializer()
-        request.requestSerializer.headers["Authorization"] = buildBase64EncodedCredentials()             //basic auth header with auth credentials
-        return request;
     }
     
     func buildBase64EncodedCredentials() -> String{
-        
         //setting up the base64-encoded credentials
         let loginString = NSString(format: "%@:%@", usr, pw)
         let loginData: NSData = loginString.dataUsingEncoding(NSUTF8StringEncoding)!

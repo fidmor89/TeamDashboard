@@ -8,74 +8,46 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>SwiftCharts.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SwiftHTTP.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0EDA2588C3257FBD4E682FB4DF94B23F</key>
+		<key>31AAA61DDBCDE5BE81B81A6C79A4F148</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>16708BCB1D41873E8262C728D760465A</key>
+		<key>77F032DCB368C15BBA17664A0368105B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>512467D0942105B94FEC31F1EF730D60</key>
+		<key>B12DF21EDE4FAED32522AED92E99EE0A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>746CCBD9FE29E775430A89C1A9A08E9D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>834A525FA25F9367B215C2AA1D300D33</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B9A04D3C9B208813656510FDA8ADAE02</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BA0695EDD0655C925FD2249E9AD0E330</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CBCD9D9A3A53E7227E5B08E5E2938649</key>
+		<key>CB0BD4052BEA5BD03EE9C25CB6A0EEA9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
