@@ -40,7 +40,7 @@ class FeatureViewController: UITableViewController {
                 //let count: Int = json["count"].int as Int!         //number of objects within json obj
                 var jsonOBJCollections = json["workItems"]             //get json with features
                 
-                for (index, _) in jsonOBJCollections.enumerate() {                        //for each obj in jsonOBJ
+                for (index, _) in jsonOBJCollections.enumerate() {  //for each obj in jsonOBJ
                     
                     let featureUrl = jsonOBJCollections[index]["url"].string as String! ?? ""
                     
@@ -50,7 +50,14 @@ class FeatureViewController: UITableViewController {
                         self.features.append(name)
                         
                         dispatch_async(dispatch_get_main_queue(), {
-                            self.tableView?.reloadData()})              //reload UI data.
+                            self.tableView?.reloadData()
+                            
+                            var frame = self.tableView.frame;                               //Get frame
+                            let heightValue = min((44 * self.features.count) as Int, 400)   //Nothing bigger than 400
+                            frame.size.height = CGFloat(heightValue)
+                            self.tableView.frame = frame                                    //table view size
+                            self.preferredContentSize.height = CGFloat(heightValue)         //Controller size
+                        })
                     })
                 }
             })
@@ -59,6 +66,8 @@ class FeatureViewController: UITableViewController {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
+    
+
     
     // Overridable methods
     override func viewDidLoad() {
