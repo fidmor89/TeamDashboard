@@ -402,7 +402,7 @@ class RestApiManager: NSObject {
     func makeHTTPGetRequest(path: String, apiVersion: String = "2.0", onCompletion: (data: NSData) -> Void ){
         
         do {
-            let opt = try HTTP.GET(path, parameters: nil, headers: ["Authorization": buildBase64EncodedCredentials()])
+            let opt = try HTTP.GET(path, parameters: [apiVersion], headers: ["Authorization": buildBase64EncodedCredentials()])
             opt.start { response in
                 if let err = response.error {
                     print("error: \(err.localizedDescription)")
