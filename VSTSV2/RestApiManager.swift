@@ -49,18 +49,27 @@ class RestApiManager: NSObject {
         self.teamId = ""
     }
     
-    func validateAuthorization(onCompletionAuth: (Bool) -> Void){
+    func validateAuthorization(onCompletionAuth: (Bool, String) -> Void){
         let route = baseURL + "/_apis/projectcollections"
         
-        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+        retrieveHTTPGetRequest(route, onCompletion:  {(response: Response) in
             
-            switch self.lastResponseCode{
-            case "200":
-                onCompletionAuth(true)
-                break;
-            default:
-                onCompletionAuth(false)
-                break;
+            if let err = response.error {
+                self.setLastResponseCode(response)
+                onCompletionAuth(false, err.localizedDescription)
+                return
+            }else if let status = response.statusCode {
+                
+                switch status{
+                case 200:
+                    onCompletionAuth(true, "Auth Ok")
+                    break;
+                default:
+                    onCompletionAuth(false, "Login Failed, try again.")
+                    break;
+                }
+            }else{
+                onCompletionAuth(false, "Login Failed, try again.")
             }
         })
     }
@@ -420,6 +429,22 @@ class RestApiManager: NSObject {
         }
         
     }
+    
+    func retrieveHTTPGetRequest(path: String, apiVersion: String = "2.0", onCompletion: (request: Response) -> Void ){
+        
+        do {
+            let opt = try HTTP.GET(path, parameters: [apiVersion], headers: ["Authorization": buildBase64EncodedCredentials()])
+            opt.start { response in
+                self.setLastResponseCode(response)
+                onCompletion(request: response)    //return the entire response
+                
+            }
+        } catch let error {
+            print("got an error creating the request: \(error)")
+        }
+        
+    }
+    
     
     func setLastResponseCode(response: Response){
         if(response.statusCode != nil){

@@ -64,30 +64,19 @@ class LoginController: UIViewController {
                 
                 let itemDict:AnyObject = items[0]
                 
+                //Save information
                 RestApiManager.sharedInstance.baseURL = itemDict.valueForKey("baseUrl") as! String
                 RestApiManager.sharedInstance.usr = itemDict.objectForKey("user") as! String
                 RestApiManager.sharedInstance.pw = itemDict.objectForKey("password") as! String
                 
                 //Test that parameters are still valid.
-                RestApiManager.sharedInstance.validateAuthorization { auth in
-                    if(auth){
-                        NSOperationQueue.mainQueue().addOperationWithBlock {
-                            self.performSegueToLogin()
-                            
-                        }
-                    }else{
-                        print("auth failed")
-                        dispatch_async(dispatch_get_main_queue(), {                                         //run in the main GUI thread
-                            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-                        })
-                    }
-                }
+                valitateLogin()
             }
         }
     }
     
     override func viewDidLoad() {
-
+        
         let backgroud:UIColor = UIColor(patternImage: UIImage(named: "background")!)        //Create a color based on the backgroud image
         self.parentView.backgroundColor = backgroud                                         //set backgroud
         self.loginView.backgroundColor = UIColor.blackColor()
@@ -116,7 +105,7 @@ class LoginController: UIViewController {
         //Test conection
         RestApiManager.sharedInstance.validateAuthorization { auth in
             
-            if(auth){
+            if(auth.0){
                 print("auth ok")
                 if (self.signedInSwitch.on)
                 {
@@ -128,18 +117,52 @@ class LoginController: UIViewController {
                     KeychainWrapper.setString(credentials,forKey:"credentials")
                 }
                 
-                
                 NSOperationQueue.mainQueue().addOperationWithBlock {
                     self.performSegueToLogin()
                 }
             }else{
-                print("auth failed")
+                print(auth.1)
                 dispatch_async(dispatch_get_main_queue(), {                                         //run in the main GUI thread
                     MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                    self.alert("Login Failed", message: auth.1)
                 })
             }
         }
         
+    }
+    
+    func valitateLogin(){
+        RestApiManager.sharedInstance.validateAuthorization { auth in
+            if(auth.0){
+                print("auth ok")
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    self.performSegueToLogin()
+                }
+            }else{
+                print(auth.1)
+                dispatch_async(dispatch_get_main_queue(), {                                         //run in the main GUI thread
+                    MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                    self.alert("Login Failed", message: auth.1)
+                })
+            }
+        }
+        
+    }
+    func alert(title: String, message: String) {
+        if let _: AnyClass = NSClassFromString("UIAlertController") { // iOS 8
+            let myAlert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            myAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            self.presentViewController(myAlert, animated: true, completion: nil)
+        } else { // iOS 7
+            let alert: UIAlertView = UIAlertView()
+            alert.delegate = self
+            
+            alert.title = title
+            alert.message = message
+            alert.addButtonWithTitle("OK")
+            
+            alert.show()
+        }
     }
     
     func performSegueToLogin() -> Void{
