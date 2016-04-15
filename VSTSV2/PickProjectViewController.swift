@@ -96,16 +96,6 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     // Overridable methods
     override func viewDidLoad() {
 
-        self.tableView.separatorColor = UIColor.clearColor()
-        self.searchDisplayController!.searchResultsTableView.separatorColor = UIColor.clearColor()
-        
-        self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
-        
-        let backColor = UIColor(patternImage: UIImage(named: "background")!)
-        tableView.backgroundColor = backColor
-        self.searchDisplayController!.searchResultsTableView.backgroundColor = backColor
-        
-        self.searchDisplayController!.searchResultsTableView.rowHeight = self.tableView!.rowHeight
         
         super.viewDidLoad()
     }
@@ -113,6 +103,30 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         getProjects()
+
+        self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
+        
+        self.tableView.separatorColor = UIColor.clearColor()
+        self.searchDisplayController!.searchResultsTableView.separatorColor = UIColor.clearColor()
+        self.searchDisplayController!.searchResultsTableView.rowHeight = self.tableView!.rowHeight
+
+        
+        let backgroundImage = UIImage(named: "background")
+        let imageView = UIImageView(image: backgroundImage)
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        
+        blurView.frame = imageView.bounds
+        imageView.addSubview(blurView)
+        
+        tableView.backgroundView = imageView
+//        self.searchDisplayController!.searchResultsTableView.backgroundView = imageView
+        let backColor = UIColor(patternImage: UIImage(named: "background")!)
+        self.searchDisplayController!.searchResultsTableView.backgroundColor = backColor
+        
+//        tableView.backgroundColor = backColor
+        
     }
     
     override func viewWillDisappear(animated: Bool) {

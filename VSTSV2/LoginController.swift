@@ -77,8 +77,19 @@ class LoginController: UIViewController {
     
     override func viewDidLoad() {
         
-        let backgroud:UIColor = UIColor(patternImage: UIImage(named: "background")!)        //Create a color based on the backgroud image
-        self.parentView.backgroundColor = backgroud                                         //set backgroud
+        let backgroundImage = UIImage(named: "background")
+        let imageView = UIImageView(image: backgroundImage)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        
+        blurView.frame = imageView.bounds
+        imageView.addSubview(blurView)
+        self.parentView.addSubview(imageView)
+        
+        self.parentView.bringSubviewToFront(self.loginView)
+        self.parentView.bringSubviewToFront(self.view.viewWithTag(10)!)
+        self.parentView.bringSubviewToFront(self.view.viewWithTag(11)!)
+        
         self.loginView.backgroundColor = UIColor.blackColor()
         self.loginView.layer.cornerRadius = 10
         self.loginView.layer.masksToBounds = true

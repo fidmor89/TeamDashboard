@@ -41,15 +41,23 @@ class SecondViewController: UIViewController {
     
     override func viewDidLoad() {
         
-        let backgroud:UIColor = UIColor(patternImage: UIImage(named: "background")!)        //Create a color based on the backgroud image
-        self.parentView.backgroundColor = backgroud                                         //set backgroud
+        let backgroundImage = UIImage(named: "background")
+        let imageView = UIImageView(image: backgroundImage)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
         
-        for i in 0...self.viewSection.count-1{
-            self.viewSection[i].layer.cornerRadius = 10                                      //Round corners in sections
-            self.viewSection[i].layer.masksToBounds = true                                  //Keep child-views within the parent-view
-            self.viewSection[i].alpha = 0.75                                                //Semi transparent sections
-            self.viewSection[i].backgroundColor = UIColor.whiteColor()                      //White sections
+        blurView.frame = imageView.bounds
+        imageView.addSubview(blurView)
+        self.parentView.addSubview(imageView)
+        
+        for view in self.viewSection{
+            view.layer.cornerRadius = 10                                    //Round corners in sections
+            view.layer.masksToBounds = true                                 //Keep child-views within the parent-view
+            view.alpha = 0.75                                               //Semi transparent sections
+            view.backgroundColor = UIColor.whiteColor()                     //White sections
+            self.parentView.bringSubviewToFront(view)
         }
+
         
         super.viewDidLoad()
     }

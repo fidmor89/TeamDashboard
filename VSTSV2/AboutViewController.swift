@@ -62,8 +62,14 @@ class AboutViewController: UITableViewController {
         
         self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
         
-        let backColor = UIColor(patternImage: UIImage(named: "background")!)
-        tableView.backgroundColor = backColor
+        let backgroundImage = UIImage(named: "background")
+        let imageView = UIImageView(image: backgroundImage)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        
+        blurView.frame = imageView.bounds
+        imageView.addSubview(blurView)
+        tableView.backgroundView = imageView
     }
     
     //Cells
@@ -123,24 +129,21 @@ class AboutViewController: UITableViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header :UITableViewHeaderFooterView = UITableViewHeaderFooterView()
         
-        header.textLabel?.textColor = UIColor.whiteColor()
-        
-        //Look and feel
+        header.textLabel?.textColor = UIColor.whiteColor()  //White text
+
+        //Header clear background
+        let clearView = UIView()
+        clearView.bounds = header.bounds
+        clearView.backgroundColor = UIColor.clearColor()
+        header.backgroundView = clearView
+
+        //Semi transparent bar
         header.textLabel?.backgroundColor = UIColor.clearColor()
-        header.contentView.backgroundColor = UIColor.blackColor()
-        header.contentView.layer.cornerRadius = 20
+        header.contentView.backgroundColor = UIColor.whiteColor()
+        header.contentView.layer.cornerRadius = 10
         header.contentView.layer.masksToBounds = true
         header.contentView.alpha = 0.75
-        
-        
         header.backgroundView?.backgroundColor = UIColor.clearColor()
-
-        
-
-        
-
-
-        
         return header
     }
     //End Sections

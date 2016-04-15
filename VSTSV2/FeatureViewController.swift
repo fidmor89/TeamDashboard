@@ -64,8 +64,16 @@ class FeatureViewController: UITableViewController {
     override func viewDidLoad() {
         self.tableView.separatorColor = UIColor.clearColor()
         self.tableView?.alwaysBounceVertical = false            //If projects fit in the window there should be no scroll.
-        let backColor = UIColor(patternImage: UIImage(named: "background")!)
-        tableView.backgroundColor = backColor
+        
+        let backgroundImage = UIImage(named: "background")
+        let imageView = UIImageView(image: backgroundImage)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        
+        blurView.frame = imageView.bounds
+        imageView.addSubview(blurView)
+        self.tableView.backgroundView = imageView
+
         super.viewDidLoad()        
     }
     
