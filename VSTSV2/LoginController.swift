@@ -32,6 +32,8 @@ import MBProgressHUD
 
 class LoginController: UIViewController {
     
+    @IBOutlet weak var parentView: UIView!
+    @IBOutlet weak var loginView: UIView!
     @IBOutlet weak var serverTextField: UITextField!
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -85,11 +87,15 @@ class LoginController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+
+        let backgroud:UIColor = UIColor(patternImage: UIImage(named: "background")!)        //Create a color based on the backgroud image
+        self.parentView.backgroundColor = backgroud                                         //set backgroud
+        self.loginView.backgroundColor = UIColor.blackColor()
+        self.loginView.layer.cornerRadius = 10
+        self.loginView.layer.masksToBounds = true
+        self.loginView.alpha = 0.75
         
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone  {
-            //            vsoImage.hidden = true                          //hide bottom image if user is on iphone
-        }
+        super.viewDidLoad()
     }
     
     override func didReceiveMemoryWarning() {
