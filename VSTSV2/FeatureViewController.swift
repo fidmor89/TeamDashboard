@@ -75,8 +75,6 @@ class FeatureViewController: UITableViewController {
         }
     }
     
-
-    
     // Overridable methods
     override func viewDidLoad() {
         self.tableView.separatorColor = UIColor.clearColor()
@@ -91,11 +89,12 @@ class FeatureViewController: UITableViewController {
         imageView.addSubview(blurView)
         self.tableView.backgroundView = imageView
 
-        super.viewDidLoad()        
+        super.viewDidLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.preferredContentSize.height = CGFloat(0.01)         //Controller size
         getFeatures()
     }
     

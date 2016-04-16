@@ -80,7 +80,15 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
                                 self.projects.append(project)
                                 
                                 dispatch_async(dispatch_get_main_queue(), {
-                                    self.tableView?.reloadData()})              //reload UI data.
+                                    self.tableView?.reloadData()
+                                    
+                                    var frame = self.tableView.frame;
+                                    let max = 4000  //4000 ensures that the table view extends as needed
+                                    let heightValue = min((70 * self.projects.count) as Int, max)
+                                    frame.size.height = CGFloat(heightValue)
+                                    self.tableView.frame = frame                                    //table view size
+                                    self.preferredContentSize.height = CGFloat(heightValue)         //Controller size
+                                })
                             }
                         }
                     }
@@ -101,7 +109,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+        self.preferredContentSize.height = CGFloat(0.01)         //Controller size
         getProjects()
 
         self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
@@ -121,12 +129,10 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         imageView.addSubview(blurView)
         
         tableView.backgroundView = imageView
-//        self.searchDisplayController!.searchResultsTableView.backgroundView = imageView
         let backColor = UIColor(patternImage: UIImage(named: "background")!)
         self.searchDisplayController!.searchResultsTableView.backgroundColor = backColor
         
-//        tableView.backgroundColor = backColor
-        
+        super.viewWillAppear(animated)
     }
     
     override func viewWillDisappear(animated: Bool) {

@@ -101,12 +101,12 @@ class FirstViewController: UIViewController {
         
         //Display the data using the main thread
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-
+            
             if(UIDevice.currentDevice().modelName == "iPad Pro")
             {
                 self.step = 10.0
             }
-
+            
             
             let chartConfig = BarsChartConfig(
                 valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(self.maxValue) + (ceil(self.maxValue)/self.self.step), by: (ceil(self.maxValue)/self.step))
@@ -295,7 +295,7 @@ class FirstViewController: UIViewController {
                             }
                             
                             if daysRemaining > 0 {
-                                leftWorkDays = ": \(daysRemaining) work days remaining"
+                                leftWorkDays = "-> \(daysRemaining) work days remaining"
                             }
                             else {
                                 
@@ -339,7 +339,7 @@ class FirstViewController: UIViewController {
         
         //Team Name and Features in progress
         btnPickProject.setTitle(selectedTeam.name, forState: UIControlState.Normal)
-
+        
         
         //Get Last build
         RestApiManager.sharedInstance.getLastBuild(selectedTeam, onCompletion: { json in
@@ -481,7 +481,7 @@ class FirstViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-                
+        
         let backgroundImage = UIImage(named: "background")
         let imageView = UIImageView(image: backgroundImage)
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
@@ -490,7 +490,7 @@ class FirstViewController: UIViewController {
         blurView.frame = imageView.bounds
         imageView.addSubview(blurView)
         self.parentView.addSubview(imageView)
-
+        
         for view in self.viewSection{
             view.layer.cornerRadius = 10                                    //Round corners in sections
             view.layer.masksToBounds = true                                 //Keep child-views within the parent-view
@@ -506,6 +506,14 @@ class FirstViewController: UIViewController {
         reloadButton.setImage(image1, forState: UIControlState.Normal)
         
         listenChanges()
+        
+        
+        //Get ViewController
+        let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("pickProjectView") as! PickProjectViewController
+        
+        //Dislpay the view controller
+        self.presentViewController(viewController, animated: true, completion: nil)
+        
         super.viewDidLoad()
     }
     
