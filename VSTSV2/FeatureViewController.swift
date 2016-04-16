@@ -37,7 +37,7 @@ class FeatureViewController: UITableViewController {
     func getFeatures(){
         if (StateManager.SharedInstance.team.Project != "" && StateManager.SharedInstance.team.name != ""){
             RestApiManager.sharedInstance.getActiveFeatures(StateManager.SharedInstance.team, onCompletion:  {json in
-                //let count: Int = json["count"].int as Int!         //number of objects within json obj
+                
                 var jsonOBJCollections = json["workItems"]             //get json with features
                 
                 for (index, _) in jsonOBJCollections.enumerate() {  //for each obj in jsonOBJ
@@ -57,20 +57,22 @@ class FeatureViewController: UITableViewController {
                             frame.size.height = CGFloat(heightValue)
                             self.tableView.frame = frame                                    //table view size
                             self.preferredContentSize.height = CGFloat(heightValue)         //Controller size
+                            
+                            if self.features.isEmpty{
+                                self.dismissViewControllerAnimated(true, completion: nil)
+                            }
                         })
                     })
                 }
             })
             
-
             var frame = self.tableView.frame;                               //Get frame
             let heightValue = min((44 * self.features.count) as Int, 400)   //Nothing bigger than 400
             frame.size.height = CGFloat(heightValue)
             self.tableView.frame = frame                                    //table view size
             self.preferredContentSize.height = CGFloat(heightValue)         //Controller size
-
-        }
-        else {
+            
+        }else {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
@@ -88,7 +90,7 @@ class FeatureViewController: UITableViewController {
         blurView.frame = imageView.bounds
         imageView.addSubview(blurView)
         self.tableView.backgroundView = imageView
-
+        
         super.viewDidLoad()
     }
     
@@ -134,7 +136,7 @@ class FeatureViewController: UITableViewController {
         cell?.contentView.alpha = 0.75
         
         cell?.backgroundColor = UIColor.clearColor()
-
+        
         
         return cell!
     }
