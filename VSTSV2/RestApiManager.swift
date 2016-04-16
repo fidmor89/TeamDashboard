@@ -375,71 +375,75 @@ class RestApiManager: NSObject {
     func makeHTTPPostRequest(path: String, bodyContent: String, onCompletion: (data: NSData) -> Void ){
         
         //create the request
-        let url = NSURL(string: path)
-        let request = NSMutableURLRequest(URL: url!)
-        
-        let session = NSURLSession.sharedSession()
-        request.setValue(buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        request.HTTPMethod = "POST"
-        request.HTTPBody = bodyContent.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+        if let url = NSURL(string: path){
             
-            if let _ = error{
-                print("Post Request Error: \(error)")
-            }else{
-                onCompletion(data: data!)   //return data from POST request.
-            }
-        })
-        
-        task.resume()   //fire off the request
-    }
-    
-    
-    /**
-     @brief: Creates a HTTPOperation as a HTTP POST request and starts it for you.
-     
-     @param: path The url you would like to make a request to.
-     @param: onCompletion The closure that is run when a HTTP Request finished.
-     
-     @see: makeHTTPPostRequest
-     @see: buildAuthorizationHeader
-     */
-    func makeHTTPGetRequest(path: String, apiVersion: String = "2.0", onCompletion: (data: NSData) -> Void ){
-        
-        do {
-            let opt = try HTTP.GET(path, parameters: [apiVersion], headers: ["Authorization": buildBase64EncodedCredentials()])
-            opt.start { response in
-                if let err = response.error {
-                    print("Get Request error: \(err.localizedDescription)")
-                    self.setLastResponseCode(response)
+            let request = NSMutableURLRequest(URL: url)
+            
+            let session = NSURLSession.sharedSession()
+            request.setValue(buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            request.HTTPMethod = "POST"
+            request.HTTPBody = bodyContent.dataUsingEncoding(NSUTF8StringEncoding)
+            
+            let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
+                
+                if let _ = error{
+                    print("Post Request Error: \(error)")
                 }
                 
-                if let data = response.data as NSData? {
-                    self.setLastResponseCode(response)
-                    onCompletion(data: data)    //return data from GET request.
+                if let _ = data{
+                    onCompletion(data: data!)   //return data from POST request.
                 }
+            })
+            
+            task.resume()   //fire off the request
+        }else{
+            print("invalid url \(path)")
+        }
+    }
+    
+    func makeHTTPGetRequest(path: String, apiVersion: String = "2.0", onCompletion: (data: NSData) -> Void ){
+        
+        if let escapedAddress = path.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()){
+            do {
+                let opt = try HTTP.GET(escapedAddress, parameters: [apiVersion], headers: ["Authorization": buildBase64EncodedCredentials()])
+                opt.start { response in
+                    if let err = response.error {
+                        print("Get Request error: \(err.localizedDescription)")
+                        self.setLastResponseCode(response)
+                    }
+                    
+                    if let data = response.data as NSData? {
+                        self.setLastResponseCode(response)
+                        onCompletion(data: data)    //return data from GET request.
+                    }
+                }
+            } catch let error {
+                print("got an error creating the request: \(error)")
             }
-        } catch let error {
-            print("got an error creating the request: \(error)")
+        }else {
+            print("invalid url \(path)")
         }
         
     }
     
     func retrieveHTTPGetRequest(path: String, apiVersion: String = "2.0", onCompletion: (request: Response) -> Void ){
         
-        do {
-            let opt = try HTTP.GET(path, parameters: [apiVersion], headers: ["Authorization": buildBase64EncodedCredentials()])
-            opt.start { response in
-                self.setLastResponseCode(response)
-                onCompletion(request: response)    //return the entire response
-                
+        if let escapedAddress = path.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()){
+            do {
+                let opt = try HTTP.GET(escapedAddress, parameters: [apiVersion], headers: ["Authorization": buildBase64EncodedCredentials()])
+                opt.start { response in
+                    self.setLastResponseCode(response)
+                    onCompletion(request: response)    //return the entire response
+                    
+                }
+            } catch let error {
+                print("got an error creating the request: \(error)")
             }
-        } catch let error {
-            print("got an error creating the request: \(error)")
+        }else{
+            print("invalid url \(path)")
         }
         
     }

@@ -38,7 +38,6 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var burnChartImageView: UIImageView!
     
     //Team Name and Features in Progress
-    @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var IterationLabel: UILabel!
     @IBOutlet weak var RemainingWorkDaysLabel: UILabel!
     
@@ -95,10 +94,10 @@ class FirstViewController: UIViewController {
     private var chart: Chart?
     private var maxValue: Double = Double(1.0)
     
-    private func drawBuildsGraph(){
+    private func drawBuildsGraph(retrieveData: Bool = true){
         if StateManager.SharedInstance.team.id == "" { return } //not ready get display data.
         
-        getBuildsData()
+        if retrieveData { getBuildsData() }
         
         //Display the data using the main thread
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -296,7 +295,7 @@ class FirstViewController: UIViewController {
                             }
                             
                             if daysRemaining > 0 {
-                                leftWorkDays = "-> \(daysRemaining) work days remaining"
+                                leftWorkDays = ": \(daysRemaining) work days remaining"
                             }
                             else {
                                 
@@ -339,7 +338,8 @@ class FirstViewController: UIViewController {
         }
         
         //Team Name and Features in progress
-        self.teamNameLabel.text = selectedTeam.name         //Display team name.
+        btnPickProject.setTitle(selectedTeam.name, forState: UIControlState.Normal)
+
         
         //Get Last build
         RestApiManager.sharedInstance.getLastBuild(selectedTeam, onCompletion: { json in
@@ -473,7 +473,7 @@ class FirstViewController: UIViewController {
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        self.drawBuildsGraph()
+        self.drawBuildsGraph(false)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -517,7 +517,7 @@ class FirstViewController: UIViewController {
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         
         dispatch_async(backgroundQueue, {
-            self.drawBuildsGraph()
+            self.drawBuildsGraph(false)
         })
     }
     

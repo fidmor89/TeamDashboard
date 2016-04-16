@@ -72,10 +72,10 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
                                 project.Collection = collectionTemp
                                 project.Project = projectTemp
                                 
-                                print("Collection: \(project.Collection)")
-                                print("Project: \(project.Project)")
-                                print("Team: \(project.name)")
-                                print("")
+//                                print("Collection: \(project.Collection)")
+//                                print("Project: \(project.Project)")
+//                                print("Team: \(project.name)")
+//                                print("")
                                 
                                 self.projects.append(project)
                                 
