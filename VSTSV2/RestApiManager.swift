@@ -78,7 +78,7 @@ class RestApiManager: NSObject {
         
         let route = baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_api/_teamChart/Burndown?chartOptions=%7B%22Width%22%3A936%2C%22Height%22%3A503%2C%22ShowDetails%22%3Atrue%2C%22Title%22%3A%22%22%7D&counter=2&iterationPath=\(iterationPath)&__v=5"
         
-        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             onCompletion(data: data)    //Pass back NSData object with the image contents
         })
     }
@@ -132,108 +132,108 @@ class RestApiManager: NSObject {
         return nil
     }
     
-    func getTeamSettings(team:Team, onCompletion: (JSON) -> Void) {
+    func getTeamSettings(team:Team, onCompletion: (JSON, (Int, String)) -> Void) {
         let route = baseURL + "/\(team.Collection)/\(team.Project)/\(team.name)/_apis/work/teamsettings?api-version=2.0"
         
-        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             //parse NSData to JSON
             let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func getTeams(onCompletion: (JSON) -> Void) {
+    func getTeams(onCompletion: (JSON, (Int, String)) -> Void) {
         
         let route = baseURL + "/\(collection!)/_apis/projects"       //API request route
         
-        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             //parse NSData to JSON
             let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func getTeamProjects(onCompletion: (JSON) -> Void) {
+    func getTeamProjects(onCompletion: (JSON, (Int, String)) -> Void) {
         let route = baseURL + "/\(collection!)/_apis/projects/\(projectId!)/teams"       //API request route
         
         
-        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             //parse NSData to JSON
             let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func getCollections(onCompletion: (JSON) -> Void) {
+    func getCollections(onCompletion: (JSON, (Int, String)) -> Void) {
         
         let route = baseURL + "/_apis/projectcollections"       //API request route
         
-        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             //parse NSData to JSON
             let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func getProjects(onCompletion: (JSON) -> Void) {
+    func getProjects(onCompletion: (JSON, (Int, String)) -> Void) {
         
         let route = baseURL + "/\(collection!)/_apis/projects"       //API request route
         
-        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             //parse NSData to JSON
             let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func getIterationsByTeamAndProject(onCompletion: (JSON) -> Void){
+    func getIterationsByTeamAndProject(onCompletion: (JSON, (Int, String)) -> Void){
         let route = baseURL + "/\(collection!)/\(projectId!)/\(teamId)/_apis/work/teamsettings/iterations"
         
-        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             //parse NSData to JSON
             let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func getCurrentSprint(onCompletion: (JSON) -> Void){
+    func getCurrentSprint(onCompletion: (JSON, (Int, String)) -> Void){
         let route = baseURL + "/\(collection!)/\(projectId!)/\(teamId)/_apis/work/teamsettings/iterations?$timeframe=current"
         
-        makeHTTPGetRequest(route, onCompletion:  {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             //parse NSData to JSON
             let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func retrieveLatestBuilds(team: Team, top: Int!, onCompletion: (JSON) -> Void) {
+    func retrieveLatestBuilds(team: Team, top: Int!, onCompletion: (JSON, (Int, String)) -> Void) {
         
         
         let route = baseURL + "/\(team.Collection)/\(team.Project)/_apis/build/builds?api-version=2.0&$top=\(top!)"
         
-        makeHTTPGetRequest(route, onCompletion: {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             let json:JSON = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func getLastBuild(team: Team, onCompletion: (JSON) -> Void) {
+    func getLastBuild(team: Team, onCompletion: (JSON, (Int, String)) -> Void) {
         let route = baseURL + "/\(team.Collection)/\(team.Project)/_apis/build/builds?api-version=2.0&$top=1"
-        makeHTTPGetRequest(route, onCompletion: {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             let json:JSON = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func getLastBuildCodeCoverage(team: Team, buildId: Int, onCompletion: (JSON) -> Void) {
+    func getLastBuildCodeCoverage(team: Team, buildId: Int, onCompletion: (JSON, (Int, String)) -> Void) {
         let route = baseURL + "/\(team.Collection)/\(team.Project)/_apis/test/codeCoverage?buildId=\(buildId)&flags=7&api-version=2.0-preview"
-        makeHTTPGetRequest(route, apiVersion: "2.0-preview", onCompletion: {(data: NSData) in
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             let json: JSON = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error: nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func getTaks(onCompletion: (JSON) -> Void){
+    func getTaks(onCompletion: (JSON, (Int, String)) -> Void){
         
         let newIteration = self.iterationPath.stringByReplacingOccurrencesOfString("\\", withString: "\\\\", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
@@ -241,22 +241,23 @@ class RestApiManager: NSObject {
         
         let query = "{\"query\": \"SELECT [System.Id] FROM WorkItems WHERE [System.WorkItemType] = 'Task'  AND [System.IterationPath] = '\(newIteration)'\"}"
         
-        queryServer(route, query: query, onCompletion: {data in
-            onCompletion(data)                  //Pass up data
+        queryServer(route, query: query, onCompletion: {data, result in
+            onCompletion(data, result)                  //Pass up data
         })
+
         
     }
     
-    private func runWIQL(Query: String, onCompletion: (JSON) -> Void){
+    private func runWIQL(query: String, onCompletion: (JSON, (Int, String)) -> Void){
         
         let route = baseURL + "/\(collection!)/\(projectId!)/_apis/wit/wiql?api-version=2.0"
-        queryServer(route, query: Query, onCompletion: { jsonData in
-            onCompletion(jsonData)                      //Passing back the json object
+        queryServer(route, query: query, onCompletion: {data, result in
+            onCompletion(data, result)                  //Pass up data
         })
         
     }
     
-    func countWorkItemType(var StateSelector: String, WorkItemType: String, onCompletion: (JSON) -> Void){
+    func countWorkItemType(var StateSelector: String, WorkItemType: String, onCompletion: (JSON, (Int, String)) -> Void){
         
         if StateSelector != ""{
             StateSelector = "AND (\(StateSelector))"
@@ -272,7 +273,7 @@ class RestApiManager: NSObject {
         })
     }
     
-    func countTestCases(selectedTeam: Team, Automated: Bool, onCompletion: (JSON) -> Void){
+    func countTestCases(selectedTeam: Team, Automated: Bool, onCompletion: (JSON, (Int, String)) -> Void){
         
         var Selector: String = "AND [System.AreaPath] under ' \(selectedTeam.Project)\\\\\(selectedTeam.name)'"     //area path is: Project\\Team
         if Automated{
@@ -286,7 +287,7 @@ class RestApiManager: NSObject {
         })
     }
     
-    func getActiveFeatures(selectedTeam: Team, onCompletion: (JSON) -> Void){
+    func getActiveFeatures(selectedTeam: Team, onCompletion: (JSON, (Int, String)) -> Void){
         let query = "{\"query\": \"SELECT [System.Id] FROM WorkItems  WHERE [System.WorkItemType] = 'Feature' AND [System.AreaPath] = '\(selectedTeam.Project)\\\\\(selectedTeam.name)' AND [System.State]='In Progress'\"}"
         
         runWIQL(query, onCompletion: { jsonData in
@@ -295,52 +296,53 @@ class RestApiManager: NSObject {
         
     }
     
-    func getFeature(url: String, onCompletion: (JSON) -> Void){
-        makeHTTPGetRequest(url, onCompletion: {(data: NSData) in
+    func getFeature(route: String, onCompletion: (JSON, (Int, String)) -> Void){
+        makeHTTPGetRequest(route, onCompletion:  {(data: NSData, code: (Int, String)) in
             let json:JSON = JSON(data: data, options: NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)
+            onCompletion(json, code)
         })
     }
     
-    func getEpics(onCompletion: (JSON) -> Void){
+    func getEpics(onCompletion: (JSON, (Int, String)) -> Void){
         
         let query = "{\"query\": \"SELECT [System.Id] FROM WorkItems  WHERE [System.WorkItemType] = 'Epic' AND [System.AreaPath] = '\(projectId!)\\\\\(teamId)'\"}"
         
         let route = baseURL + "/\(collection!)/\(projectId!)/_apis/wit/wiql?api-version=2.0"
         
-        queryServer(route, query: query, onCompletion: {data in
-            onCompletion(data)                  //Pass up data
+        queryServer(route, query: query, onCompletion: {data, result in
+            onCompletion(data, result)                  //Pass up data
         })
     }
     
-    func getFeatures(onCompletion: (JSON) -> Void){
+    func getFeatures(onCompletion: (JSON, (Int, String)) -> Void){
         
         let query = "{\"query\": \"SELECT [System.Id] FROM WorkItems  WHERE [System.WorkItemType] = 'Feature' AND [System.AreaPath] = '\(projectId!)\\\\\(teamId)'\"}"
         
         let route = baseURL + "/\(collection!)/\(projectId!)/_apis/wit/wiql?api-version=2.0"
         
-        queryServer(route, query: query, onCompletion: {data in
-            onCompletion(data)                  //Pass up data
+        queryServer(route, query: query, onCompletion: {data, result in
+            onCompletion(data, result)                  //Pass up data
         })
     }
     
-    func getPBI(onCompletion: (JSON) -> Void){
+    func getPBI(onCompletion: (JSON, (Int, String)) -> Void){
         
         let query = "{\"query\": \"SELECT [System.Id] FROM WorkItems  WHERE [System.WorkItemType] = 'Product Backlog Item' AND [System.AreaPath] = '\(projectId!)\\\\\(teamId)'\"}"
         
         let route = baseURL + "/\(collection!)/\(projectId!)/_apis/wit/wiql?api-version=2.0"
         
-        queryServer(route, query: query, onCompletion: {data in
-            onCompletion(data)                  //Pass up data
+        queryServer(route, query: query, onCompletion: {data, result in
+            onCompletion(data, result)                  //Pass up data
         })
     }
     
-    func queryServer(route: String, query: String, onCompletion: (JSON) -> Void){
-        makeHTTPPostRequest(route, bodyContent: query, onCompletion: {(data: NSData) in
+    func queryServer(route: String, query: String, onCompletion: (JSON, result: (Int, String)) -> Void){
+        
+        makeHTTPPostRequest(route, bodyContent: query) { (data, returnCode) -> Void in
             //parse NSData to JSON
             let json:JSON = JSON(data: data, options:NSJSONReadingOptions.MutableContainers, error:nil)
-            onCompletion(json)            //return results from request
-        })
+            onCompletion(json, result: returnCode)            //return results from request
+        }
     }
     
     func connectToWebAPI(){
@@ -372,7 +374,7 @@ class RestApiManager: NSObject {
         task.resume()
     }
     
-    func makeHTTPPostRequest(path: String, bodyContent: String, onCompletion: (data: NSData) -> Void ){
+    func makeHTTPPostRequest(path: String, bodyContent: String, onCompletion: (data: NSData, returnCode: (Int, String)) -> Void ){
         
         //create the request
         if let url = NSURL(string: path){
@@ -389,12 +391,16 @@ class RestApiManager: NSObject {
             
             let task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
                 
+                var errCode = 0
+                var errDesc = ""
                 if let _ = error{
                     print("Post Request Error: \(error)")
+                    errCode = (error?.code)!
+                    errDesc = (error?.localizedDescription)!
                 }
                 
                 if let _ = data{
-                    onCompletion(data: data!)   //return data from POST request.
+                    onCompletion(data: data!, returnCode: (errCode, errDesc))   //return data from POST request.
                 }
             })
             
@@ -404,20 +410,24 @@ class RestApiManager: NSObject {
         }
     }
     
-    func makeHTTPGetRequest(path: String, apiVersion: String = "2.0", onCompletion: (data: NSData) -> Void ){
+    func makeHTTPGetRequest(path: String, apiVersion: String = "2.0", onCompletion: (data: NSData, returnCode: (Int, String)) -> Void ){
         
         if let escapedAddress = path.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet()){
             do {
                 let opt = try HTTP.GET(escapedAddress, parameters: [apiVersion], headers: ["Authorization": buildBase64EncodedCredentials()])
                 opt.start { response in
+                    var returnCode = 0
+                    var errorDesc = ""
                     if let err = response.error {
-                        print("Get Request error: \(err.localizedDescription)")
+                        print("Get Request error: \(err.localizedDescription) - \(err.code)")
+                        returnCode = err.code
+                        errorDesc = err.localizedDescription
                         self.setLastResponseCode(response)
                     }
                     
                     if let data = response.data as NSData? {
                         self.setLastResponseCode(response)
-                        onCompletion(data: data)    //return data from GET request.
+                        onCompletion(data: data, returnCode: (returnCode, errorDesc))    //return data from GET request.
                     }
                 }
             } catch let error {
@@ -447,7 +457,6 @@ class RestApiManager: NSObject {
         }
         
     }
-    
     
     func setLastResponseCode(response: Response){
         if(response.statusCode != nil){

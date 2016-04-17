@@ -157,7 +157,7 @@ class FirstViewController: UIViewController {
             quantity = 10
         }
         
-        RestApiManager.sharedInstance.retrieveLatestBuilds(selectedTeam, top: quantity) { json in
+        RestApiManager.sharedInstance.retrieveLatestBuilds(selectedTeam, top: quantity) { json, result in
             
             let jsonOBJ = json["value"]
             for obj in jsonOBJ{
@@ -227,7 +227,7 @@ class FirstViewController: UIViewController {
         RestApiManager.sharedInstance.teamId = selectedTeam.id
         
         //Current Sprint Status
-        RestApiManager.sharedInstance.getCurrentSprint { json in
+        RestApiManager.sharedInstance.getCurrentSprint { json, result in
             
             if let count: Int = json["count"].int as Int! {//If there is something in the JSON object
                 var jsonOBJ = json["value"]
@@ -257,7 +257,7 @@ class FirstViewController: UIViewController {
                         formatedStartDate = dateFormatter.stringFromDate(dateStart!)
                         formatedEndDate = dateFormatter.stringFromDate(dateEnd!)
                         
-                        RestApiManager.sharedInstance.getTeamSettings(selectedTeam, onCompletion: { json in
+                        RestApiManager.sharedInstance.getTeamSettings(selectedTeam, onCompletion: { json, result in
                             var workingDays = json["workingDays"]
                             var intWorkingDays : [Int] = []
                             for index in 0...(workingDays.count - 1) {
@@ -355,7 +355,7 @@ class FirstViewController: UIViewController {
         
         
         //Get Last build
-        RestApiManager.sharedInstance.getLastBuild(selectedTeam, onCompletion: { json in
+        RestApiManager.sharedInstance.getLastBuild(selectedTeam, onCompletion: { json, result in
             let count: Int = json["count"].int as Int!
             var jsonOBJ = json["value"]
             var status: String = ""
@@ -384,7 +384,7 @@ class FirstViewController: UIViewController {
                     sLatestBuild = dateFormatter.stringFromDate(dFinishTime)
                     
                     //Code coverage metrics
-                    RestApiManager.sharedInstance.getLastBuildCodeCoverage(selectedTeam, buildId: build, onCompletion: { json in
+                    RestApiManager.sharedInstance.getLastBuildCodeCoverage(selectedTeam, buildId: build, onCompletion: { json, result in
                         let count: Int = json["count"].int as Int!
                         var jsonOBJ = json["value"]
                         var blocksCovered : Int = 0
@@ -462,7 +462,7 @@ class FirstViewController: UIViewController {
     }
     
     func setTestCasesCount(selectedTeam: Team, Automated: Bool, WorkItemType: String, controlObject:UILabel){
-        RestApiManager.sharedInstance.countTestCases(selectedTeam, Automated: Automated, onCompletion:{json in
+        RestApiManager.sharedInstance.countTestCases(selectedTeam, Automated: Automated, onCompletion:{ json, result in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 let workItems = json["workItems"].arrayValue
                 controlObject.text = String(workItems.count)
@@ -471,7 +471,7 @@ class FirstViewController: UIViewController {
     }
     
     func setWorkItemsCount(StateSelector: String, WorkItemType: String, controlObject:UILabel){
-        RestApiManager.sharedInstance.countWorkItemType(StateSelector, WorkItemType: WorkItemType, onCompletion: {json in
+        RestApiManager.sharedInstance.countWorkItemType(StateSelector, WorkItemType: WorkItemType, onCompletion: { json, result in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 let workItems = json["workItems"].arrayValue
                 controlObject.text = String(workItems.count)

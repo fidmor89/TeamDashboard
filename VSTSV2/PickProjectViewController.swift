@@ -36,65 +36,74 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     
     func getProjects(){
         
-        RestApiManager.sharedInstance.getCollections { json in
-            let count: Int = json["count"].int as Int!         //number of objects within json obj
-            var jsonOBJCollections = json["value"]                         //get json with projects
-            
-            for index in 0...(count-1) {                        //for each obj in jsonOBJ
-                
-                let collectionTemp = jsonOBJCollections[index]["name"].string as String! ?? ""
-                RestApiManager.sharedInstance.collection = collectionTemp
-                
-                RestApiManager.sharedInstance.getProjects { json in
-                    let count: Int = json["count"].int as Int!         //number of objects within json object
-                    var jsonOBJProjects = json["value"]                        //get json with projects
+        RestApiManager.sharedInstance.getCollections { json, result in
+            if (result.0 == 0){
+                let count: Int = json["count"].int as Int!         //number of objects within json obj
+                var jsonOBJCollections = json["value"]                         //get json with projects
+                for index in 0...(count-1) {                        //for each obj in jsonOBJ
                     
-                    for index in 0...(count-1) {                        //for each obj in jsonOBJ
+                    let collectionTemp = jsonOBJCollections[index]["name"].string as String! ?? ""
+                    RestApiManager.sharedInstance.collection = collectionTemp
+                    
+                    RestApiManager.sharedInstance.getProjects { json, result in
+                        if(result.0 == 0){
+                        let count: Int = json["count"].int as Int!         //number of objects within json object
+                        var jsonOBJProjects = json["value"]                        //get json with projects
                         
-                        RestApiManager.sharedInstance.projectId = jsonOBJProjects[index]["id"].string as String! ?? ""
-                        let projectTemp = jsonOBJProjects[index]["name"].string as String! ?? ""
-                        
-                        RestApiManager.sharedInstance.getTeamProjects { json in
+                        for index in 0...(count-1) {                        //for each obj in jsonOBJ
                             
-                            let count: Int = json["count"].int as Int!         //number of objects within json obj
-                            var jsonOBJ = json["value"]                         //get json with projects
+                            RestApiManager.sharedInstance.projectId = jsonOBJProjects[index]["id"].string as String! ?? ""
+                            let projectTemp = jsonOBJProjects[index]["name"].string as String! ?? ""
                             
-                            for index in 0...(count-1) {                        //for each obj in jsonOBJ
-                                
-                                var project : Team = Team()
-                                
-                                project.id = jsonOBJ[index]["id"].string as String! ?? ""
-                                project.name = jsonOBJ[index]["name"].string as String! ?? ""
-                                project.url = jsonOBJ[index]["url"].string as String! ?? ""
-                                project.description = jsonOBJ[index]["description"].string as String! ?? ""
-                                project.state = jsonOBJ[index]["state"].string as String! ?? ""
-                                project.revision = jsonOBJ[index]["revision"].string as String! ?? ""
-                                project.Collection = collectionTemp
-                                project.Project = projectTemp
-                                
-//                                print("Collection: \(project.Collection)")
-//                                print("Project: \(project.Project)")
-//                                print("Team: \(project.name)")
-//                                print("")
-                                
-                                self.projects.append(project)
-                                
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    self.tableView?.reloadData()
+                            RestApiManager.sharedInstance.getTeamProjects { json, result in
+                                if result.0 == 0{
+                                    let count: Int = json["count"].int as Int!         //number of objects within json obj
+                                    var jsonOBJ = json["value"]                         //get json with projects
                                     
-                                    var frame = self.tableView.frame;
-                                    let heightValue = min(CGFloat(70 * self.projects.count), UIScreen.mainScreen().bounds.height)
-                                    frame.size.height = CGFloat(heightValue)
-                                    self.tableView.frame = frame                                    //table view size
-                                    self.preferredContentSize.height = CGFloat(heightValue)         //Controller size
-                                })
+                                    for index in 0...(count-1) {                        //for each obj in jsonOBJ
+                                        
+                                        var project : Team = Team()
+                                        
+                                        project.id = jsonOBJ[index]["id"].string as String! ?? ""
+                                        project.name = jsonOBJ[index]["name"].string as String! ?? ""
+                                        project.url = jsonOBJ[index]["url"].string as String! ?? ""
+                                        project.description = jsonOBJ[index]["description"].string as String! ?? ""
+                                        project.state = jsonOBJ[index]["state"].string as String! ?? ""
+                                        project.revision = jsonOBJ[index]["revision"].string as String! ?? ""
+                                        project.Collection = collectionTemp
+                                        project.Project = projectTemp
+                                        
+                                        //                                print("Collection: \(project.Collection)")
+                                        //                                print("Project: \(project.Project)")
+                                        //                                print("Team: \(project.name)")
+                                        //                                print("")
+                                        
+                                        self.projects.append(project)
+                                        
+                                        dispatch_async(dispatch_get_main_queue(), {
+                                            self.tableView?.reloadData()
+                                            
+                                            var frame = self.tableView.frame;
+                                            let heightValue = min(CGFloat(70 * self.projects.count), UIScreen.mainScreen().bounds.height)
+                                            frame.size.height = CGFloat(heightValue)
+                                            self.tableView.frame = frame                                    //table view size
+                                            self.preferredContentSize.height = CGFloat(heightValue)         //Controller size
+                                        })
+                                    }
+                                }else{
+                                    self.showAlertMessage("Connection error", message: result.1, handler: nil)
+                                }
+                                
                             }
+                        }
+                        }else{
+                            self.showAlertMessage("Connection error", message: result.1, handler: nil)
                         }
                     }
                     
-                    
                 }
-                
+            }else{
+                self.showAlertMessage("Connection error", message: result.1, handler: nil)
             }
         }
         
@@ -102,7 +111,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     
     // Overridable methods
     override func viewDidLoad() {
-
+        
         
         super.viewDidLoad()
     }
@@ -110,13 +119,13 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     override func viewWillAppear(animated: Bool) {
         self.preferredContentSize.height = CGFloat(0.01)         //Controller size
         getProjects()
-
+        
         self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
         
         self.tableView.separatorColor = UIColor.clearColor()
         self.searchDisplayController!.searchResultsTableView.separatorColor = UIColor.clearColor()
         self.searchDisplayController!.searchResultsTableView.rowHeight = self.tableView!.rowHeight
-
+        
         
         let backgroundImage = UIImage(named: "background")
         let imageView = UIImageView(image: backgroundImage)
@@ -185,14 +194,14 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
             cell!.titleText.text = project.name
             cell!.detailText.text = project.Collection + "/" + project.Project
         }
-
+        
         cell?.textLabel?.backgroundColor = UIColor.clearColor()
         
         cell?.contentView.backgroundColor = UIColor.whiteColor()
         cell?.contentView.layer.cornerRadius = 10
         cell?.contentView.layer.masksToBounds = true
         cell?.contentView.alpha = 0.75
-
+        
         cell?.backgroundColor = UIColor.clearColor()
         
         return cell!
@@ -245,5 +254,25 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         self.filterContentForSearchText(searchString!, scope: searchOption)
         return true
     }
+    
+    func showAlertMessage(title: String, message: String, handler: ((UIAlertAction) -> Void)?){
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            let alert = UIAlertController(
+                title: title,
+                message: message,
+                preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: handler))
+            
+            if((alert.presentingViewController) == nil){
+                self.presentViewController(alert, animated: true, completion: {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                })
+            }
+
+        })
+    }
+    
     
 }

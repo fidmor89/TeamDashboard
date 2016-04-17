@@ -36,7 +36,7 @@ class FeatureViewController: UITableViewController {
     
     func getFeatures(){
         if (StateManager.SharedInstance.team.Project != "" && StateManager.SharedInstance.team.name != ""){
-            RestApiManager.sharedInstance.getActiveFeatures(StateManager.SharedInstance.team, onCompletion:  {json in
+            RestApiManager.sharedInstance.getActiveFeatures(StateManager.SharedInstance.team, onCompletion:  {json, result in
                 
                 var jsonOBJCollections = json["workItems"]             //get json with features
                 
@@ -44,7 +44,7 @@ class FeatureViewController: UITableViewController {
                     
                     let featureUrl = jsonOBJCollections[index]["url"].string as String! ?? ""
                     
-                    RestApiManager.sharedInstance.getFeature(featureUrl, onCompletion: { json1 in
+                    RestApiManager.sharedInstance.getFeature(featureUrl, onCompletion: { json1, result in
                         let fields = json1["fields"]
                         let name = fields["System.Title"].string as String! ?? ""
                         self.features.append(name)
