@@ -34,5 +34,6 @@ class StateManager {
     
     //Properties
     var team : Team = Team()
+    var previousTeam : Team = Team()
     var changed: Bool = false
 }

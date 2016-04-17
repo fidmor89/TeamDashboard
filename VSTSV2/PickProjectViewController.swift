@@ -143,6 +143,9 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     
     // Selected a row
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        StateManager.SharedInstance.previousTeam = StateManager.SharedInstance.team
+        
         if tableView == self.searchDisplayController!.searchResultsTableView {
             StateManager.SharedInstance.team = filterProjects[indexPath.row]
         } else {

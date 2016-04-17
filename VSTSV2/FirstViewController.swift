@@ -28,6 +28,7 @@
 
 import UIKit
 import SwiftCharts
+import MBProgressHUD
 
 
 class FirstViewController: UIViewController {
@@ -136,7 +137,8 @@ class FirstViewController: UIViewController {
                 
                 latestBuildsViewSection.addSubview(chart.view)
                 self.chart = chart
-                
+             
+                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             }else{
                 print("View with tag 1 not found, check the storyboard")
             }
@@ -213,6 +215,12 @@ class FirstViewController: UIViewController {
     }
     
     private func drawDashboard(){
+        
+        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.Indeterminate
+        loadingNotification.labelText = "Loading"
+
+        
         var waitingForIterationPaht = true
         var abort = false
         let selectedTeam = StateManager.SharedInstance.team
@@ -331,8 +339,13 @@ class FirstViewController: UIViewController {
                     message: "The team you selected does not have any sprints assigned. contact your VSTS/TFS admin",
                     preferredStyle: UIAlertControllerStyle.Alert)
                 
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
+                    self.btnPickProject.sendActionsForControlEvents(.TouchUpInside)     //Show pick project
+                    StateManager.SharedInstance.team = StateManager.SharedInstance.previousTeam
+                }))
                 self.presentViewController(alert, animated: true, completion: nil)
+                
+                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)         //Hide loading
                 return  //Stop wating and dont update the UI
             }
         }
@@ -507,13 +520,9 @@ class FirstViewController: UIViewController {
         
         listenChanges()
         
-        
-        //Get ViewController
-        let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("pickProjectView") as! PickProjectViewController
-        
-        //Dislpay the view controller
-        self.presentViewController(viewController, animated: true, completion: nil)
-        
+        //Pick Project
+        self.btnPickProject.sendActionsForControlEvents(.TouchUpInside)
+
         super.viewDidLoad()
     }
     
@@ -538,7 +547,6 @@ class FirstViewController: UIViewController {
         if StateManager.SharedInstance.team.id != "" {
             print("Reloading...")
             self.drawDashboard()
-            print("Reloading finished.")
         }
     }
     
