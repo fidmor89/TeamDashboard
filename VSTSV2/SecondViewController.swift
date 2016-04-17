@@ -26,6 +26,7 @@
 //    SOFTWARE.
 
 import UIKit
+import MBProgressHUD
 
 class SecondViewController: UIViewController {
     
@@ -57,7 +58,7 @@ class SecondViewController: UIViewController {
             view.backgroundColor = UIColor.whiteColor()                     //White sections
             self.parentView.bringSubviewToFront(view)
         }
-
+        
         
         super.viewDidLoad()
     }
@@ -90,6 +91,12 @@ class SecondViewController: UIViewController {
     }
     
     func drawVelocityChart(){
+        
+        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.upperLeftImageView, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.Indeterminate
+        loadingNotification.labelText = "Loading"
+        
+        
         if let imageURL = RestApiManager.sharedInstance.getVelocityURL(StateManager.SharedInstance.team){
             
             let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
@@ -103,14 +110,21 @@ class SecondViewController: UIViewController {
                             self.upperLeftImageView.setImageWithAnimation(image)
                         }
                     }
+                    MBProgressHUD.hideAllHUDsForView(self.upperLeftImageView, animated: true)
             })
         }else{
+            MBProgressHUD.hideAllHUDsForView(self.upperLeftImageView, animated: true)
             self.upperLeftImageView.setImageWithAnimation(UIImage(named: "sadFace")!)
             everythingOk = false
         }
     }
     
     func drawChartWithCategory(Category:String, chart:UIImageView){
+        
+        let loadingNotification = MBProgressHUD.showHUDAddedTo(chart, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.Indeterminate
+        loadingNotification.labelText = "Loading"
+        
         if let imageURL = RestApiManager.sharedInstance.getComulativeFlow(StateManager.SharedInstance.team, Category: Category){
             
             let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
@@ -124,8 +138,10 @@ class SecondViewController: UIViewController {
                             chart.setImageWithAnimation(image)
                         }
                     }
+                    MBProgressHUD.hideAllHUDsForView(chart, animated: true)
             })
         }else{
+            MBProgressHUD.hideAllHUDsForView(chart, animated: true)
             chart.setImageWithAnimation(UIImage(named: "sadFace")!)
             everythingOk = false
         }
