@@ -83,8 +83,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
                                     self.tableView?.reloadData()
                                     
                                     var frame = self.tableView.frame;
-                                    let max = 4000  //4000 ensures that the table view extends as needed
-                                    let heightValue = min((70 * self.projects.count) as Int, max)
+                                    let heightValue = min(CGFloat(70 * self.projects.count), UIScreen.mainScreen().bounds.height)
                                     frame.size.height = CGFloat(heightValue)
                                     self.tableView.frame = frame                                    //table view size
                                     self.preferredContentSize.height = CGFloat(heightValue)         //Controller size

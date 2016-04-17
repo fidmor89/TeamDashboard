@@ -52,11 +52,11 @@ class FeatureViewController: UITableViewController {
                         dispatch_async(dispatch_get_main_queue(), {
                             self.tableView?.reloadData()
                             
-                            var frame = self.tableView.frame;                               //Get frame
-                            let heightValue = min((44 * self.features.count) as Int, 400)   //Nothing bigger than 400
-                            frame.size.height = CGFloat(heightValue)
-                            self.tableView.frame = frame                                    //table view size
-                            self.preferredContentSize.height = CGFloat(heightValue)         //Controller size
+                            var frame = self.tableView.frame;
+                            let heightValue = min(CGFloat(44 * self.features.count), UIScreen.mainScreen().bounds.height)
+                            frame.size.height = heightValue
+                            self.tableView.frame = frame
+                            self.preferredContentSize.height = heightValue
                             
                             if self.features.isEmpty{
                                 self.dismissViewControllerAnimated(true, completion: nil)
@@ -65,13 +65,6 @@ class FeatureViewController: UITableViewController {
                     })
                 }
             })
-            
-            var frame = self.tableView.frame;                               //Get frame
-            let heightValue = min((44 * self.features.count) as Int, 400)   //Nothing bigger than 400
-            frame.size.height = CGFloat(heightValue)
-            self.tableView.frame = frame                                    //table view size
-            self.preferredContentSize.height = CGFloat(heightValue)         //Controller size
-            
         }else {
             self.dismissViewControllerAnimated(true, completion: nil)
         }

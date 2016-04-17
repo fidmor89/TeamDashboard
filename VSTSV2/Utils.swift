@@ -28,8 +28,7 @@
 import Foundation
 import UIKit
 
-extension String
-{
+extension String{
     func trim() -> String
     {
         return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
