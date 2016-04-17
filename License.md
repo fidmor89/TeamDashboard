@@ -1,6 +1,11 @@
-The MIT License (MIT)
+Visual Studio Team Dashboard (VSTD)
 
-Copyright (c) 2016 Fidel Esteban Morales Cifuentes
+Created by Fidel Esteban Morales Cifuentes on 1/18/16.
+
+Copyright (c) 2016 Fidel Esteban Morales Cifuentes. All rights reserved.
+
+
+The MIT License (MIT)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +31,7 @@ CONTRIBUTORS:
 
 - Luis Roberto Rosales Enriquez - Developer and API Researcher - https://github.com/chirislash
 
-- Jose Rodrigo González López - Developer - https://github.com/jrglopez	
+- Jose Rodrigo González López - UI Control Researcher - https://github.com/jrglopez	
 
 - Manuel Santizo - Manual Tester - https://github.com/Manu1217
 
