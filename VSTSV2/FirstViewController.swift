@@ -158,7 +158,7 @@ class FirstViewController: UIViewController {
         }
         
         RestApiManager.sharedInstance.retrieveLatestBuilds(selectedTeam, top: quantity) { json, result in
-            
+            if result.0 == 0{
             let jsonOBJ = json["value"]
             for obj in jsonOBJ{
                 
@@ -207,6 +207,9 @@ class FirstViewController: UIViewController {
                 }
             }
             waitingForBuildsData = false
+            }else{
+                self.showAlertMessage("Connection error", message: result.1, handler: nil)
+            }
         }
         
         while(waitingForBuildsData){

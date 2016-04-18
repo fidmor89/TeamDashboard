@@ -255,24 +255,8 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         return true
     }
     
-    func showAlertMessage(title: String, message: String, handler: ((UIAlertAction) -> Void)?){
-        dispatch_async(dispatch_get_main_queue(), {
-            
-            let alert = UIAlertController(
-                title: title,
-                message: message,
-                preferredStyle: UIAlertControllerStyle.Alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: handler))
-            
-            if((alert.presentingViewController) == nil){
-                self.presentViewController(alert, animated: true, completion: {
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                })
-            }
+  
 
-        })
-    }
     
     
 }
