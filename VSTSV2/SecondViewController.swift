@@ -70,10 +70,10 @@ class SecondViewController: UIViewController {
         drawChartWithCategory("Microsoft.FeatureCategory", chart:self.lowerLeftImageView)
         drawChartWithCategory("Microsoft.EpicCategory", chart:self.lowerRightImageView)
         
-        createTapGesture("velocityTap", UIControl: self.lowerLeftImageView)
-        createTapGesture("RequirementsTap", UIControl: self.lowerRightImageView)
-        createTapGesture("FeaturesTap", UIControl: self.upperRightImageView)
-        createTapGesture("EpicsTap", UIControl: self.upperLeftImageView)
+        createTapGesture("FeaturesTap", UIControl: self.lowerLeftImageView)
+        createTapGesture("EpicsTap", UIControl: self.lowerRightImageView)
+        createTapGesture("RequirementsTap", UIControl: self.upperRightImageView)
+        createTapGesture("velocityTap", UIControl: self.upperLeftImageView)
 
         super.viewWillAppear(animated)
     }
