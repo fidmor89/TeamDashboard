@@ -29,6 +29,7 @@
 import UIKit
 import SwiftCharts
 import MBProgressHUD
+import Agrume
 
 
 class FirstViewController: UIViewController {
@@ -37,6 +38,7 @@ class FirstViewController: UIViewController {
     @IBOutlet var viewSection: [UIView]!
     @IBOutlet weak var btnPickProject: UIButton!
     @IBOutlet weak var burnChartImageView: UIImageView!
+    var burnChartImage: UIImage? = nil
     
     //Team Name and Features in Progress
     @IBOutlet weak var IterationLabel: UILabel!
@@ -121,7 +123,7 @@ class FirstViewController: UIViewController {
                 latestBuildsViewSection.subviews.forEach({
                     if $0.isKindOfClass(ChartBaseView){
                         $0.removeFromSuperview()
-                    }                    
+                    }
                 })
                 
                 let marginSize = CGFloat(15)
@@ -143,7 +145,7 @@ class FirstViewController: UIViewController {
                 latestBuildsViewSection.addSubview(chart.view)
                 self.parentView.bringSubviewToFront(self.BuildsTimeGraphTitile)
                 self.chart = chart
-             
+                
                 MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             }else{
                 print("View with tag 1 not found, check the storyboard")
@@ -165,54 +167,54 @@ class FirstViewController: UIViewController {
         
         RestApiManager.sharedInstance.retrieveLatestBuilds(selectedTeam, top: quantity) { json, result in
             if result.0 == 0{
-            let jsonOBJ = json["value"]
-            for obj in jsonOBJ{
-                
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
-                
-                if let startTime = obj.1["startTime"].string{
+                let jsonOBJ = json["value"]
+                for obj in jsonOBJ{
                     
-                    if let startDate = dateFormatter.dateFromString(startTime){
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+                    
+                    if let startTime = obj.1["startTime"].string{
                         
-                        if let finishTime = obj.1["finishTime"].string{
-                            if let endDate = dateFormatter.dateFromString(finishTime){
-                                
-                                let dateFormatter : NSDateFormatter = NSDateFormatter()
-                                let cal: NSCalendar = NSCalendar.currentCalendar()
-                                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
-                                var components : NSDateComponents
-                                
-                                components = cal.components(
-                                    NSCalendarUnit.Second,
-                                    fromDate: startDate,
-                                    toDate: endDate,
-                                    options: []
-                                )
-                                
-                                let strTime = (String(components.second) + "." + String(components.nanosecond))
-                                if let n = NSNumberFormatter().numberFromString(strTime) {
-                                    let buildTime = Double(n)
+                        if let startDate = dateFormatter.dateFromString(startTime){
+                            
+                            if let finishTime = obj.1["finishTime"].string{
+                                if let endDate = dateFormatter.dateFromString(finishTime){
                                     
-                                    if self.maxValue < buildTime{
-                                        self.maxValue = buildTime
-                                    }
+                                    let dateFormatter : NSDateFormatter = NSDateFormatter()
+                                    let cal: NSCalendar = NSCalendar.currentCalendar()
+                                    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.S'Z'"
+                                    var components : NSDateComponents
                                     
-                                    if let queueDate = dateFormatter.dateFromString(obj.1["queueTime"].string! as String){
+                                    components = cal.components(
+                                        NSCalendarUnit.Second,
+                                        fromDate: startDate,
+                                        toDate: endDate,
+                                        options: []
+                                    )
+                                    
+                                    let strTime = (String(components.second) + "." + String(components.nanosecond))
+                                    if let n = NSNumberFormatter().numberFromString(strTime) {
+                                        let buildTime = Double(n)
                                         
-                                        dateFormatter.dateFormat = "MMM dd"
-                                        let queueDate = dateFormatter.stringFromDate(queueDate)
-                                        self.buildsData.append((queueDate, buildTime))
-                                    }else{
-                                        self.buildsData.append(("Unknown", buildTime))
+                                        if self.maxValue < buildTime{
+                                            self.maxValue = buildTime
+                                        }
+                                        
+                                        if let queueDate = dateFormatter.dateFromString(obj.1["queueTime"].string! as String){
+                                            
+                                            dateFormatter.dateFormat = "MMM dd"
+                                            let queueDate = dateFormatter.stringFromDate(queueDate)
+                                            self.buildsData.append((queueDate, buildTime))
+                                        }else{
+                                            self.buildsData.append(("Unknown", buildTime))
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
-            waitingForBuildsData = false
+                waitingForBuildsData = false
             }else{
                 self.showAlertMessage("Connection error", message: result.1, handler: nil)
             }
@@ -228,7 +230,7 @@ class FirstViewController: UIViewController {
         let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         loadingNotification.mode = MBProgressHUDMode.Indeterminate
         loadingNotification.labelText = "Loading"
-
+        
         
         var waitingForIterationPaht = true
         var abort = false
@@ -461,6 +463,7 @@ class FirstViewController: UIViewController {
                     if error == nil {
                         if let image = UIImage(data: data!){
                             self.burnChartImageView.setImageWithAnimation(image)
+                            self.burnChartImage = image
                         }
                     }
                 }
@@ -533,21 +536,15 @@ class FirstViewController: UIViewController {
         
         //Pick Project
         self.btnPickProject.sendActionsForControlEvents(.TouchUpInside)
-
+        
         
         createTapGesture("burnChartTap", UIControl: self.burnChartImageView)
         if let latestBuildsViewSection: UIView = self.view.viewWithTag(1){
             createTapGesture("latestBuildsTap", UIControl: latestBuildsViewSection)
         }
-
+        
         
         super.viewDidLoad()
-    }
-    func latestBuildsTap(){
-        print("latestBuildsTap")
-    }
-    func burnChartTap(){
-        print("burnChartTap")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -589,5 +586,22 @@ class FirstViewController: UIViewController {
         //Dislpay the view controller
         self.presentViewController(loginController, animated: true, completion: nil)
     }
+    
+    func latestBuildsTap(){
+        print("latest build tapped")
+    }
+    
+    func burnChartTap(){
+        if let image = burnChartImage {
+            
+            //capture current background
+            let window: UIWindow! = UIApplication.sharedApplication().keyWindow
+            let windowImage = window.capture()
+            
+            //Initialize agrume
+            let agrume = Agrume(image: image)
+            agrume.showFrom(self, backImage: windowImage)
+        }
+    }
+    
 }
-

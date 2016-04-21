@@ -27,6 +27,7 @@
 
 import UIKit
 import MBProgressHUD
+import Agrume
 
 class SecondViewController: UIViewController {
     
@@ -37,6 +38,13 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var lowerRightImageView: UIImageView!
     @IBOutlet weak var upperRightImageView: UIImageView!
     @IBOutlet weak var upperLeftImageView: UIImageView!
+    
+    var velocity: UIImage? = nil
+    var Requirements: UIImage? = nil
+    var Features: UIImage? = nil
+    var Epics: UIImage? = nil
+    
+    var actualTeamID = ""
     
     var everythingOk = true
     
@@ -65,30 +73,55 @@ class SecondViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         everythingOk = true
-        drawVelocityChart()
-        drawChartWithCategory("Microsoft.RequirementCategory", chart:self.upperRightImageView)
-        drawChartWithCategory("Microsoft.FeatureCategory", chart:self.lowerLeftImageView)
-        drawChartWithCategory("Microsoft.EpicCategory", chart:self.lowerRightImageView)
+        
+        if actualTeamID != StateManager.SharedInstance.team.id{
+            self.clearImages()
+            actualTeamID = StateManager.SharedInstance.team.id
+        }
+        
+        if velocity == nil { drawVelocityChart() }
+        if Requirements == nil { drawChartWithCategory("Microsoft.RequirementCategory", chart:self.upperRightImageView) }
+        if Features == nil { drawChartWithCategory("Microsoft.FeatureCategory", chart:self.lowerLeftImageView) }
+        if Epics == nil { drawChartWithCategory("Microsoft.EpicCategory", chart:self.lowerRightImageView) }
         
         createTapGesture("FeaturesTap", UIControl: self.lowerLeftImageView)
         createTapGesture("EpicsTap", UIControl: self.lowerRightImageView)
         createTapGesture("RequirementsTap", UIControl: self.upperRightImageView)
         createTapGesture("velocityTap", UIControl: self.upperLeftImageView)
-
+        
         super.viewWillAppear(animated)
     }
-
+    
+    func displayFullScreenImage(image: UIImage){
+        //capture current background
+        let window: UIWindow! = UIApplication.sharedApplication().keyWindow
+        let windowImage = window.capture()
+        
+        //Initialize agrume
+        let agrume = Agrume(image: image)
+        agrume.showFrom(self, backImage: windowImage)
+        
+    }
+    
     func velocityTap() {
-        print("Single Tap on velocity imageview")
+        if let image = velocity{
+            self.displayFullScreenImage((image))
+        }
     }
     func RequirementsTap() {
-        print("Single Tap on Requirements imageview")
+        if let image = Requirements{
+            self.displayFullScreenImage((image))
+        }
     }
     func FeaturesTap() {
-        print("Single Tap on Features imageview")
+        if let image = Features{
+            self.displayFullScreenImage((image))
+        }
     }
     func EpicsTap() {
-        print("Single Tap on Epics imageview")
+        if let image = Epics{
+            self.displayFullScreenImage((image))
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -102,10 +135,15 @@ class SecondViewController: UIViewController {
     }
     
     override func didReceiveMemoryWarning() {
+        self.clearImages()
         super.didReceiveMemoryWarning()
-        
-        
-        // Dispose of any resources that can be recreated.
+    }
+    
+    func clearImages(){
+        velocity = nil
+        Requirements = nil
+        Features = nil
+        Epics = nil
     }
     
     func drawVelocityChart(){
@@ -126,6 +164,7 @@ class SecondViewController: UIViewController {
                     if error == nil {
                         if let image = UIImage(data: data!){
                             self.upperLeftImageView.setImageWithAnimation(image)
+                            self.saveImageWithCategory("", image: image)
                         }
                     }
                     MBProgressHUD.hideAllHUDsForView(self.upperLeftImageView, animated: true)
@@ -154,6 +193,7 @@ class SecondViewController: UIViewController {
                     if error == nil {
                         if let image = UIImage(data: data!){
                             chart.setImageWithAnimation(image)
+                            self.saveImageWithCategory(Category, image: image)
                         }
                     }
                     MBProgressHUD.hideAllHUDsForView(chart, animated: true)
@@ -164,5 +204,20 @@ class SecondViewController: UIViewController {
             everythingOk = false
         }
     }
+    
+    func saveImageWithCategory(Category: String, image: UIImage){
+        switch Category{
+        case "Microsoft.RequirementCategory":
+            self.Requirements = image
+        case "Microsoft.FeatureCategory":
+            self.Features = image
+        case "Microsoft.EpicCategory":
+            self.Epics = image
+        default:
+            self.velocity = image
+            
+        }
+    }
+    
 }
 

@@ -1,16 +1,28 @@
 PODS:
+  - Agrume (2.3.0)
   - MBProgressHUD (0.9.2)
   - SwiftCharts (0.3)
   - SwiftHTTP (1.0.5)
   - SwiftyJSON (2.2.1)
 
 DEPENDENCIES:
+  - Agrume (from `https://github.com/JanGorman/Agrume.git`)
   - MBProgressHUD (~> 0.9.2)
   - SwiftCharts (~> 0.3)
   - SwiftHTTP (~> 1.0.4)
   - SwiftyJSON (~> 2.2.1)
 
+EXTERNAL SOURCES:
+  Agrume:
+    :git: https://github.com/JanGorman/Agrume.git
+
+CHECKOUT OPTIONS:
+  Agrume:
+    :commit: 72652ffb3f97737c4fcd9b4d760b3b8f1b6aa81a
+    :git: https://github.com/JanGorman/Agrume.git
+
 SPEC CHECKSUMS:
+  Agrume: 7ac838a5be139db6ea452de479c417264cd5650d
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   SwiftCharts: c66a449d58f9c811c467f865a47b1b6136b49499
   SwiftHTTP: edb45e72f27d1d95d328d2b2c16a61aa94f1e9f7
