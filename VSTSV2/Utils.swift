@@ -69,6 +69,13 @@ extension UIViewController{
             
         })
     }
+    
+    func createTapGesture(action: Selector, UIControl: UIView!){
+        let singleTap = UITapGestureRecognizer(target: self, action: action)
+        singleTap.numberOfTapsRequired = 1
+        UIControl.userInteractionEnabled = true
+        UIControl.addGestureRecognizer(singleTap)
+    }
 }
 
 public extension UIDevice {

@@ -70,7 +70,25 @@ class SecondViewController: UIViewController {
         drawChartWithCategory("Microsoft.FeatureCategory", chart:self.lowerLeftImageView)
         drawChartWithCategory("Microsoft.EpicCategory", chart:self.lowerRightImageView)
         
+        createTapGesture("velocityTap", UIControl: self.lowerLeftImageView)
+        createTapGesture("RequirementsTap", UIControl: self.lowerRightImageView)
+        createTapGesture("FeaturesTap", UIControl: self.upperRightImageView)
+        createTapGesture("EpicsTap", UIControl: self.upperLeftImageView)
+
         super.viewWillAppear(animated)
+    }
+
+    func velocityTap() {
+        print("Single Tap on velocity imageview")
+    }
+    func RequirementsTap() {
+        print("Single Tap on Requirements imageview")
+    }
+    func FeaturesTap() {
+        print("Single Tap on Features imageview")
+    }
+    func EpicsTap() {
+        print("Single Tap on Epics imageview")
     }
     
     override func viewDidAppear(animated: Bool) {

@@ -64,6 +64,7 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var CompilationTimeLabel: UILabel!
     @IBOutlet weak var CodeCoverageLabel: UILabel!
     @IBOutlet weak var NumLinesLabel: UILabel!
+    @IBOutlet weak var BuildsTimeGraphTitile: UILabel!
     
     var step = 5.0
     
@@ -116,8 +117,12 @@ class FirstViewController: UIViewController {
             //tag = 1 -> UIView that should contain the builds graph
             if let latestBuildsViewSection: UIView = self.view.viewWithTag(1){
                 
-                //Remove previous views if any
-                latestBuildsViewSection.subviews.forEach({  $0.removeFromSuperview()    })
+                //Removes all ChartBaseView views
+                latestBuildsViewSection.subviews.forEach({
+                    if $0.isKindOfClass(ChartBaseView){
+                        $0.removeFromSuperview()
+                    }                    
+                })
                 
                 let marginSize = CGFloat(15)
                 
@@ -136,6 +141,7 @@ class FirstViewController: UIViewController {
                 )
                 
                 latestBuildsViewSection.addSubview(chart.view)
+                self.parentView.bringSubviewToFront(self.BuildsTimeGraphTitile)
                 self.chart = chart
              
                 MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
@@ -515,8 +521,6 @@ class FirstViewController: UIViewController {
             self.parentView.bringSubviewToFront(view)
         }
         
-        
-        
         // case of normal image
         let image1 = UIImage(named: "reload")!
         reloadButton.setImage(image1, forState: UIControlState.Normal)
@@ -530,7 +534,20 @@ class FirstViewController: UIViewController {
         //Pick Project
         self.btnPickProject.sendActionsForControlEvents(.TouchUpInside)
 
+        
+        createTapGesture("burnChartTap", UIControl: self.burnChartImageView)
+        if let latestBuildsViewSection: UIView = self.view.viewWithTag(1){
+            createTapGesture("latestBuildsTap", UIControl: latestBuildsViewSection)
+        }
+
+        
         super.viewDidLoad()
+    }
+    func latestBuildsTap(){
+        print("latestBuildsTap")
+    }
+    func burnChartTap(){
+        print("burnChartTap")
     }
     
     override func viewWillAppear(animated: Bool) {
