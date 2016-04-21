@@ -28,6 +28,7 @@
 import Foundation
 import UIKit
 import MBProgressHUD
+import SwiftyJSON
 
 class FeatureViewController: UITableViewController {
     
@@ -38,11 +39,16 @@ class FeatureViewController: UITableViewController {
         if (StateManager.SharedInstance.team.Project != "" && StateManager.SharedInstance.team.name != ""){
             RestApiManager.sharedInstance.getActiveFeatures(StateManager.SharedInstance.team, onCompletion:  {json, result in
                 
-                var jsonOBJCollections = json["workItems"]             //get json with features
+                let jsonOBJCollections = json["workItems"]             //get json with features
                 
-                for (index, _) in jsonOBJCollections.enumerate() {  //for each obj in jsonOBJ
-                    
-                    let featureUrl = jsonOBJCollections[index]["url"].string as String! ?? ""
+                if jsonOBJCollections.isEmpty{
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+
+                jsonOBJCollections.forEach({ ( content: (String, JSON)) -> () in
+
+
+                    let featureUrl = content.1["url"].string as String! ?? ""
                     
                     RestApiManager.sharedInstance.getFeature(featureUrl, onCompletion: { json1, result in
                         let fields = json1["fields"]
@@ -63,7 +69,8 @@ class FeatureViewController: UITableViewController {
                             }
                         })
                     })
-                }
+                })//End foreach
+
             })
         }else {
             self.dismissViewControllerAnimated(true, completion: nil)
