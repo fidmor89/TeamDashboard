@@ -521,6 +521,10 @@ class FirstViewController: UIViewController {
         let image1 = UIImage(named: "reload")!
         reloadButton.setImage(image1, forState: UIControlState.Normal)
         
+        // case of when button is clicked
+        let image2 = UIImage(named: "reloadHighlighted")!
+        reloadButton.setImage(image2, forState: UIControlState.Highlighted)
+        
         listenChanges()
         
         //Pick Project
