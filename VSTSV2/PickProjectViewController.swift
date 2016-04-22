@@ -111,8 +111,6 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     
     // Overridable methods
     override func viewDidLoad() {
-        
-        
         super.viewDidLoad()
     }
     
@@ -123,9 +121,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
         
         self.tableView.separatorColor = UIColor.clearColor()
-        self.searchDisplayController!.searchResultsTableView.separatorColor = UIColor.clearColor()
-        self.searchDisplayController!.searchResultsTableView.rowHeight = self.tableView!.rowHeight
-        
+
         
         let backgroundImage = UIImage(named: "background")
         let imageView = UIImageView(image: backgroundImage)
@@ -138,7 +134,12 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         
         tableView.backgroundView = imageView
         let backColor = UIColor(patternImage: UIImage(named: "background")!)
-        self.searchDisplayController!.searchResultsTableView.backgroundColor = backColor
+        
+        if let _ = self.searchDisplayController{
+            self.searchDisplayController!.searchResultsTableView.backgroundColor = backColor
+            self.searchDisplayController!.searchResultsTableView.separatorColor = UIColor.clearColor()
+            self.searchDisplayController!.searchResultsTableView.rowHeight = self.tableView!.rowHeight
+        }
         
         super.viewWillAppear(animated)
     }
@@ -154,11 +155,12 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         StateManager.SharedInstance.previousTeam = StateManager.SharedInstance.team
-        
-        if tableView == self.searchDisplayController!.searchResultsTableView {
-            StateManager.SharedInstance.team = filterProjects[indexPath.row]
-        } else {
-            StateManager.SharedInstance.team = projects[indexPath.row]
+
+        StateManager.SharedInstance.team = projects[indexPath.row]
+        if let search = self.searchDisplayController{
+            if tableView == search.searchResultsTableView {
+                StateManager.SharedInstance.team = filterProjects[indexPath.row]
+            } 
         }
         
         StateManager.SharedInstance.changed = true
@@ -167,11 +169,15 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     
     // Return the number of rows in the table
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == self.searchDisplayController!.searchResultsTableView {
-            return self.filterProjects.count
-        } else {
-            return self.projects.count
+        
+        if let search = self.searchDisplayController{
+            if tableView == search.searchResultsTableView {
+                return self.filterProjects.count
+            }
         }
+        
+        return self.projects.count
+        
     }
     
     // Fill table with information about teams
@@ -182,11 +188,12 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
             cell = WorkItemCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "ProjectCell")
         }
         
-        var arrayOfProjects: Array<Team>?
-        if tableView == self.searchDisplayController!.searchResultsTableView {
-            arrayOfProjects = self.filterProjects
-        } else {
-            arrayOfProjects = self.projects
+        var arrayOfProjects: Array<Team>? = self.projects
+
+        if let search = self.searchDisplayController{
+            if tableView == search.searchResultsTableView {
+                arrayOfProjects = self.filterProjects
+            }
         }
         
         if arrayOfProjects != nil && arrayOfProjects!.count >= indexPath.row {

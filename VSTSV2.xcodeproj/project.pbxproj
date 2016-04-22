@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		02518588B138368C6D48BA08 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC9364663B49FCCD61D6439 /* Pods.framework */; };
+		2B53ABE01CC99C2A00313158 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187AA1C4D579F0020D211 /* FirstViewController.swift */; };
 		2B6187A91C4D579F0020D211 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187A81C4D579F0020D211 /* AppDelegate.swift */; };
-		2B6187AB1C4D579F0020D211 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187AA1C4D579F0020D211 /* FirstViewController.swift */; };
 		2B6187AD1C4D579F0020D211 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187AC1C4D579F0020D211 /* SecondViewController.swift */; };
 		2B6187B21C4D579F0020D211 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B6187B11C4D579F0020D211 /* Images.xcassets */; };
 		2B6187B51C4D579F0020D211 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B6187B31C4D579F0020D211 /* LaunchScreen.xib */; };
@@ -426,9 +426,9 @@
 				3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */,
 				2BDA42A21C92164200EB73A5 /* Utils.swift in Sources */,
 				2B6187A91C4D579F0020D211 /* AppDelegate.swift in Sources */,
-				2B6187AB1C4D579F0020D211 /* FirstViewController.swift in Sources */,
 				2BE8F7871CA26A090065563A /* AboutViewController.swift in Sources */,
 				2B6187D01C4D5BF70020D211 /* KeychainWrapper.swift in Sources */,
+				2B53ABE01CC99C2A00313158 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

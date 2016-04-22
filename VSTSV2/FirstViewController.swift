@@ -31,7 +31,6 @@ import SwiftCharts
 import MBProgressHUD
 import Agrume
 
-
 class FirstViewController: UIViewController {
     
     @IBOutlet var parentView: UIView!
@@ -69,7 +68,7 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var BuildsTimeGraphTitile: UILabel!
     
     var step = 5.0
-    
+
     private func listenChanges(){
         //Run in backgroud Thread
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
@@ -537,13 +536,10 @@ class FirstViewController: UIViewController {
         //Pick Project
         self.btnPickProject.sendActionsForControlEvents(.TouchUpInside)
         
-        
         createTapGesture("burnChartTap", UIControl: self.burnChartImageView)
         if let latestBuildsViewSection: UIView = self.view.viewWithTag(1){
             createTapGesture("latestBuildsTap", UIControl: latestBuildsViewSection)
         }
-        
-        
         super.viewDidLoad()
     }
     

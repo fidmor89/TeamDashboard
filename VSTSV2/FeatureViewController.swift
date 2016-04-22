@@ -44,10 +44,10 @@ class FeatureViewController: UITableViewController {
                 if jsonOBJCollections.isEmpty{
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
-
+                
                 jsonOBJCollections.forEach({ ( content: (String, JSON)) -> () in
-
-
+                    
+                    
                     let featureUrl = content.1["url"].string as String! ?? ""
                     
                     RestApiManager.sharedInstance.getFeature(featureUrl, onCompletion: { json1, result in
@@ -58,10 +58,7 @@ class FeatureViewController: UITableViewController {
                         dispatch_async(dispatch_get_main_queue(), {
                             self.tableView?.reloadData()
                             
-                            var frame = self.tableView.frame;
                             let heightValue = min(CGFloat(44 * self.features.count), UIScreen.mainScreen().bounds.height)
-                            frame.size.height = heightValue
-                            self.tableView.frame = frame
                             self.preferredContentSize.height = heightValue
                             
                             if self.features.isEmpty{
@@ -70,7 +67,7 @@ class FeatureViewController: UITableViewController {
                         })
                     })
                 })//End foreach
-
+                
             })
         }else {
             self.dismissViewControllerAnimated(true, completion: nil)
