@@ -34,6 +34,7 @@ class FeatureViewController: UITableViewController {
     
     var features : [String] = []
     var displayingLoadingNotification = false
+    var defaultWidth: CGFloat = 0.0
     
     func getFeatures(){
         if (StateManager.SharedInstance.team.Project != "" && StateManager.SharedInstance.team.name != ""){
@@ -76,6 +77,12 @@ class FeatureViewController: UITableViewController {
     
     // Overridable methods
     override func viewDidLoad() {
+        
+        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.Indeterminate
+        loadingNotification.labelText = "Loading"
+
+        
         self.tableView.separatorColor = UIColor.clearColor()
         self.tableView?.alwaysBounceVertical = false            //If projects fit in the window there should be no scroll.
         
@@ -93,7 +100,11 @@ class FeatureViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.preferredContentSize.height = CGFloat(0.01)         //Controller size
+        //Initial size
+        self.preferredContentSize.height = CGFloat(105)
+        self.defaultWidth = self.preferredContentSize.width
+        self.preferredContentSize.width = CGFloat(105)
+
         getFeatures()
     }
     
@@ -117,6 +128,8 @@ class FeatureViewController: UITableViewController {
     // Fill table with information about teams
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)         //Hide loading
+        
         var cell = self.tableView!.dequeueReusableCellWithIdentifier("FeatureCell") as? WorkItemCell
         if cell == nil {
             cell = WorkItemCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "FeatureCell")
@@ -124,17 +137,17 @@ class FeatureViewController: UITableViewController {
         
         let feature = self.features[indexPath.row]
         cell!.textLabel?.text = feature
+        cell?.textLabel?.textColor = UIColor.whiteColor()
         
         cell?.textLabel?.backgroundColor = UIColor.clearColor()
-        
-        cell?.contentView.backgroundColor = UIColor.whiteColor()
+        cell?.contentView.backgroundColor = UIColor.blackColor()
         cell?.contentView.layer.cornerRadius = 10
         cell?.contentView.layer.masksToBounds = true
         cell?.contentView.alpha = 0.75
         
         cell?.backgroundColor = UIColor.clearColor()
         
-        
+        self.preferredContentSize.width = self.defaultWidth
         return cell!
     }
 }

@@ -33,7 +33,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     var projects : [Team] = []
     var filterProjects : [Team] = []
     var displayingLoadingNotification = false
-    
+    var defaultWidth: CGFloat = 0.0
     func getProjects(){
         
         RestApiManager.sharedInstance.getCollections { json, result in
@@ -111,11 +111,18 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     
     // Overridable methods
     override func viewDidLoad() {
+        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.Indeterminate
+        loadingNotification.labelText = "Loading"
+
         super.viewDidLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
-        self.preferredContentSize.height = CGFloat(0.01)         //Controller size
+        //Initial size
+        self.preferredContentSize.height = CGFloat(105)
+        self.defaultWidth = self.preferredContentSize.width
+        self.preferredContentSize.width = CGFloat(105)
         getProjects()
         
         self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
@@ -182,7 +189,8 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     
     // Fill table with information about teams
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)         //Hide loading
+
         var cell = self.tableView!.dequeueReusableCellWithIdentifier("ProjectCell") as? WorkItemCell
         if cell == nil {
             cell = WorkItemCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "ProjectCell")
@@ -190,6 +198,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         
         var arrayOfProjects: Array<Team>? = self.projects
 
+        self.preferredContentSize.width = self.defaultWidth
         if let search = self.searchDisplayController{
             if tableView == search.searchResultsTableView {
                 arrayOfProjects = self.filterProjects

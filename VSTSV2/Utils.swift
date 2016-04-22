@@ -33,6 +33,15 @@ extension String{
     {
         return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
     }
+    
+    func widthWithConstrainedHeight(height: CGFloat, font: UIFont) -> CGFloat {
+        let constraintRect = CGSize(width: CGFloat.max, height: height)
+        
+        let boundingBox = self.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+        
+        return boundingBox.width
+    }
+    
 }
 
 extension UIImageView {
