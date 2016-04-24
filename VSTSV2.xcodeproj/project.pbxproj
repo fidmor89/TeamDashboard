@@ -23,11 +23,11 @@
 		2B99A3721CADCDC700AEA66E /* vsicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B99A3711CADCDC700AEA66E /* vsicon.png */; };
 		2B99A3761CADD25400AEA66E /* credits.py in Resources */ = {isa = PBXBuildFile; fileRef = 2B99A3751CADD25400AEA66E /* credits.py */; };
 		2BBDB9811C63FB9B00B1190B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* Team.swift */; };
+		2BC7615B1CCD85540010C6B6 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BC7615A1CCD85540010C6B6 /* Credits.plist */; };
 		2BD1D9001C5EAAB8002C8828 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */; };
 		2BDA42A21C92164200EB73A5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDA42A11C92164200EB73A5 /* Utils.swift */; };
 		2BDA42A31C92164200EB73A5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BDA42A11C92164200EB73A5 /* Utils.swift */; };
 		2BE8F7871CA26A090065563A /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8F7861CA26A090065563A /* AboutViewController.swift */; };
-		2BE994551CC40BEC00FC8977 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BE994541CC40BEC00FC8977 /* Credits.plist */; };
 		3F4FEA291C5489A1001BEC4C /* PickProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */; };
 		3F4FEA2F1C55AE6E001BEC4C /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* Team.swift */; };
 		3F4FEA311C55BD90001BEC4C /* WorkItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */; };
@@ -65,10 +65,10 @@
 		2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
 		2B99A3711CADCDC700AEA66E /* vsicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vsicon.png; sourceTree = "<group>"; };
 		2B99A3751CADD25400AEA66E /* credits.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = credits.py; sourceTree = "<group>"; };
+		2BC7615A1CCD85540010C6B6 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credits.plist; sourceTree = "<group>"; };
 		2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
 		2BDA42A11C92164200EB73A5 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = VSTSV2/Utils.swift; sourceTree = "<group>"; };
 		2BE8F7861CA26A090065563A /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		2BE994541CC40BEC00FC8977 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credits.plist; sourceTree = "<group>"; };
 		3F4FEA281C5489A1001BEC4C /* PickProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickProjectViewController.swift; sourceTree = "<group>"; };
 		3F4FEA2E1C55AE6E001BEC4C /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkItemCell.swift; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 		2B6187A61C4D579F0020D211 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2BE994541CC40BEC00FC8977 /* Credits.plist */,
+				2BC7615A1CCD85540010C6B6 /* Credits.plist */,
 				2B6187A71C4D579F0020D211 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -329,7 +329,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A96D29B21C583C1C00745A51 /* vsLoginIcon.png in Resources */,
-				2BE994551CC40BEC00FC8977 /* Credits.plist in Resources */,
+				2BC7615B1CCD85540010C6B6 /* Credits.plist in Resources */,
 				A96D29B41C58440000745A51 /* vsicon2.png in Resources */,
 				2B6187B51C4D579F0020D211 /* LaunchScreen.xib in Resources */,
 				A96D29B51C58492000745A51 /* Main.storyboard in Resources */,
