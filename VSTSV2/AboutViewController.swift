@@ -86,7 +86,15 @@ class AboutViewController: UITableViewController {
         
         cell!.textLabel?.lineBreakMode = NSLineBreakMode.ByWordWrapping
         cell!.textLabel?.numberOfLines = 0
-        cell!.textLabel?.text = credits[indexPath.section]["FooterText"] as? String
+        //        cell!.textLabel?.text = credits[indexPath.section]["FooterText"] as? String
+        
+        if let labelText = credits[indexPath.section]["FooterText"] as? String{
+            let attributedString = NSMutableAttributedString(string: labelText)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = -50
+            attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, labelText.characters.count))
+            cell.textLabel?.attributedText = attributedString
+        }
         
         //Look and feel
         cell?.textLabel?.backgroundColor = UIColor.clearColor()
@@ -130,13 +138,13 @@ class AboutViewController: UITableViewController {
         let header :UITableViewHeaderFooterView = UITableViewHeaderFooterView()
         
         header.textLabel?.textColor = UIColor.whiteColor()  //White text
-
+        
         //Header clear background
         let clearView = UIView()
         clearView.bounds = header.bounds
         clearView.backgroundColor = UIColor.clearColor()
         header.backgroundView = clearView
-
+        
         //Semi transparent bar
         header.textLabel?.backgroundColor = UIColor.clearColor()
         header.contentView.backgroundColor = UIColor.whiteColor()
