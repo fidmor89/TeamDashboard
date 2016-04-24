@@ -80,7 +80,7 @@ public final class Agrume: UIViewController {
     
     UIDevice.currentDevice().beginGeneratingDeviceOrientationNotifications()
 
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "orientationDidChange",
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(Agrume.orientationDidChange),
                                                      name: UIDeviceOrientationDidChangeNotification, object: nil)
   }
 
@@ -179,9 +179,8 @@ public final class Agrume: UIViewController {
 
   private var initialOrientation: UIDeviceOrientation!
 
-  public func showFrom(viewController: UIViewController, backImage: UIImage) {
-//    backgroundSnapshot = UIApplication.sharedApplication().delegate?.window??.rootViewController?.view.snapshot()
-    backgroundSnapshot = backImage
+    public func showFrom(viewController: UIViewController,windowImage: UIImage) {
+    backgroundSnapshot = windowImage
     view.frame = frameForCurrentDeviceOrientation()
     view.userInteractionEnabled = false
     initialOrientation = deviceOrientationFromStatusBarOrientation()

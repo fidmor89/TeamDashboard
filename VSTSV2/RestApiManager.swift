@@ -257,16 +257,18 @@ class RestApiManager: NSObject {
         
     }
     
-    func countWorkItemType(var StateSelector: String, WorkItemType: String, onCompletion: (JSON, (Int, String)) -> Void){
+    func countWorkItemType(StateSelector: String, WorkItemType: String, onCompletion: (JSON, (Int, String)) -> Void){
         
-        if StateSelector != ""{
-            StateSelector = "AND (\(StateSelector))"
+        var state = StateSelector
+        
+        if state != ""{
+            state = "AND (\(state))"
         }
         
         let newIteration = self.iterationPath.stringByReplacingOccurrencesOfString("\\", withString: "\\\\", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
         
-        let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = '\(WorkItemType)'  AND [System.IterationPath] = '\(newIteration)' \(StateSelector)\"}"
+        let query = "{\"query\": \"SELECT System.Id FROM WorkItems WHERE [System.WorkItemType] = '\(WorkItemType)'  AND [System.IterationPath] = '\(newIteration)' \(state)\"}"
         
         runWIQL(query, onCompletion: { jsonData in
             onCompletion(jsonData)

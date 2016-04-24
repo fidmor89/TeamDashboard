@@ -84,10 +84,10 @@ class SecondViewController: UIViewController {
         if Features == nil { drawChartWithCategory("Microsoft.FeatureCategory", chart:self.lowerLeftImageView) }
         if Epics == nil { drawChartWithCategory("Microsoft.EpicCategory", chart:self.lowerRightImageView) }
         
-        createTapGesture("FeaturesTap", UIControl: self.lowerLeftImageView)
-        createTapGesture("EpicsTap", UIControl: self.lowerRightImageView)
-        createTapGesture("RequirementsTap", UIControl: self.upperRightImageView)
-        createTapGesture("velocityTap", UIControl: self.upperLeftImageView)
+        createTapGesture(#selector(SecondViewController.FeaturesTap), UIControl: self.lowerLeftImageView)
+        createTapGesture(#selector(SecondViewController.EpicsTap), UIControl: self.lowerRightImageView)
+        createTapGesture(#selector(SecondViewController.RequirementsTap), UIControl: self.upperRightImageView)
+        createTapGesture(#selector(SecondViewController.velocityTap), UIControl: self.upperLeftImageView)
         
         super.viewWillAppear(animated)
     }
@@ -99,7 +99,7 @@ class SecondViewController: UIViewController {
         
         //Initialize agrume
         let agrume = Agrume(image: image)
-        agrume.showFrom(self, backImage: windowImage)
+        agrume.showFrom(self, windowImage: windowImage)
         
     }
     

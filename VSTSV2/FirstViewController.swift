@@ -305,7 +305,7 @@ class FirstViewController: UIViewController {
                                 comp = cal.components(NSCalendarUnit.Weekday, fromDate: today)
                                 for i in 0...(intWorkingDays.count - 1) {
                                     if comp.weekday == intWorkingDays[i] {
-                                        daysRemaining++
+                                        daysRemaining += 1
                                         break
                                     }
                                 }
@@ -536,9 +536,9 @@ class FirstViewController: UIViewController {
         //Pick Project
         self.btnPickProject.sendActionsForControlEvents(.TouchUpInside)
         
-        createTapGesture("burnChartTap", UIControl: self.burnChartImageView)
+        createTapGesture(#selector(FirstViewController.burnChartTap), UIControl: self.burnChartImageView)
         if let latestBuildsViewSection: UIView = self.view.viewWithTag(1){
-            createTapGesture("latestBuildsTap", UIControl: latestBuildsViewSection)
+            createTapGesture(#selector(FirstViewController.latestBuildsTap), UIControl: latestBuildsViewSection)
         }
         super.viewDidLoad()
     }
@@ -596,7 +596,7 @@ class FirstViewController: UIViewController {
             
             //Initialize agrume
             let agrume = Agrume(image: image)
-            agrume.showFrom(self, backImage: windowImage)
+            agrume.showFrom(self, windowImage: windowImage)
         }
     }
     

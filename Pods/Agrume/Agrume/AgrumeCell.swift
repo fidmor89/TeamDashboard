@@ -64,18 +64,18 @@ final class AgrumeCell: UICollectionViewCell {
   }
 
   private lazy var singleTapGesture: UITapGestureRecognizer = {
-    let singleTapGesture = UITapGestureRecognizer(target: self, action: "singleTap:")
+    let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(AgrumeCell.singleTap(_:)))
     singleTapGesture.requireGestureRecognizerToFail(self.doubleTapGesture)
     singleTapGesture.delegate = self
     return singleTapGesture
   }()
   private lazy var doubleTapGesture: UITapGestureRecognizer = {
-    let doubleTapGesture = UITapGestureRecognizer(target: self, action: "doubleTap:")
+    let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(AgrumeCell.doubleTap(_:)))
     doubleTapGesture.numberOfTapsRequired = 2
     return doubleTapGesture
   }()
   private lazy var panGesture: UIPanGestureRecognizer = {
-    let panGesture = UIPanGestureRecognizer(target: self, action: "dismissPan:")
+    let panGesture = UIPanGestureRecognizer(target: self, action: #selector(AgrumeCell.dismissPan(_:)))
     panGesture.maximumNumberOfTouches = 1
     panGesture.delegate = self
     return panGesture
