@@ -70,22 +70,16 @@ class FirstViewController: UIViewController {
     var step = 5.0
 
     private func listenChanges(){
-        //Run in backgroud Thread
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
+
+        dispatch_async(GlobalUserInitiatedQueue, {
             
             while !StateManager.SharedInstance.changed{
                 sleep(1)                                            //Pause thread 1 second
             }
-            
             StateManager.SharedInstance.changed = false
-            
-            //Run in Main Thread
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            dispatch_async(GlobalMainQueue){        //Update UI
                 self.drawDashboard()
-            })
-            
+            }
             self.listenChanges()                                    //Keep Listening for future changes
             
         })//end backgorud thread
@@ -145,11 +139,10 @@ class FirstViewController: UIViewController {
                 self.parentView.bringSubviewToFront(self.BuildsTimeGraphTitile)
                 self.chart = chart
                 
-                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
             }else{
                 print("View with tag 1 not found, check the storyboard")
             }
-        })
+        }
     }
     
     private func getBuildsData(){
@@ -225,7 +218,6 @@ class FirstViewController: UIViewController {
     }
     
     private func drawDashboard(){
-        
         let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         loadingNotification.mode = MBProgressHUDMode.Indeterminate
         loadingNotification.labelText = "Loading"
@@ -318,20 +310,20 @@ class FirstViewController: UIViewController {
                             else {
                                 
                             }
-                            dispatch_async(dispatch_get_main_queue(),{
+                            dispatch_async(GlobalMainQueue){
                                 self.RemainingWorkDaysLabel.text = "\(formatedStartDate) - \(formatedEndDate) \(leftWorkDays)"
-                            })
+                            }
                         })
                     }
                     
-                    dispatch_async(dispatch_get_main_queue(), {
+                    dispatch_async(GlobalMainQueue){
                         if formatedStartDate == ""{
                             self.IterationLabel.text = "\(name)"
                             self.RemainingWorkDaysLabel.text = ""
                         } else {
                             self.IterationLabel.text = "\(name)"
                         }
-                    })
+                    }
                 }
             }else{
                 abort = true;
@@ -404,30 +396,29 @@ class FirstViewController: UIViewController {
                             linesCovered = jsonOBJ[0]["modules"]["statistics"]["linesCovered"].int as Int! ?? 0
                         }
                         
-                        dispatch_async(dispatch_get_main_queue(), {
+                        dispatch_async(GlobalMainQueue){
                             self.CodeCoverageLabel.text = String(blocksCovered)
                             self.NumLinesLabel.text = String(linesCovered)
-                        })
+                        }
                     })
                 }
             }
             
-            dispatch_async(dispatch_get_main_queue(), {
+            dispatch_async(GlobalMainQueue){
                 self.BuildStatusLabel.text = status.trim()
                 self.LatestBuildDateLabel.text = "Last Build: \(sLatestBuild)"
                 self.drawBuildsGraph()
                 
-                //round time
-                
-                
-                //                let strTime = (String(components.second) + "." + String(components.nanosecond))
                 if let n = NSNumberFormatter().numberFromString(compilationTime) {
                     let buildTime = Double(n)
                     self.CompilationTimeLabel.text = "\(ceil(buildTime))"
                 }else{
                     self.CompilationTimeLabel.text = "Unknown"
                 }
-            })
+                
+                self.BuildTestStatusLabel.text = "Unknown"
+                self.DeployStatusLabel.text = "Unknown"
+            }
         })
         
         //Features
@@ -474,26 +465,20 @@ class FirstViewController: UIViewController {
     
     func setTestCasesCount(selectedTeam: Team, Automated: Bool, WorkItemType: String, controlObject:UILabel){
         RestApiManager.sharedInstance.countTestCases(selectedTeam, Automated: Automated, onCompletion:{ json, result in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            dispatch_async(GlobalMainQueue){
                 let workItems = json["workItems"].arrayValue
                 controlObject.text = String(workItems.count)
-            })
+            }
         })
     }
     
     func setWorkItemsCount(StateSelector: String, WorkItemType: String, controlObject:UILabel){
         RestApiManager.sharedInstance.countWorkItemType(StateSelector, WorkItemType: WorkItemType, onCompletion: { json, result in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                let workItems = json["workItems"].arrayValue
+            let workItems = json["workItems"].arrayValue
+            dispatch_async(GlobalMainQueue){
                 controlObject.text = String(workItems.count)
-            })
+            }
         })
-    }
-    
-    func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
-        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
-            completion(data: data, response: response, error: error)
-            }.resume()
     }
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
@@ -545,14 +530,9 @@ class FirstViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         
-        
-        //Run in backgroud Thread
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        
-        dispatch_async(backgroundQueue, {
+        dispatch_async(GlobalUserInitiatedQueue) {
             self.drawBuildsGraph(false)
-        })
+        }
     }
     
     override func didReceiveMemoryWarning() {
