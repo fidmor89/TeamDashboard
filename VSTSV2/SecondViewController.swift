@@ -79,11 +79,18 @@ class SecondViewController: UIViewController {
             actualTeamID = StateManager.SharedInstance.team.id
         }
         
-        if velocity == nil { drawVelocityChart() }
-        if Requirements == nil { drawChartWithCategory("Microsoft.RequirementCategory", chart:self.upperRightImageView) }
-        if Features == nil { drawChartWithCategory("Microsoft.FeatureCategory", chart:self.lowerLeftImageView) }
-        if Epics == nil { drawChartWithCategory("Microsoft.EpicCategory", chart:self.lowerRightImageView) }
-        
+        dispatch_async(GlobalUserInteractiveQueue){
+            if self.velocity == nil { self.drawVelocityChart() }
+        }
+        dispatch_async(GlobalUserInteractiveQueue){
+            if self.Requirements == nil { self.drawChartWithCategory("Microsoft.RequirementCategory", chart:self.upperRightImageView) }
+        }
+        dispatch_async(GlobalUserInteractiveQueue){
+            if self.Features == nil { self.drawChartWithCategory("Microsoft.FeatureCategory", chart:self.lowerLeftImageView) }
+        }
+        dispatch_async(GlobalUserInteractiveQueue){
+            if self.Epics == nil { self.drawChartWithCategory("Microsoft.EpicCategory", chart:self.lowerRightImageView) }
+        }
         createTapGesture(#selector(SecondViewController.FeaturesTap), UIControl: self.lowerLeftImageView)
         createTapGesture(#selector(SecondViewController.EpicsTap), UIControl: self.lowerRightImageView)
         createTapGesture(#selector(SecondViewController.RequirementsTap), UIControl: self.upperRightImageView)
@@ -148,10 +155,11 @@ class SecondViewController: UIViewController {
     
     func drawVelocityChart(){
         
-        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.upperLeftImageView, animated: true)
-        loadingNotification.mode = MBProgressHUDMode.Indeterminate
-        loadingNotification.labelText = "Loading"
-        
+        dispatch_async(GlobalMainQueue){
+            let loadingNotification = MBProgressHUD.showHUDAddedTo(self.upperLeftImageView, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.Indeterminate
+            loadingNotification.labelText = "Loading"
+        }
         
         if let imageURL = RestApiManager.sharedInstance.getVelocityURL(StateManager.SharedInstance.team){
             
@@ -167,21 +175,25 @@ class SecondViewController: UIViewController {
                             self.saveImageWithCategory("", image: image)
                         }
                     }
-                    MBProgressHUD.hideAllHUDsForView(self.upperLeftImageView, animated: true)
+                    dispatch_async(GlobalMainQueue){
+                        MBProgressHUD.hideAllHUDsForView(self.upperLeftImageView, animated: true)
+                    }
             })
         }else{
-            MBProgressHUD.hideAllHUDsForView(self.upperLeftImageView, animated: true)
-            self.upperLeftImageView.setImageWithAnimation(UIImage(named: "sadFace")!)
-            everythingOk = false
+            dispatch_async(GlobalMainQueue){
+                MBProgressHUD.hideAllHUDsForView(self.upperLeftImageView, animated: true)
+                self.upperLeftImageView.setImageWithAnimation(UIImage(named: "sadFace")!)
+                self.everythingOk = false
+            }
         }
     }
     
     func drawChartWithCategory(Category:String, chart:UIImageView){
-        
-        let loadingNotification = MBProgressHUD.showHUDAddedTo(chart, animated: true)
-        loadingNotification.mode = MBProgressHUDMode.Indeterminate
-        loadingNotification.labelText = "Loading"
-        
+        dispatch_async(GlobalMainQueue){
+            let loadingNotification = MBProgressHUD.showHUDAddedTo(chart, animated: true)
+            loadingNotification.mode = MBProgressHUDMode.Indeterminate
+            loadingNotification.labelText = "Loading"
+        }
         if let imageURL = RestApiManager.sharedInstance.getComulativeFlow(StateManager.SharedInstance.team, Category: Category){
             
             let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
@@ -196,12 +208,16 @@ class SecondViewController: UIViewController {
                             self.saveImageWithCategory(Category, image: image)
                         }
                     }
-                    MBProgressHUD.hideAllHUDsForView(chart, animated: true)
+                    dispatch_async(GlobalMainQueue){
+                        MBProgressHUD.hideAllHUDsForView(chart, animated: true)
+                    }
             })
         }else{
-            MBProgressHUD.hideAllHUDsForView(chart, animated: true)
-            chart.setImageWithAnimation(UIImage(named: "sadFace")!)
-            everythingOk = false
+            dispatch_async(GlobalMainQueue){
+                MBProgressHUD.hideAllHUDsForView(chart, animated: true)
+                chart.setImageWithAnimation(UIImage(named: "sadFace")!)
+                self.everythingOk = false
+            }
         }
     }
     

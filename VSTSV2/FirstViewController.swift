@@ -97,13 +97,9 @@ class FirstViewController: UIViewController {
         if retrieveData { getBuildsData() }
         
         //Display the data using the main thread
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        dispatch_async(GlobalMainQueue) { () -> Void in
             
-            if(UIDevice.currentDevice().modelName == "iPad Pro")
-            {
-                self.step = 10.0
-            }
-            
+            if(UIDevice.currentDevice().modelName == "iPad Pro") { self.step = 10.0 }
             
             let chartConfig = BarsChartConfig(
                 valsAxisConfig: ChartAxisConfig(from: 0, to: ceil(self.maxValue) + (ceil(self.maxValue)/self.self.step), by: (ceil(self.maxValue)/self.step))
@@ -126,7 +122,8 @@ class FirstViewController: UIViewController {
                         marginSize,  //x position (relative to partent view)
                         2.5 * marginSize,  //y position (relative to partent view)
                         latestBuildsViewSection.bounds.size.width - (2 * marginSize), //x size
-                        latestBuildsViewSection.bounds.size.height - (3.5 * marginSize )), //y size
+                        latestBuildsViewSection.bounds.size.height - (3.5 * marginSize )    //y size
+                    ),
                     chartConfig: chartConfig,
                     xTitle: "Date",
                     yTitle: "Seconds",
@@ -138,6 +135,7 @@ class FirstViewController: UIViewController {
                 latestBuildsViewSection.addSubview(chart.view)
                 self.parentView.bringSubviewToFront(self.BuildsTimeGraphTitile)
                 self.chart = chart
+                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)         //Hide loading
                 
             }else{
                 print("View with tag 1 not found, check the storyboard")
@@ -156,7 +154,7 @@ class FirstViewController: UIViewController {
         {
             quantity = 10
         }
-        
+        self.maxValue = 1
         RestApiManager.sharedInstance.retrieveLatestBuilds(selectedTeam, top: quantity) { json, result in
             if result.0 == 0{
                 let jsonOBJ = json["value"]
@@ -441,25 +439,27 @@ class FirstViewController: UIViewController {
     }
     
     func loadBurnChart(){
-        if let imageURL = RestApiManager.sharedInstance.searchURLWithTerm(StateManager.SharedInstance.team){
-            
-            let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
-            request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
-            
-            NSURLConnection.sendAsynchronousRequest(
-                request1,
-                queue: NSOperationQueue.mainQueue(),
-                completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
-                    if error == nil {
-                        if let image = UIImage(data: data!){
-                            self.burnChartImageView.setImageWithAnimation(image)
-                            self.burnChartImage = image
+        dispatch_async(GlobalUserInteractiveQueue){
+            if let imageURL = RestApiManager.sharedInstance.searchURLWithTerm(StateManager.SharedInstance.team){
+                
+                let request1: NSMutableURLRequest = NSMutableURLRequest(URL: imageURL)
+                request1.setValue(RestApiManager.sharedInstance.buildBase64EncodedCredentials(), forHTTPHeaderField: "Authorization")
+                
+                NSURLConnection.sendAsynchronousRequest(
+                    request1,
+                    queue: NSOperationQueue.mainQueue(),
+                    completionHandler: {(response: NSURLResponse?,data: NSData?,error: NSError?) -> Void in
+                        if error == nil {
+                            if let image = UIImage(data: data!){
+                                self.burnChartImageView.setImageWithAnimation(image)
+                                self.burnChartImage = image
+                            }
                         }
                     }
-                }
-            )
-        }else{
-            self.burnChartImageView.setImageWithAnimation(UIImage(named: "sadFace")!)
+                )
+            }else{
+                self.burnChartImageView.setImageWithAnimation(UIImage(named: "sadFace")!)
+            }
         }
     }
     

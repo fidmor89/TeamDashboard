@@ -179,7 +179,7 @@ public final class Agrume: UIViewController {
 
   private var initialOrientation: UIDeviceOrientation!
 
-    public func showFrom(viewController: UIViewController,windowImage: UIImage) {
+  public func showFrom(viewController: UIViewController, windowImage: UIImage) {
     backgroundSnapshot = windowImage
     view.frame = frameForCurrentDeviceOrientation()
     view.userInteractionEnabled = false
