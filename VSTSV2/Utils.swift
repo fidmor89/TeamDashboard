@@ -85,9 +85,45 @@ extension UIViewController{
         UIControl.userInteractionEnabled = true
         UIControl.addGestureRecognizer(singleTap)
     }
-}
+    
+   }
 
 public extension UIDevice {
+    
+    func isBlurSupported() -> Bool {
+        var supported = Set<String>()
+        supported.insert("iPad")
+        supported.insert("iPad1,1")
+        supported.insert("iPhone1,1")
+        supported.insert("iPhone1,2")
+        supported.insert("iPhone2,1")
+        supported.insert("iPhone3,1")
+        supported.insert("iPhone3,2")
+        supported.insert("iPhone3,3")
+        supported.insert("iPod1,1")
+        supported.insert("iPod2,1")
+        supported.insert("iPod2,2")
+        supported.insert("iPod3,1")
+        supported.insert("iPod4,1")
+        supported.insert("iPad2,1")
+        supported.insert("iPad2,2")
+        supported.insert("iPad2,3")
+        supported.insert("iPad2,4")
+        supported.insert("iPad3,1")
+        supported.insert("iPad3,2")
+        supported.insert("iPad3,3")
+        supported.insert("x86_64")
+        
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8 where value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+
+        return !supported.contains(identifier)
+    }
     //Verify what model name of ios is running
     var modelName: String {
         var systemInfo = utsname()

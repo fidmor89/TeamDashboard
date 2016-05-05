@@ -64,11 +64,12 @@ class AboutViewController: UITableViewController {
         
         let backgroundImage = UIImage(named: "background")
         let imageView = UIImageView(image: backgroundImage)
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        
-        blurView.frame = imageView.bounds
-        imageView.addSubview(blurView)
+        if UIDevice().isBlurSupported() &&  !UIAccessibilityIsReduceTransparencyEnabled() {
+            let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+            let blurView = UIVisualEffectView(effect: blurEffect)
+            imageView.addSubview(blurView)
+            blurView.frame = imageView.bounds
+        }
         tableView.backgroundView = imageView
     }
     

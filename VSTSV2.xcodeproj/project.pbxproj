@@ -20,7 +20,6 @@
 		2B6187D11C4D5BF70020D211 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */; };
 		2B6187D31C4D5C5D0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
 		2B6187D41C4D5D1A0020D211 /* RestApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */; };
-		2B99A3721CADCDC700AEA66E /* vsicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2B99A3711CADCDC700AEA66E /* vsicon.png */; };
 		2B99A3761CADD25400AEA66E /* credits.py in Resources */ = {isa = PBXBuildFile; fileRef = 2B99A3751CADD25400AEA66E /* credits.py */; };
 		2BBDB9811C63FB9B00B1190B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* Team.swift */; };
 		2BC7615B1CCD85540010C6B6 /* Credits.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BC7615A1CCD85540010C6B6 /* Credits.plist */; };
@@ -32,9 +31,6 @@
 		3F4FEA2F1C55AE6E001BEC4C /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA2E1C55AE6E001BEC4C /* Team.swift */; };
 		3F4FEA311C55BD90001BEC4C /* WorkItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FEA301C55BD90001BEC4C /* WorkItemCell.swift */; };
 		3F5786FC1CA1AB2800B78FF4 /* FeatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5786FB1CA1AB2800B78FF4 /* FeatureViewController.swift */; };
-		A96D29B01C583C0300745A51 /* vso.png in Resources */ = {isa = PBXBuildFile; fileRef = A96D29AF1C583C0300745A51 /* vso.png */; };
-		A96D29B21C583C1C00745A51 /* vsLoginIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A96D29B11C583C1C00745A51 /* vsLoginIcon.png */; };
-		A96D29B41C58440000745A51 /* vsicon2.png in Resources */ = {isa = PBXBuildFile; fileRef = A96D29B31C58440000745A51 /* vsicon2.png */; };
 		A96D29B51C58492000745A51 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B6187AE1C4D579F0020D211 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +59,6 @@
 		2B6187CB1C4D587D0020D211 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		2B6187CF1C4D5BF70020D211 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		2B6187D21C4D5C5D0020D211 /* RestApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestApiManager.swift; sourceTree = "<group>"; };
-		2B99A3711CADCDC700AEA66E /* vsicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vsicon.png; sourceTree = "<group>"; };
 		2B99A3751CADD25400AEA66E /* credits.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = credits.py; sourceTree = "<group>"; };
 		2BC7615A1CCD85540010C6B6 /* Credits.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Credits.plist; sourceTree = "<group>"; };
 		2BD1D8FF1C5EAAB8002C8828 /* StateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
@@ -75,9 +70,6 @@
 		3F5786FB1CA1AB2800B78FF4 /* FeatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureViewController.swift; sourceTree = "<group>"; };
 		4DC9364663B49FCCD61D6439 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8018742DEBC96ECF27EE7F04 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		A96D29AF1C583C0300745A51 /* vso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vso.png; sourceTree = "<group>"; };
-		A96D29B11C583C1C00745A51 /* vsLoginIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vsLoginIcon.png; sourceTree = "<group>"; };
-		A96D29B31C58440000745A51 /* vsicon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vsicon2.png; sourceTree = "<group>"; };
 		AFAF9432616CA409B7A9CFC3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,10 +112,6 @@
 		2B2646231CA24563001EDB00 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				2B99A3711CADCDC700AEA66E /* vsicon.png */,
-				A96D29B31C58440000745A51 /* vsicon2.png */,
-				A96D29B11C583C1C00745A51 /* vsLoginIcon.png */,
-				A96D29AF1C583C0300745A51 /* vso.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -328,15 +316,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A96D29B21C583C1C00745A51 /* vsLoginIcon.png in Resources */,
 				2BC7615B1CCD85540010C6B6 /* Credits.plist in Resources */,
-				A96D29B41C58440000745A51 /* vsicon2.png in Resources */,
 				2B6187B51C4D579F0020D211 /* LaunchScreen.xib in Resources */,
 				A96D29B51C58492000745A51 /* Main.storyboard in Resources */,
-				A96D29B01C583C0300745A51 /* vso.png in Resources */,
 				2B99A3761CADD25400AEA66E /* credits.py in Resources */,
 				2B6187B21C4D579F0020D211 /* Images.xcassets in Resources */,
-				2B99A3721CADCDC700AEA66E /* vsicon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
