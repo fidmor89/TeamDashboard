@@ -37,13 +37,14 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     func getProjects(){
         
         dispatch_async(GlobalUserInteractiveQueue){
-            RestApiManager.sharedInstance.getCollections { json, result in
-                if (result.0 == 0){
-                    let count: Int = json["count"].int as Int!         //number of objects within json obj
-                    var jsonOBJCollections = json["value"]                         //get json with projects
-                    for index in 0...(count-1) {                        //for each obj in jsonOBJ
-                        
-                        let collectionTemp = jsonOBJCollections[index]["name"].string as String! ?? ""
+//            RestApiManager.sharedInstance.getCollections { json, result in
+//                if (result.0 == 0){
+//                    let count: Int = json["count"].int as Int!         //number of objects within json obj
+//                    var jsonOBJCollections = json["value"]                         //get json with projects
+//                    for index in 0...(count-1) {                        //for each obj in jsonOBJ
+            
+                        //                        let collectionTemp = jsonOBJCollections[index]["name"].string as String! ?? ""
+                        let collectionTemp = "DefaultCollection"
                         RestApiManager.sharedInstance.collection = collectionTemp
                         
                         RestApiManager.sharedInstance.getProjects { json, result in
@@ -102,11 +103,11 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
                             }
                         }
                         
-                    }
-                }else{
-                    self.showAlertMessage("Connection error", message: result.1, handler: nil)
-                }
-            }
+//                    }
+//                }else{
+//                    self.showAlertMessage("Connection error", message: result.1, handler: nil)
+//                }
+//            }
         }
         
     }
@@ -116,7 +117,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         loadingNotification.mode = MBProgressHUDMode.Indeterminate
         loadingNotification.labelText = "Loading"
-
+        
         super.viewDidLoad()
     }
     
@@ -130,7 +131,7 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
         
         self.tableView.separatorColor = UIColor.clearColor()
-
+        
         
         let backgroundImage = UIImage(named: "background")
         let imageView = UIImageView(image: backgroundImage)
@@ -164,12 +165,12 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         StateManager.SharedInstance.previousTeam = StateManager.SharedInstance.team
-
+        
         StateManager.SharedInstance.team = projects[indexPath.row]
         if let search = self.searchDisplayController{
             if tableView == search.searchResultsTableView {
                 StateManager.SharedInstance.team = filterProjects[indexPath.row]
-            } 
+            }
         }
         
         StateManager.SharedInstance.changed = true
@@ -192,14 +193,14 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     // Fill table with information about teams
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         MBProgressHUD.hideAllHUDsForView(self.view, animated: true)         //Hide loading
-
+        
         var cell = self.tableView!.dequeueReusableCellWithIdentifier("ProjectCell") as? WorkItemCell
         if cell == nil {
             cell = WorkItemCell(style: UITableViewCellStyle.Value1, reuseIdentifier: "ProjectCell")
         }
         
         var arrayOfProjects: Array<Team>? = self.projects
-
+        
         self.preferredContentSize.width = self.defaultWidth
         if let search = self.searchDisplayController{
             if tableView == search.searchResultsTableView {
@@ -273,8 +274,8 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
         return true
     }
     
-  
-
+    
+    
     
     
 }

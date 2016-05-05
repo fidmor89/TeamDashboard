@@ -34,7 +34,7 @@ CONTRIBUTORS:
 
 Thanks for the support to: Guillermo Zepeda,  Oscar Garcia Colon and Microsoft Team</string>
 			<key>Title</key>
-			<string>Visual Studio Team Dashboard (VSTD)</string>
+			<string>VSTD</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
