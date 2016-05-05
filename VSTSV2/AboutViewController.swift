@@ -69,8 +69,11 @@ class AboutViewController: UITableViewController {
             let blurView = UIVisualEffectView(effect: blurEffect)
             imageView.addSubview(blurView)
             blurView.frame = imageView.bounds
+            tableView.backgroundView = imageView
+        }else{
+            tableView.backgroundView = UIImageView(image: UIImage(named: "preBlurredBackground"))
         }
-        tableView.backgroundView = imageView
+        
     }
     
     //Cells

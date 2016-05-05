@@ -87,10 +87,13 @@ class LoginController: UIViewController {
             let blurView = UIVisualEffectView(effect: blurEffect)
             blurView.frame = imageView.bounds
             imageView.addSubview(blurView)
+            self.parentView.addSubview(imageView)
+        }else{
+            self.parentView.addSubview(UIImageView(image: UIImage(named: "preBlurredBackground")))
         }
         
         
-        self.parentView.addSubview(imageView)
+        
         
         self.parentView.bringSubviewToFront(self.loginView)
         self.parentView.bringSubviewToFront(self.view.viewWithTag(10)!)

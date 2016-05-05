@@ -123,9 +123,9 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
     
     override func viewWillAppear(animated: Bool) {
         //Initial size
-        self.preferredContentSize.height = CGFloat(105)
+        self.preferredContentSize.height = CGFloat(100)
         self.defaultWidth = self.preferredContentSize.width
-        self.preferredContentSize.width = CGFloat(105)
+        self.preferredContentSize.width = CGFloat(100)
         getProjects()
         
         self.tableView?.alwaysBounceVertical = false    //If projects fit in the window there should be no scroll.
@@ -141,9 +141,12 @@ class PickProjectViewController: UITableViewController, UISearchBarDelegate, UIS
             let blurView = UIVisualEffectView(effect: blurEffect)
             blurView.frame = imageView.bounds
             imageView.addSubview(blurView)
+            tableView.backgroundView = imageView
+        }else{
+            tableView.backgroundView = UIImageView(image: UIImage(named: "preBlurredBackground"))
         }
         
-        tableView.backgroundView = imageView
+        
         let backColor = UIColor(patternImage: UIImage(named: "background")!)
         
         if let _ = self.searchDisplayController{

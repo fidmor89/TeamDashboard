@@ -93,8 +93,12 @@ class FeatureViewController: UITableViewController {
             let blurView = UIVisualEffectView(effect: blurEffect)
             blurView.frame = imageView.bounds
             imageView.addSubview(blurView)
+            self.tableView.backgroundView = imageView
+        }else{
+            self.tableView.backgroundView = UIImageView(image: UIImage(named: "preBlurredBackground"))
         }
-        self.tableView.backgroundView = imageView
+        
+        
         
         super.viewDidLoad()
     }
@@ -102,9 +106,9 @@ class FeatureViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         //Initial size
-        self.preferredContentSize.height = CGFloat(105)
+        self.preferredContentSize.height = CGFloat(100)
         self.defaultWidth = self.preferredContentSize.width
-        self.preferredContentSize.width = CGFloat(105)
+        self.preferredContentSize.width = CGFloat(100)
 
         getFeatures()
     }

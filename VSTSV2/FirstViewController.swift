@@ -498,8 +498,11 @@ class FirstViewController: UIViewController {
             let blurView = UIVisualEffectView(effect: blurEffect)
             blurView.frame = imageView.bounds
             imageView.addSubview(blurView)
+            self.parentView.addSubview(imageView)
+        }else{
+            self.parentView.addSubview(UIImageView(image: UIImage(named: "preBlurredBackground")))
         }
-        self.parentView.addSubview(imageView)
+        
         
         for view in self.viewSection{
             view.layer.cornerRadius = 10                                    //Round corners in sections
