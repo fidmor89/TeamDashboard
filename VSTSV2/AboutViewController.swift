@@ -101,9 +101,10 @@ class AboutViewController: UITableViewController {
         cell?.contentView.backgroundColor = UIColor.whiteColor()
         cell?.contentView.layer.cornerRadius = 20
         cell?.contentView.layer.masksToBounds = true
-        cell?.contentView.alpha = 0.75
+        cell?.contentView.alpha = 0.55
         cell?.backgroundColor = UIColor.clearColor()
         
+        cell.userInteractionEnabled = false
         return cell!
     }
     
