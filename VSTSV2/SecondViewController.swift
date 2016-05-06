@@ -32,6 +32,11 @@ import Agrume
 class SecondViewController: UIViewController {
     
     
+    @IBOutlet weak var backlogItem: UILabel!
+    @IBOutlet weak var EpicTitle: UILabel!
+    @IBOutlet weak var FeaturesTitle: UILabel!
+    @IBOutlet weak var VelocityTitle: UILabel!
+    
     @IBOutlet var parentView: UIView!
     @IBOutlet var viewSection: [UIView]!
     @IBOutlet weak var lowerLeftImageView: UIImageView!
@@ -175,7 +180,7 @@ class SecondViewController: UIViewController {
                     if error == nil {
                         if let image = UIImage(data: data!){
                             self.upperLeftImageView.setImageWithAnimation(image)
-                            self.saveImageWithCategory("", image: image)
+                            self.saveImageWithCategory("", image: image, Chart: self.upperLeftImageView)
                         }
                     }
                     dispatch_async(GlobalMainQueue){
@@ -208,7 +213,7 @@ class SecondViewController: UIViewController {
                     if error == nil {
                         if let image = UIImage(data: data!){
                             chart.setImageWithAnimation(image)
-                            self.saveImageWithCategory(Category, image: image)
+                            self.saveImageWithCategory(Category, image: image, Chart: chart)
                         }
                     }
                     dispatch_async(GlobalMainQueue){
@@ -224,16 +229,20 @@ class SecondViewController: UIViewController {
         }
     }
     
-    func saveImageWithCategory(Category: String, image: UIImage){
+    func saveImageWithCategory(Category: String, image: UIImage, Chart: UIImageView){
         switch Category{
         case "Microsoft.RequirementCategory":
             self.Requirements = image
+            Chart.bringSubviewToFront(self.backlogItem)
         case "Microsoft.FeatureCategory":
             self.Features = image
+            Chart.bringSubviewToFront(self.FeaturesTitle)
         case "Microsoft.EpicCategory":
             self.Epics = image
+            Chart.bringSubviewToFront(self.EpicTitle)
         default:
             self.velocity = image
+            Chart.bringSubviewToFront(self.VelocityTitle)
             
         }
     }
