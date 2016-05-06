@@ -34,10 +34,12 @@ class LoginController: UIViewController {
     
     @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var loginView: UIView!
+    @IBOutlet weak var titleView: UIView!
     @IBOutlet weak var serverTextField: UITextField!
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signedInSwitch: UISwitch!
+    @IBOutlet weak var signInButton: UIButton!
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -94,15 +96,20 @@ class LoginController: UIViewController {
         
         
         
-        
+        self.parentView.bringSubviewToFront(self.titleView)
         self.parentView.bringSubviewToFront(self.loginView)
-        self.parentView.bringSubviewToFront(self.view.viewWithTag(10)!)
-        self.parentView.bringSubviewToFront(self.view.viewWithTag(11)!)
         
         self.loginView.backgroundColor = UIColor.blackColor()
         self.loginView.layer.cornerRadius = 10
         self.loginView.layer.masksToBounds = true
         self.loginView.alpha = 0.75
+        
+        self.titleView.backgroundColor = UIColor.blackColor()
+        self.titleView.layer.cornerRadius = 10
+        self.titleView.layer.masksToBounds = true
+        self.titleView.alpha = 0.75
+        
+        self.signInButton.layer.cornerRadius = 5
         
         super.viewDidLoad()
     }

@@ -133,6 +133,7 @@ class FirstViewController: UIViewController {
                 )
                 
                 latestBuildsViewSection.addSubview(chart.view)
+                
                 self.parentView.bringSubviewToFront(self.BuildsTimeGraphTitile)
                 self.chart = chart
                 MBProgressHUD.hideAllHUDsForView(self.view, animated: true)         //Hide loading
