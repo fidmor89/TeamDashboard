@@ -11,26 +11,25 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="largeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="AtN-Ex-rCg">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2016 URL Team. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
                     <rect key="frame" x="20" y="458" width="441" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="largeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="AtN-Ex-rCg">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
-                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.40828203610000002" green="0.1545780524" blue="0.48033511509999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="AtN-Ex-rCg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="4Sr-pa-lDt"/>
-                <constraint firstItem="AtN-Ex-rCg" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="IMH-DW-S23"/>
-                <constraint firstItem="AtN-Ex-rCg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="KxQ-3R-ozR"/>
-                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="1" id="Kzo-t9-V3l"/>
-                <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
-                <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
-                <constraint firstAttribute="trailing" secondItem="AtN-Ex-rCg" secondAttribute="trailing" id="huk-M8-e01"/>
-                <constraint firstItem="AtN-Ex-rCg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="v1b-2O-dZp"/>
+                <constraint firstAttribute="trailing" secondItem="AtN-Ex-rCg" secondAttribute="trailing" id="6x6-4t-imo"/>
+                <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="Om6-nn-sUs"/>
+                <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="1" id="UGl-Kh-FVB"/>
+                <constraint firstItem="AtN-Ex-rCg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cNO-0u-GML"/>
+                <constraint firstAttribute="bottom" secondItem="AtN-Ex-rCg" secondAttribute="bottom" id="hTg-5o-86C"/>
+                <constraint firstItem="AtN-Ex-rCg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ng8-EA-hCU"/>
+                <constraint firstItem="AtN-Ex-rCg" firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="qdR-OP-usr"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
