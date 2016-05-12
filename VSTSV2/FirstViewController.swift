@@ -230,6 +230,17 @@ class FirstViewController: UIViewController {
         //Current Sprint Status
         RestApiManager.sharedInstance.getCurrentSprint { json, result in
             
+            
+            dispatch_async(GlobalMainQueue){
+                let alert = UIAlertController(
+                    title: String(result.0),
+                    message: result.1,
+                    preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            
             if let count: Int = json["count"].int as Int! {//If there is something in the JSON object
                 var jsonOBJ = json["value"]
                 
@@ -335,16 +346,16 @@ class FirstViewController: UIViewController {
             if(abort){
                 abort = false
                 
-                let alert = UIAlertController(
-                    title: "Missing Sprint",
-                    message: "The team you selected does not have any sprints assigned. contact your VSTS/TFS admin",
-                    preferredStyle: UIAlertControllerStyle.Alert)
-                
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
-                    self.btnPickProject.sendActionsForControlEvents(.TouchUpInside)     //Show pick project
-                    StateManager.SharedInstance.team = StateManager.SharedInstance.previousTeam
-                }))
-                self.presentViewController(alert, animated: true, completion: nil)
+//                let alert = UIAlertController(
+//                    title: "Missing Sprint",
+//                    message: "The team you selected does not have any sprints assigned. contact your VSTS/TFS admin",
+//                    preferredStyle: UIAlertControllerStyle.Alert)
+//                
+//                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
+//                    self.btnPickProject.sendActionsForControlEvents(.TouchUpInside)     //Show pick project
+//                    StateManager.SharedInstance.team = StateManager.SharedInstance.previousTeam
+//                }))
+//                self.presentViewController(alert, animated: true, completion: nil)
                 
                 MBProgressHUD.hideAllHUDsForView(self.view, animated: true)         //Hide loading
                 return  //Stop wating and dont update the UI
