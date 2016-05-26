@@ -93,7 +93,15 @@ class LoginController: UIViewController {
         }else{
             self.parentView.addSubview(UIImageView(image: UIImage(named: "preBlurredBackground")))
         }
-        
+
+//        let filePath = NSBundle.mainBundle().pathForResource("squaresAnimated", ofType: "gif")
+//        let gif = NSData(contentsOfFile: filePath!)
+//        
+//        let webViewBG = UIWebView(frame: self.view.frame)
+//        webViewBG.loadData(gif!, MIMEType: "image/gif", textEncodingName: String(), baseURL: NSURL())
+//        webViewBG.userInteractionEnabled = false;
+//        self.parentView.addSubview(webViewBG)
+
         
         
         self.parentView.bringSubviewToFront(self.titleView)
