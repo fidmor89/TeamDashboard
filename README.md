@@ -19,10 +19,13 @@ Are you a Team Foundation Server or Visual Studio Team Services user and ever wi
 No bridge server needed. VSTD will connect directly to your TFS or VSTS server. Just make sure you have enabled the alternate credentials.
 
 
-## Contributors  ##
+## Main Contributors  ##
 - Developer and Team lead: <a href='https://github.com/fidmor89'>Fidel Esteban Morales Cifuentes</a>.
 - Tester: <a href='https://github.com/Manu1217'>Manuel Santizo</a>.
 - API Researcher: <a href='https://github.com/chirislash'>Luis Roberto Rosales Enriquez</a>.
 
+## Contributing ##
+You are invited to contribute new features, fixes, or updates, large or small; we are always thrilled to receive pull requests, and do our best to process them as fast as we can.
+
 ## App Store ##
-Coming soon
+If you want to use this app just install it from the app store. [Click here] (https://itunes.apple.com/us/app/visual-studio-team-dashboard/id1103894717?mt=8)
