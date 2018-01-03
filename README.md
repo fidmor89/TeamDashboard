@@ -1,3 +1,5 @@
+[![Build status](https://build.appcenter.ms/v0.1/apps/7cf56913-699e-475c-9ecd-d25721b41bde/branches/ReleaseV1.0.20/badge)](https://appcenter.ms)
+
 # Visual Studio Team Dashboard
 iPad app for VSTS/TFS Dashboard
 
